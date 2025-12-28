@@ -187,11 +187,6 @@ namespace Real.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Contas",
-                columns: new[] { "Id", "Ativa", "CreationDate", "Nome", "Ordem", "Pessoa", "TipoContaId" },
-                values: new object[] { new Guid("00000001-0000-4000-8000-000000000000"), false, null, "Carteira", 0, null, 0 });
-
-            migrationBuilder.InsertData(
                 table: "Icons",
                 columns: new[] { "Id", "BiClass", "BiUnicode", "FaClass", "FaUnicode", "Name" },
                 values: new object[,]
@@ -233,80 +228,6 @@ namespace Real.Data.Migrations
                     { "shop", "shop", "", "shop", "", "Shop" },
                     { "taxi-front", "taxi-front", "", "taxi", "", "Taxi Front" },
                     { "telephone", "telephone", "", "phone", "", "Telephone" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categorias",
-                columns: new[] { "Id", "AplicaDespesa", "AplicaReceita", "Ativa", "CategoriaPaiId", "CreationDate", "IconId", "Nome", "Ordem" },
-                values: new object[,]
-                {
-                    { "academia              ", true, false, null, null, null, "heart-pulse", "Academia", 33 },
-                    { "assinatura            ", true, false, null, null, null, "cloud", "Assinatura", 21 },
-                    { "balanco               ", false, true, null, null, null, "currency-dollar", "Balanço", 1 },
-                    { "beleza                ", true, false, null, null, null, "shop", "Beleza", 51 },
-                    { "brinquedo             ", true, false, null, null, null, "shop", "Brinquedo", 50 },
-                    { "carro                 ", true, false, null, null, null, "car-front", "Carro", 54 },
-                    { "casa                  ", true, false, null, null, null, "house-heart", "Casa", 9 },
-                    { "celular               ", true, false, null, null, null, "phone", "Celular", 18 },
-                    { "combustivel           ", true, false, null, null, null, "fuel-pump", "Combustível", 55 },
-                    { "compra                ", true, false, null, null, null, "bag", "Compra", 37 },
-                    { "contabilidade         ", true, false, null, null, null, "briefcase", "Contabilidade", 24 },
-                    { "diversos              ", true, false, null, null, null, "bookmarks", "Diversos", 65 },
-                    { "dominio               ", true, false, null, null, null, "globe-americas", "Domínio", 23 },
-                    { "educacao              ", true, false, null, null, null, "backpack", "Educação", 25 },
-                    { "emprestimo            ", true, true, null, null, null, "cash", "Empréstimo", 6 },
-                    { "estacionamento        ", true, false, null, null, null, "p-circle", "Estacionamento", 56 },
-                    { "farmacia              ", true, false, null, null, null, "shop", "Farmácia", 34 },
-                    { "imposto               ", true, false, null, null, null, "coin", "Imposto", 2 },
-                    { "juros                 ", true, false, null, null, null, "currency-dollar", "Juros", 4 },
-                    { "lanche                ", true, false, null, null, null, "shop", "Lanche", 43 },
-                    { "lavajato              ", true, false, null, null, null, "car-front", "Lavajato", 58 },
-                    { "lazer                 ", true, false, null, null, null, "emoji-sunglasses", "Lazer", 62 },
-                    { "leite-de-formula      ", true, false, null, null, null, "cart4", "Leite de Fórmula", 39 },
-                    { "livro                 ", true, false, null, null, null, "book", "Livro", 26 },
-                    { "mercado               ", true, false, null, null, null, "cart4", "Mercado", 38 },
-                    { "multa                 ", true, false, null, null, null, "currency-dollar", "Multa", 3 },
-                    { "outros                ", true, false, null, null, null, "bookmark", "Outros", 66 },
-                    { "padaria               ", true, false, null, null, null, "shop", "Padaria", 42 },
-                    { "pedagio               ", true, false, null, null, null, "car-front", "Pedágio", 57 },
-                    { "perfume               ", true, false, null, null, null, "flower1", "Perfume", 64 },
-                    { "pet                   ", true, false, null, null, null, "shop", "Pet", 47 },
-                    { "presente              ", true, false, null, null, null, "shop", "Presente", 49 },
-                    { "profissional          ", true, false, null, null, null, "briefcase", "Profissional", 22 },
-                    { "refeicao              ", true, false, null, null, null, "egg-fried", "Refeição", 40 },
-                    { "reserva               ", true, false, null, null, null, "piggy-bank", "Reserva", 8 },
-                    { "restaurante           ", true, false, null, null, null, "shop", "Restaurante", 41 },
-                    { "roupa                 ", true, false, null, null, null, "shop", "Roupa", 48 },
-                    { "salario               ", false, true, null, null, null, "cash-coin", "Salário", 0 },
-                    { "saude                 ", true, false, null, null, null, "heart-pulse", "Saúde", 27 },
-                    { "seguro                ", true, false, null, null, null, "house-lock", "Seguro", 7 },
-                    { "storage               ", true, false, null, null, null, "cloud-arrow-up", "Storage", 20 },
-                    { "stream                ", true, false, null, null, null, "music-player", "Stream", 19 },
-                    { "taxa                  ", true, false, null, null, null, "currency-dollar", "Taxa", 5 },
-                    { "transporte            ", true, false, null, null, null, "bus-front", "Transporte", 59 },
-                    { "agua                  ", true, false, null, "casa                  ", null, "droplet", "Água", 13 },
-                    { "barbeiro              ", true, false, null, "beleza                ", null, "shop", "Barbeiro", 53 },
-                    { "cinema                ", true, false, null, "lazer                 ", null, "film", "Cinema", 63 },
-                    { "dentista              ", true, false, null, "saude                 ", null, "heart-pulse", "Dentista", 31 },
-                    { "gas                   ", true, false, null, "casa                  ", null, "fire", "Gás", 15 },
-                    { "hamburger             ", true, false, null, "lanche                ", null, "shop", "Hamburger", 44 },
-                    { "internet              ", true, false, null, "casa                  ", null, "router", "Internet", 17 },
-                    { "luz                   ", true, false, null, "casa                  ", null, "lightbulb", "Luz", 14 },
-                    { "medicamento           ", true, false, null, "saude                 ", null, "capsule", "Medicamento", 35 },
-                    { "medico                ", true, false, null, "saude                 ", null, "heart-pulse", "Médico", 30 },
-                    { "moradia               ", true, false, null, "casa                  ", null, "house-heart", "Moradia", 10 },
-                    { "passagem              ", true, false, null, "transporte            ", null, "bus-front", "Passagem", 60 },
-                    { "pizza                 ", true, false, null, "lanche                ", null, "shop", "Pizza", 45 },
-                    { "plano-de-saude        ", true, false, null, "saude                 ", null, "heart-pulse", "Plano de Saúde", 28 },
-                    { "plano-odontologico    ", true, false, null, "saude                 ", null, "heart-pulse", "Plano Odontológico", 29 },
-                    { "pscicologo            ", true, false, null, "saude                 ", null, "heart-pulse", "Pscicólogo", 32 },
-                    { "salao-de-beleza       ", true, false, null, "beleza                ", null, "shop", "Salão de Beleza", 52 },
-                    { "sorvete               ", true, false, null, "lanche                ", null, "shop", "Sorvete", 46 },
-                    { "suplemento            ", true, false, null, "saude                 ", null, "capsule", "Suplemento", 36 },
-                    { "taxi                  ", true, false, null, "transporte            ", null, "taxi-front", "Taxi", 61 },
-                    { "telefone              ", true, false, null, "casa                  ", null, "telephone", "Telefone", 16 },
-                    { "aluguel               ", true, false, null, "moradia               ", null, "house-heart", "Aluguel", 11 },
-                    { "condominio            ", true, false, null, "moradia               ", null, "building", "Condomínio", 12 }
                 });
 
             migrationBuilder.CreateIndex(

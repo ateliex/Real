@@ -8,8 +8,8 @@ public static class SeedData
     public static void Execute(ModelBuilder modelBuilder)
     {
         SeedIcons(modelBuilder);
-        SeedCategorias(modelBuilder);
-        SeedContas(modelBuilder);
+        //SeedCategorias(modelBuilder);
+        //SeedContas(modelBuilder);
     }
 
     public static void SeedIcons(ModelBuilder modelBuilder)

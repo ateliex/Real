@@ -1,7 +1,12 @@
 <Solution>
+  <Folder Name="/0 - Specification/">
+    <Project Path="specs/Real.Specs/Real.Specs.csproj" Id="6e8a855e-9cc3-43be-b629-274e1c60a4b8" />
+  </Folder>
   <Folder Name="/1 - Presentation/">
     <Project Path="src/Real.Desktop/Real.Desktop.csproj" Id="427d34ab-af56-4b47-a3d6-63de930e5d9f" />
-    <Project Path="src/Real.Mobile/Real.Mobile.csproj" Id="f06f0193-a783-4264-ba0f-39f3e106f194" />
+    <Project Path="src/Real.Mobile/Real.Mobile.csproj" Id="f06f0193-a783-4264-ba0f-39f3e106f194">
+      <Deploy Solution="Debug|*" />
+    </Project>
     <Project Path="src/Real.Web/Real.Web.csproj" Id="c646b507-907a-4f3a-8c5b-faf14850542f" />
   </Folder>
   <Folder Name="/2 - Infrastructure/" />
