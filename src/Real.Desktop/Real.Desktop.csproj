@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Real</RootNamespace>
+    <AssemblyName>Real</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf" />
+    <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
+    <None Remove="Resources\Images\magnifier_16xLG.png" />
+    <None Remove="Resources\Images\refresh_16xLG.png" />
+    <None Remove="Resources\Images\SaveAllHS.png" />
+    <None Remove="Resources\Images\SaveHS.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\packages_src\System.Xaml.Extensions\System.Xaml.Extensions.csproj" />
+    <ProjectReference Include="..\Real.ApplicationCore\Real.ApplicationCore.csproj" />
+    <ProjectReference Include="..\Real.ApplicationModel\Real.ApplicationModel.csproj" />
+    <ProjectReference Include="..\Real.DomainModel\Real.DomainModel.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore.Sqlite\Real.EntityFrameworkCore.Sqlite.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore.SqlServer\Real.EntityFrameworkCore.SqlServer.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore\Real.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\magnifier_16xLG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\refresh_16xLG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SaveAllHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\SaveHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
