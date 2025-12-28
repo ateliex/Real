@@ -1,9 +1,11 @@
-﻿using Real.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Real.Data;
+using Real.Data.Services;
+using Real.Repositories;
 
 namespace Real.Infrastructure;
 
@@ -13,12 +15,16 @@ public static class SqlServerDbModule
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+        //
+
         services.AddDbContext<RealDbContext>(options =>
             options
                 .UseSqlServer(connectionString, b => b.MigrationsAssembly("Real.EntityFrameworkCore.SqlServer"))
                 .UseSqlServerModel());
 
-        //
+        services.AddScoped<ContasRepositoryInterface, ContasSqlServerService>();
+        services.AddScoped<ApuracoesRepositoryInterface, ApuracoesSqlServerService>();
+        services.AddScoped<CategoriasRepositoryInterface, CategoriasSqlServerService>();
 
         return services;
     }

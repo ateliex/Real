@@ -8,4 +8,22 @@
     <RootNamespace>Real</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\packages_src\System.Extensions\System.Extensions.csproj" />
+    <ProjectReference Include="..\Real.ApplicationCore\Real.ApplicationCore.csproj" />
+    <ProjectReference Include="..\Real.ApplicationModel\Real.ApplicationModel.csproj" />
+    <ProjectReference Include="..\Real.DomainModel\Real.DomainModel.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore.Sqlite\Real.EntityFrameworkCore.Sqlite.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore.SqlServer\Real.EntityFrameworkCore.SqlServer.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore\Real.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
 </Project>

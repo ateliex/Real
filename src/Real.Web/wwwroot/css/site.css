@@ -1,31 +1,147 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+span.field-validation-error {
+    display: block;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.oneline-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+th.dia {
+    width: 60px;
+}
+
+th.data, th.valor, th.tipo {
+    width: 120px;
+}
+
+span.ordem {
+    display: inline-block;
+    min-width: 21px;
+}
+
+@media (min-width: 992px) {
+    .row-cols-lg-8 > * {
+        flex: 0 0 auto;
+        width: 12.5%;
+    }
+
+    .rounded-lg-3 {
+        border-radius: .3rem;
+    }
+}
+
+
+
+.accordion-danger .accordion-button:not(.collapsed) {
+    background-color: var(--bs-danger-bg-subtle);
+}
+
+.accordion-danger .accordion-button:focus {
+    border-color: #f8d7da;
+    box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .25);
+}
+
+.accordion-danger .accordion-button {
+    border-color: var(--bs-danger-border-subtle) !important;
+}
+
+.pricing-header {
+    max-width: 700px;
+}
+
+
+
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .75rem;
+}
+
+.icon-link > .bi {
+    margin-top: .125rem;
+    margin-left: .125rem;
+    fill: currentcolor;
+    transition: transform .25s ease-in-out;
+}
+
+.icon-link:hover > .bi {
+    transform: translate(.25rem);
+}
+
+.icon-square {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .75rem;
+}
+
+.text-shadow-1 {
+    text-shadow: 0 .125rem .25rem rgba(0, 0, 0, .25);
+}
+
+.text-shadow-2 {
+    text-shadow: 0 .25rem .5rem rgba(0, 0, 0, .25);
+}
+
+.text-shadow-3 {
+    text-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .25);
+}
+
+.card-cover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.feature-icon-small {
+    width: 3rem;
+    height: 3rem;
+}
+
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .text-overflow-ellipsis:not(.flex-grow-1) {
+        max-width: 0;
+    }
+
+.bi.img-thumbnail {
+    padding-left: 7px;
+    padding-right: 6px;
+    overflow: visible !important;
+}
+
+/*.img-thumbnail {
+    margin-top: -12px;
+    margin-bottom: -8px;
+}
+*/
+
+th:first-child.fixed, td:first-child.fixed {
+    position: sticky;
+    left: 0px;
+    /* background-color: grey; */
+}
+
+th:last-child.fixed, td:last-child.fixed {
+    position: sticky;
+    right: 0px;
+    /* background-color: grey; */
 }

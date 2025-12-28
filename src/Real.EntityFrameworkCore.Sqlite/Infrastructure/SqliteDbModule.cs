@@ -1,9 +1,11 @@
-﻿using Real.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Real.Data;
+using Real.Data.Services;
+using Real.Repositories;
 
 namespace Real.Infrastructure;
 
@@ -20,7 +22,9 @@ public static class SqliteDbModule
                 .UseSqlite($"Data Source={dataSource}", b => b.MigrationsAssembly("Real.EntityFrameworkCore.Sqlite"))
                 .UseSqliteModel());
 
-        //
+        services.AddScoped<ContasRepositoryInterface, ContasSqliteService>();
+        services.AddScoped<ApuracoesRepositoryInterface, ApuracoesSqliteService>();
+        services.AddScoped<CategoriasRepositoryInterface, CategoriasSqliteService>();
 
         return services;
     }
