@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/1 - Presentation/">
     <Project Path="src/Real.Desktop/Real.Desktop.csproj" Id="427d34ab-af56-4b47-a3d6-63de930e5d9f" />
+    <Project Path="src/Real.Mobile/Real.Mobile.csproj" Id="f06f0193-a783-4264-ba0f-39f3e106f194" />
     <Project Path="src/Real.Web/Real.Web.csproj" Id="c646b507-907a-4f3a-8c5b-faf14850542f" />
   </Folder>
   <Folder Name="/2 - Infrastructure/" />
