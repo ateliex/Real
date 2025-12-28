@@ -1,4 +1,4 @@
-namespace Real.Web
+namespace Real
 {
     public class Program
     {
