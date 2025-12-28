@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Real.Pages.Categorias.ApuracaoCategoriasPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:appModels="clr-namespace:Real.Models;assembly=Real.ApplicationModel"
+    xmlns:domainModels="clr-namespace:Real.Models;assembly=Real.DomainModel"
+    xmlns:local="clr-namespace:Real.Pages.Categorias"
+    xmlns:models="clr-namespace:Real.Models"
+    xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+    Title="Categorias"
+    Loaded="ContentPage_Loaded"
+    MaximumWidthRequest="1200">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding AddNewCommand}"
+            IconImageSource="{OnPlatform 'add_24dp_212529.png',
+                                         WinUI='ic_fluent_add_24_regular.png'}"
+            Order="Primary"
+            Priority="0"
+            Text="Nova Categoria" />
+        <ToolbarItem
+            Command="{Binding SearchCommand}"
+            IconImageSource="{OnPlatform 'search_24dp_212529.png',
+                                         WinUI='ic_fluent_search_24_regular.png'}"
+            Order="Primary"
+            Priority="1"
+            Text="Pesquisar" />
+        <ToolbarItem
+            Command="{Binding SyncAllCommand}"
+            IconImageSource="{OnPlatform 'sync_24dp_212529.png',
+                                         WinUI='ic_fluent_arrow_sync_24_regular.png'}"
+            Order="Secondary"
+            Priority="1"
+            Text="Sincronizar Tudo" />
+        <ToolbarItem
+            Command="{Binding RefreshCommand}"
+            Order="Secondary"
+            Priority="0"
+            Text="Atualizar" />
+        <ToolbarItem
+            Command="{Binding ModoVisualizacaoCommand}"
+            Order="Secondary"
+            Priority="1"
+            Text="Modo Tabela">
+            <ToolbarItem.CommandParameter>
+                <appModels:ModoVisualizacaoEnum>Tabela</appModels:ModoVisualizacaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding ModoVisualizacaoCommand}"
+            Order="Secondary"
+            Priority="2"
+            Text="Modo Lista">
+            <ToolbarItem.CommandParameter>
+                <appModels:ModoVisualizacaoEnum>Lista</appModels:ModoVisualizacaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding OrdemCommand}"
+            Order="Secondary"
+            Priority="3"
+            Text="Ordem Padrão">
+            <ToolbarItem.CommandParameter>
+                <appModels:OrdemEnum>Padrao</appModels:OrdemEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding OrdemCommand}"
+            Order="Secondary"
+            Priority="4"
+            Text="Ordem Decrescente">
+            <ToolbarItem.CommandParameter>
+                <appModels:OrdemEnum>Decrescente</appModels:OrdemEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding RegimeApuracaoCommand}"
+            Order="Secondary"
+            Priority="5"
+            Text="Regime de Competência">
+            <ToolbarItem.CommandParameter>
+                <appModels:RegimeApuracaoEnum>Competencia</appModels:RegimeApuracaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding RegimeApuracaoCommand}"
+            Order="Secondary"
+            Priority="6"
+            Text="Regime de Caixa">
+            <ToolbarItem.CommandParameter>
+                <appModels:RegimeApuracaoEnum>Caixa</appModels:RegimeApuracaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <!--<Shell.SearchHandler>
+    <local:CategoriasSearchHandler
+        x:Name="categoriasSearchHandler"
+        ClearIcon="close_24dp_212529.png"
+        Placeholder="Digite o nome"
+        QueryIcon="{OnPlatform 'search_24dp_212529.png', WinUI='ic_fluent_search_24_regular.png'}"
+        ShowsResults="True" />
+</Shell.SearchHandler>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="FirstRow" Height="Auto" />
+            <RowDefinition x:Name="SecondRow" Height="Auto" />
+            <RowDefinition x:Name="ThirdRow" Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="FirstColumn" Width="*" />
+            <ColumnDefinition x:Name="SecondColumn" Width="0" />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="apuracaoGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+                <RowDefinition Height="48" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Margin="16,0"
+                FontFamily="RobotoBold"
+                FontSize="14"
+                Text="Receitas"
+                TextColor="Blue"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Column="1"
+                Margin="16,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label
+                    Margin="0,0"
+                    Text="{Binding Apuracao.ValorReceitasTotal, StringFormat='{0:N2}'}"
+                    TextColor="Blue" />
+                <Label Text=" (+)" />
+            </StackLayout>
+            <BoxView
+                Grid.ColumnSpan="2"
+                BackgroundColor="#E0E0E0"
+                HeightRequest="1"
+                VerticalOptions="End" />
+            <Label
+                Grid.Row="1"
+                Margin="16,0"
+                FontFamily="RobotoBold"
+                FontSize="14"
+                Text="Despesas"
+                TextColor="#dc3545"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="16,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label
+                    Margin="0,0"
+                    Text="{Binding Apuracao.ValorDespesasTotal, StringFormat='{0:N2}'}"
+                    TextColor="#dc3545" />
+                <Label Text=" (+)" />
+            </StackLayout>
+            <BoxView
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#E0E0E0"
+                HeightRequest="2"
+                VerticalOptions="End" />
+            <Label
+                Grid.Row="2"
+                Margin="16,0"
+                FontFamily="RobotoBold"
+                FontSize="14"
+                Text="Saldo"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="16,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label
+                    Margin="0,0"
+                    FontFamily="RobotoBold"
+                    Text="{Binding Apuracao.ValorSaldoTotal, StringFormat='{0:N2}'}">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorSaldoTotalNegativo}"
+                            TargetType="Label"
+                            Value="False">
+                            <Setter Property="TextColor" Value="Blue" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorSaldoTotalNegativo}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="TextColor" Value="#dc3545" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text=" (=)" />
+            </StackLayout>
+            <BoxView
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#E0E0E0"
+                HeightRequest="1"
+                VerticalOptions="End" />
+            <Label
+                Grid.Row="3"
+                Margin="16,0"
+                FontFamily="RobotoBold"
+                FontSize="14"
+                Text="Acumulado"
+                TextColor="Gray"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="16,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label Margin="0,0" Text="{Binding Apuracao.ValorAcumuladoAnterior, StringFormat='{0:N2}'}">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorAcumuladoAnteriorNegativo}"
+                            TargetType="Label"
+                            Value="False">
+                            <Setter Property="TextColor" Value="Blue" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorAcumuladoAnteriorNegativo}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="TextColor" Value="#dc3545" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text=" (+)" />
+            </StackLayout>
+            <BoxView
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#E0E0E0"
+                HeightRequest="2"
+                VerticalOptions="End" />
+            <Label
+                Grid.Row="4"
+                Margin="16,0"
+                FontFamily="RobotoBold"
+                FontSize="14"
+                Text="Total"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="16,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label
+                    Margin="0,0"
+                    FontFamily="RobotoBold"
+                    Text="{Binding Apuracao.ValorAcumuladoTotal, StringFormat='{0:N2}'}">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorAcumuladoTotalNegativo}"
+                            TargetType="Label"
+                            Value="False">
+                            <Setter Property="TextColor" Value="Blue" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Apuracao.ValorAcumuladoTotalNegativo}"
+                            TargetType="Label"
+                            Value="True">
+                            <Setter Property="TextColor" Value="#dc3545" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text=" (=)" />
+            </StackLayout>
+        </Grid>
+        <DatePicker
+            x:Name="datePicker"
+            Grid.Row="1"
+            Margin="13,0"
+            Date="{Binding Competencia}"
+            DateSelected="DatePicker_DateSelected"
+            Format="MMM yyyy"
+            HorizontalOptions="Center" />
+        <RefreshView
+            x:Name="refreshView"
+            Grid.Row="2"
+            windows:RefreshView.RefreshPullDirection="TopToBottom"
+            Command="{Binding RefreshViewCommand}">
+            <CollectionView
+                x:Name="collectionView"
+                IsGrouped="True"
+                ItemsSource="{Binding Categorias}"
+                SelectionChanged="CollectionView_SelectionChanged"
+                SelectionMode="Single">
+                <!--<CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>-->
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="models:ApuracaoCategoriasModel">
+                        <Grid BackgroundColor="#f8f8f8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Margin="16,0"
+                                FontFamily="RobotoBold"
+                                FontSize="14"
+                                Text="{Binding Nome}"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Nome}"
+                                        TargetType="Label"
+                                        Value="Receitas">
+                                        <Setter Property="TextColor" Value="Blue" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Nome}"
+                                        TargetType="Label"
+                                        Value="Despesas">
+                                        <Setter Property="TextColor" Value="#dc3545" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <!--<StackLayout
+                                Grid.Column="1"
+                                Margin="16,0"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <Label Margin="0,0" Text="{Binding Valor, StringFormat='{0:N2}'}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Nome}"
+                                            TargetType="Label"
+                                            Value="Receitas">
+                                            <Setter Property="TextColor" Value="Blue" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding Nome}"
+                                            TargetType="Label"
+                                            Value="Despesas">
+                                            <Setter Property="TextColor" Value="#dc3545" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text=" (+)" />
+                            </StackLayout>-->
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ApuracaoCategoriaModel">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="56" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <!--<Image
+                                    Margin="16,0"
+                                    Aspect="Center"
+                                    Source="menu_24dp.png" />-->
+                            <Image Margin="16,0" Aspect="Center">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="FontAwesomeSolid"
+                                        Glyph="{Binding IconFaUnicode}"
+                                        Size="{OnPlatform 18,
+                                                          WinUI=16}"
+                                        Color="Black" />
+                                </Image.Source>
+                            </Image>
+                            <Label
+                                Grid.Column="1"
+                                Margin="16,0"
+                                Text="{Binding Nome}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="2"
+                                Margin="16,0"
+                                Text="{Binding Valor, StringFormat='{0:N2}'}"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding GroupName}"
+                                        TargetType="Label"
+                                        Value="Receitas">
+                                        <Setter Property="TextColor" Value="Blue" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding GroupName}"
+                                        TargetType="Label"
+                                        Value="Despesas">
+                                        <Setter Property="TextColor" Value="#dc3545" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <BoxView
+                                Grid.ColumnSpan="3"
+                                BackgroundColor="#E0E0E0"
+                                HeightRequest="{OnPlatform 1,
+                                                           WinUI=1}"
+                                VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                Margin="10,25,10,10"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HorizontalOptions="Fill"
+                                HorizontalTextAlignment="Center"
+                                Text="Vazio." />
+                            <Label
+                                FontAttributes="Italic"
+                                FontSize="12"
+                                HorizontalOptions="Fill"
+                                HorizontalTextAlignment="Center"
+                                Text="Já tentou outro filtro?" />
+                        </StackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+                <CollectionView.FooterTemplate>
+                    <DataTemplate>
+                        <StackLayout HeightRequest="56" />
+                    </DataTemplate>
+                </CollectionView.FooterTemplate>
+            </CollectionView>
+        </RefreshView>
+        <Button
+            x:Name="novaFinancaButton"
+            Grid.Row="2"
+            Margin="10"
+            HorizontalOptions="End"
+            Text="Nova Finança"
+            VerticalOptions="End" />
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroupList>
+                <VisualStateGroup>
+                    <VisualState x:Name="Mobile">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="FirstRow" Property="RowDefinition.Height" Value="Auto" />
+                            <Setter TargetName="SecondRow" Property="RowDefinition.Height" Value="Auto" />
+                            <Setter TargetName="ThirdRow" Property="RowDefinition.Height" Value="*" />
+                            <Setter TargetName="FirstColumn" Property="ColumnDefinition.Width" Value="*" />
+                            <Setter TargetName="SecondColumn" Property="ColumnDefinition.Width" Value="0" />
+                            <Setter TargetName="datePicker" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="refreshView" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="refreshView" Property="Grid.RowSpan" Value="1" />
+                            <Setter TargetName="refreshView" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.Row" Value="2" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.RowSpan" Value="1" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.Column" Value="0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Desktop">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="576" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="FirstRow" Property="RowDefinition.Height" Value="Auto" />
+                            <Setter TargetName="SecondRow" Property="RowDefinition.Height" Value="*" />
+                            <Setter TargetName="ThirdRow" Property="RowDefinition.Height" Value="0" />
+                            <Setter TargetName="FirstColumn" Property="ColumnDefinition.Width" Value="*" />
+                            <Setter TargetName="SecondColumn" Property="ColumnDefinition.Width" Value="*" />
+                            <Setter TargetName="refreshView" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="refreshView" Property="Grid.RowSpan" Value="2" />
+                            <Setter TargetName="refreshView" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.RowSpan" Value="2" />
+                            <Setter TargetName="novaFinancaButton" Property="Grid.Column" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</ContentPage>

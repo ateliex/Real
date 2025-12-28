@@ -3,12 +3,102 @@
     x:Class="Real.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:categorias="clr-namespace:Real.Pages.Categorias"
+    xmlns:contas="clr-namespace:Real.Pages.Contas"
     xmlns:local="clr-namespace:Real"
+    xmlns:pages="clr-namespace:Real.Pages"
     Title="Real">
-
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <AbsoluteLayout HeightRequest="200">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="100"
+                    Opacity="0.6"
+                    Source="dotnet_bot.png" />
+                <!--<Image
+                    Aspect="AspectFill"
+                    Opacity="0.6"
+                    Source="flyout_header.png" />-->
+                <!--<Label
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    Text="Real"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />-->
+                <Button
+                    Margin="140,140"
+                    ImageSource="{OnPlatform 'sync_24dp_ffffff.png',
+                                             WinUI='ic_fluent_arrow_sync_24_regular_ffffff.png'}"
+                    Text="Sincronizar Tudo" />
+            </AbsoluteLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Icon="{OnPlatform 'home_24dp_212529.png',
+                          WinUI='ic_fluent_home_16_regular.png'}"
+        Route="Empty" />
 
+    <ShellContent
+        Title="Contas"
+        ContentTemplate="{DataTemplate contas:GestaoContasPage}"
+        Icon="{OnPlatform 'account_balance_24dp_212529.png',
+                          WinUI='ic_fluent_building_bank_16_regular.png'}"
+        Route="Contas" />
+
+    <ShellContent
+        Title="Categorias"
+        ContentTemplate="{DataTemplate categorias:ApuracaoCategoriasPage}"
+        Icon="{OnPlatform 'category_24dp_212529.png',
+                          WinUI='ic_fluent_bookmark_multiple_16_regular.png'}"
+        Route="Categorias" />
+
+    <MenuItem
+        x:Name="synchMenuItem"
+        Clicked="SynchMenuItem_Clicked"
+        IconImageSource="{OnPlatform 'sync_24dp_212529.png',
+                                     WinUI='ic_fluent_arrow_sync_16_regular.png'}"
+        Text="Sincronizar" />
+
+    <MenuItem
+        Command="{Binding HelpCommand}"
+        CommandParameter="https://learn.microsoft.com/dotnet/maui/fundamentals/shell"
+        IconImageSource="{OnPlatform 'person_24dp_212529.png',
+                                     WinUI='ic_fluent_person_16_regular.png'}"
+        Text="Usuário" />
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="Configurações"
+            ContentTemplate="{DataTemplate pages:ConfiguracoesPage}"
+            Icon="{OnPlatform 'settings_24dp_212529.png',
+                              WinUI='ic_fluent_settings_16_regular.png'}"
+            Route="Configuracoes" />
+    </FlyoutItem>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroupList>
+            <VisualStateGroup>
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Property="Shell.FlyoutBehavior" Value="Flyout" />
+                        <Setter Property="Shell.FlyoutIsPresented" Value="false" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="992" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Property="Shell.FlyoutBehavior" Value="Locked" />
+                        <Setter Property="Shell.FlyoutIsPresented" Value="true" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateGroupList>
+    </VisualStateManager.VisualStateGroups>
 </Shell>

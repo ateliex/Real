@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Real.Pages.Categorias.CadastroCategoriasPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Real.Pages.Categorias"
+    xmlns:models="clr-namespace:Real.Models;assembly=Real.DomainModel"
+    Title="Cadastro de Categorias"
+    Loaded="ContentPage_Loaded">
+    <Shell.SearchHandler>
+        <local:CategoriasSearchHandler
+            x:Name="searchHandler"
+            ClearIcon="close_24dp_212529.png"
+            Placeholder="Digite o nome"
+            QueryIcon="{OnPlatform 'search_24dp_212529.png',
+                                   WinUI='ic_fluent_search_24_regular.png'}"
+            ShowsResults="True">
+            <local:CategoriasSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="models:Categoria">
+                    <Label Text="{Binding Nome}"/>
+                </DataTemplate>
+            </local:CategoriasSearchHandler.ItemTemplate>
+        </local:CategoriasSearchHandler>
+    </Shell.SearchHandler>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding CreateNewCommand}"
+            IconImageSource="{OnPlatform 'add_24dp_212529.png',
+                                         WinUI='ic_fluent_add_24_regular.png'}"
+            Order="Primary"
+            Priority="0"
+            Text="Criar Novo" />
+    </ContentPage.ToolbarItems>
+    <ListView
+        x:Name="listView"
+        Margin="0"
+        ItemSelected="ListView_ItemSelected"
+        ItemsSource="{Binding Categorias}">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="models:Categoria">
+                <ImageCell Detail="{Binding IconId}" Text="{Binding Nome}">
+                    <ImageCell.ImageSource>
+                        <FontImageSource
+                            FontFamily="FontAwesomeSolid"
+                            Glyph="{Binding Icon.FaUnicode}"
+                            Size="{OnPlatform 48,
+                                              WinUI=16}"
+                            Color="Black" />
+                    </ImageCell.ImageSource>
+                </ImageCell>
+                <!--<TextCell Detail="{Binding BiIcon}" Text="{Binding Nome}" />-->
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <!--<ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Categoria">
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+        -->
+        <!--<Image
+                                Grid.RowSpan="2"
+                                Aspect="AspectFill"
+                                HeightRequest="60"
+                                Source="{Binding Nome}"
+                                WidthRequest="60" />-->
+        <!--
+                            <Label Grid.Column="0" Text="{Binding Nome}" />
+                            <Label Grid.Column="1" Text="{Binding ValorPrevistoMensal}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>-->
+    </ListView>
+</ContentPage>

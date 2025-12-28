@@ -62,4 +62,41 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\Controle\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\packages_src\System.Extensions\System.Extensions.csproj" />
+	  <ProjectReference Include="..\Real.ApplicationCore\Real.ApplicationCore.csproj" />
+	  <ProjectReference Include="..\Real.ApplicationModel\Real.ApplicationModel.csproj" />
+	  <ProjectReference Include="..\Real.DomainModel\Real.DomainModel.csproj" />
+	  <ProjectReference Include="..\Real.EntityFrameworkCore.Sqlite\Real.EntityFrameworkCore.Sqlite.csproj" />
+	  <ProjectReference Include="..\Real.EntityFrameworkCore\Real.EntityFrameworkCore.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\Categorias\ApuracaoCategoriaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Categorias\ApuracaoCategoriasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Categorias\CadastroCategoriasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Categorias\CategoriaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ConfiguracoesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Contas\ContaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Contas\GestaoContasPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

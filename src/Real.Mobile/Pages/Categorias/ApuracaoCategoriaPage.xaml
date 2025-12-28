@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Real.Pages.Categorias.ApuracaoCategoriaPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:appModels="clr-namespace:Real.Models;assembly=Real.ApplicationModel"
+    xmlns:domainModels="clr-namespace:Real.Models;assembly=Real.DomainModel"
+    xmlns:local="clr-namespace:Real.Pages.Categorias"
+    xmlns:models="clr-namespace:Real.Models"
+    xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="Apur. Categoria"
+    Loaded="ContentPage_Loaded"
+    MaximumWidthRequest="1200">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding CriarNovoCommand}"
+            IconImageSource="{OnPlatform 'add_24dp_212529.png',
+                                         WinUI='ic_fluent_add_24_regular.png'}"
+            Order="Primary"
+            Priority="0"
+            Text="Criar Novo" />
+        <ToolbarItem
+            Command="{Binding RefreshCommand}"
+            Order="Secondary"
+            Priority="0"
+            Text="Atualizar" />
+        <ToolbarItem
+            Command="{Binding ModoVisualizacaoCommand}"
+            Order="Secondary"
+            Priority="1"
+            Text="Modo Tabela">
+            <ToolbarItem.CommandParameter>
+                <appModels:ModoVisualizacaoEnum>Tabela</appModels:ModoVisualizacaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding ModoVisualizacaoCommand}"
+            Order="Secondary"
+            Priority="2"
+            Text="Modo Lista">
+            <ToolbarItem.CommandParameter>
+                <appModels:ModoVisualizacaoEnum>Lista</appModels:ModoVisualizacaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding OrdemCommand}"
+            Order="Secondary"
+            Priority="3"
+            Text="Ordem Padrão">
+            <ToolbarItem.CommandParameter>
+                <appModels:OrdemEnum>Padrao</appModels:OrdemEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding OrdemCommand}"
+            Order="Secondary"
+            Priority="4"
+            Text="Ordem Decrescente">
+            <ToolbarItem.CommandParameter>
+                <appModels:OrdemEnum>Decrescente</appModels:OrdemEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding RegimeApuracaoCommand}"
+            Order="Secondary"
+            Priority="5"
+            Text="Regime de Competência">
+            <ToolbarItem.CommandParameter>
+                <appModels:RegimeApuracaoEnum>Competencia</appModels:RegimeApuracaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding RegimeApuracaoCommand}"
+            Order="Secondary"
+            Priority="6"
+            Text="Regime de Caixa">
+            <ToolbarItem.CommandParameter>
+                <appModels:RegimeApuracaoEnum>Caixa</appModels:RegimeApuracaoEnum>
+            </ToolbarItem.CommandParameter>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <!--<Shell.SearchHandler>
+    <local:CategoriasSearchHandler
+        x:Name="categoriasSearchHandler"
+        ClearIcon="close_24dp_212529.png"
+        Placeholder="Digite o nome"
+        QueryIcon="{OnPlatform 'search_24dp_212529.png', WinUI='ic_fluent_search_24_regular.png'}"
+        ShowsResults="True" />
+</Shell.SearchHandler>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image Margin="16,0" Aspect="Center">
+            <Image.Source>
+                <FontImageSource
+                    FontFamily="FontAwesomeSolid"
+                    Glyph="{Binding ApuracaoCategoria.IconFaUnicode}"
+                    Size="{OnPlatform 18,
+                                      WinUI=16}"
+                    Color="Black" />
+            </Image.Source>
+        </Image>
+        <Label
+            Grid.Column="1"
+            Margin="16,0"
+            Text="{Binding ApuracaoCategoria.Nome}"
+            VerticalOptions="Center" />
+        <Label
+            Grid.Column="2"
+            Margin="16,0"
+            Text="{Binding ApuracaoCategoria.Valor, StringFormat='{0:N2}'}"
+            VerticalOptions="Center">
+            <Label.Triggers>
+                <DataTrigger
+                    Binding="{Binding ApuracaoCategoria.GroupName}"
+                    TargetType="Label"
+                    Value="Receitas">
+                    <Setter Property="TextColor" Value="Blue" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding ApuracaoCategoria.GroupName}"
+                    TargetType="Label"
+                    Value="Despesas">
+                    <Setter Property="TextColor" Value="#dc3545" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+        <BoxView
+            Grid.ColumnSpan="3"
+            BackgroundColor="#E0E0E0"
+            HeightRequest="{OnPlatform 1,
+                                       WinUI=1}"
+            VerticalOptions="End" />
+        <CollectionView
+            x:Name="collectionView"
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            ItemsSource="{Binding ApuracaoCategoria.Financas}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:FinancaPorCategoriaModel">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="56" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Margin="16,16"
+                            Aspect="Center"
+                            Source="{OnPlatform 'adjust_24dp.png',
+                                                WinUI='ic_fluent_circle_small_24_regular.png'}"
+                            VerticalOptions="Start" />
+                        <Border
+                            Grid.Column="1"
+                            Margin="16,12,0,0"
+                            Background="LightGrey"
+                            HorizontalOptions="Start"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="0"
+                            VerticalOptions="End">
+                            <Label
+                                Margin="6,0"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding ContaNome}" />
+                        </Border>
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="16,7,0,0"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"
+                            VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Competencia, StringFormat='{0:MM/yyyy}'}" />
+                                    <Span Text=" &#x2014; " />
+                                    <Span
+                                        LineHeight="1.2"
+                                        Text="{Binding Descricao}"
+                                        TextColor="Gray" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <!--<FlexLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="16,6"
+                            AlignContent="Center"
+                            AlignItems="Center"
+                            Direction="Row"
+                            JustifyContent="Start"
+                            Wrap="Wrap">
+                            <Border
+                                Background="Black"
+                                StrokeShape="RoundRectangle 5"
+                                StrokeThickness="0"
+                                VerticalOptions="End">
+                                <Label
+                                    Margin="5,0"
+                                    FontSize="12"
+                                    Text="{Binding Competencia, StringFormat='{0:MM/yyyy}'}"
+                                    TextColor="White" />
+                            </Border>
+                            <Label Margin="5,0" Text="{Binding Descricao}" />
+                        </FlexLayout>-->
+                        <Label
+                            Grid.Column="2"
+                            Margin="16,10,16,0"
+                            Text="{Binding Valor, StringFormat='{0:N2}'}"
+                            VerticalOptions="End" />
+                        <BoxView
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            BackgroundColor="#E0E0E0"
+                            HeightRequest="{OnPlatform 1,
+                                                       WinUI=1}"
+                            VerticalOptions="End" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <StackLayout VerticalOptions="Center">
+                        <Label
+                            Margin="10,25,10,10"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="Vazio." />
+                        <Label
+                            FontAttributes="Italic"
+                            FontSize="12"
+                            HorizontalOptions="Fill"
+                            HorizontalTextAlignment="Center"
+                            Text="Já tentou outro filtro?" />
+                    </StackLayout>
+                </ContentView>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</ContentPage>
