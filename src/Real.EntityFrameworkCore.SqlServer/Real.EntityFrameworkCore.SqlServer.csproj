@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Real</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Real.ApplicationCore\Real.ApplicationCore.csproj" />
+    <ProjectReference Include="..\Real.ApplicationModel\Real.ApplicationModel.csproj" />
+    <ProjectReference Include="..\Real.DomainModel\Real.DomainModel.csproj" />
+    <ProjectReference Include="..\Real.EntityFrameworkCore\Real.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+</Project>

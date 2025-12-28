@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/1 - Presentation/" />
+  <Folder Name="/2 - Infrastructure/" />
+  <Folder Name="/2 - Infrastructure/Data Services/">
+    <Project Path="src/Real.EntityFrameworkCore.Sqlite/Real.EntityFrameworkCore.Sqlite.csproj" Id="66d59528-cfde-4594-8e7c-2f9aa184b69c" />
+    <Project Path="src/Real.EntityFrameworkCore.SqlServer/Real.EntityFrameworkCore.SqlServer.csproj" Id="e91594a6-6deb-45f6-9cf7-645aef79eb32" />
+    <Project Path="src/Real.EntityFrameworkCore/Real.EntityFrameworkCore.csproj" Id="70682906-89dc-4c4f-82c2-724adc03571d" />
+  </Folder>
+  <Folder Name="/2 - Infrastructure/Integration Services/" />
+  <Folder Name="/3 - Core/">
+    <Project Path="src/Real.ApplicationCore/Real.ApplicationCore.csproj" Id="faf47e54-e98f-427c-aaf0-4e44676ff7e8" />
+    <Project Path="src/Real.ApplicationModel/Real.ApplicationModel.csproj" Id="85f15cdb-a5f1-4f80-9601-004742ef2fd6" />
+    <Project Path="src/Real.DomainModel/Real.DomainModel.csproj" Id="86506671-f8a5-43f0-86ec-2e16ae2855b0" />
+  </Folder>
+  <Folder Name="/4 - Cross-Cutting/">
+    <Project Path="packages_src/System.Extensions/System.Extensions.csproj" Id="96ed9871-a15a-4dd6-863e-00da30b34c68" />
+    <Project Path="packages_src/System.Xaml.Extensions/System.Xaml.Extensions.csproj" Id="ef9f151b-c1d8-4f9e-bcd7-d3726f210315" />
+  </Folder>
+</Solution>
