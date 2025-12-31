@@ -42,6 +42,10 @@ public abstract class Lancamento : Entity
 
     public required string Descricao { get; set; }
 
+    public string? TransacaoId { get; set; }
+
+    public string? Transacao { get; set; }
+
     /// <summary>
     /// Valor previsto ou realizado do lançamento.
     /// </summary>
