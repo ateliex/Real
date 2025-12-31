@@ -63,6 +63,21 @@
     </div>
 </form>
 
+<form class="d-flex align-items-start justify-content-evenly" method="get">
+    <button type="submit" class="btn btn-secondary" name="Ano" value="@(Model.Ano.Value - 1)">
+        <i class="bi bi-arrow-left-circle"></i>
+        Anterior
+    </button>
+    <button type="submit" class="btn btn-secondary" name="Ano" value="@(Model.Ano.Value + 1)">
+        Próximo
+        <i class="bi bi-arrow-right-circle"></i>
+    </button>
+    <input type="hidden" name="__Invariant" value="Ano" />
+    <input type="hidden" asp-for="ModoVisualizacao" />
+    <input type="hidden" asp-for="Ordem" />
+    <input type="hidden" asp-for="RegimeApuracao" />
+</form>
+
 <form class="table-responsive text-nowrap" method="get">
     <table class="table table-striped align-middle mb-3">
         <thead>

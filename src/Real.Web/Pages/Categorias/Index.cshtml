@@ -62,7 +62,21 @@
     </div>
 </form>
 
-<div class="row row-cols-1 row-cols-md-2 justify-content-md-center g-4 mb-4">
+<div class="row row-cols-1 row-cols-md-3 justify-content-md-center g-4 mb-4">
+    <form class="col d-flex align-items-start justify-content-evenly" method="get">
+        <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(-1).ToString("yyyy-MM")">
+            <i class="bi bi-arrow-left-circle"></i>
+            Anterior
+        </button>
+        <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(1).ToString("yyyy-MM")">
+            Próximo
+            <i class="bi bi-arrow-right-circle"></i>
+        </button>
+        <input type="hidden" name="__Invariant" value="Competencia" />
+        <input type="hidden" asp-for="ModoVisualizacao" />
+        <input type="hidden" asp-for="Ordem" />
+        <input type="hidden" asp-for="RegimeApuracao" />
+    </form>
     <div class="col">
         <div class="card">
             <div class="card-header">
@@ -175,6 +189,8 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div class="col">
     </div>
 </div>
 
