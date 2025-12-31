@@ -540,6 +540,10 @@
                                     {
                                         <i class="bi bi-stars"></i>
                                     }
+                                    @if (lancamento.EhRecorrente)
+                                    {
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    }
                                     @if (lancamento.ValorOriginal != null)
                                     {
                                         <span class="badge text-bg-light">@Html.DisplayFor(model => lancamento.ValorOriginal)</span>
@@ -589,6 +593,10 @@
                                     @if (lancamento.EhPrevisao)
                                     {
                                         <i class="bi bi-stars"></i>
+                                    }
+                                    @if (lancamento.EhRecorrente)
+                                    {
+                                        <i class="bi bi-arrow-repeat"></i>
                                     }
                                     @if (lancamento.ValorOriginal != null)
                                     {

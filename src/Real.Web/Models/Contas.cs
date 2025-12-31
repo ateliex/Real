@@ -106,4 +106,6 @@ public class LancamentoPorContaModel
     public int Nivel { get; set; }
 
     public Guid? LancamentoPaiId { get; set; }
+
+    public bool EhRecorrente { get; set; }
 }

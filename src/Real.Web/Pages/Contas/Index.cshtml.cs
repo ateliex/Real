@@ -156,7 +156,8 @@ public class IndexModel : PageModel
                     ValorExcedente = (x as PrevisaoInteligente)?.ValorExcedente,
                     EhPrevisao = (x as Financa)?.EhPrevisao ?? false,
                     Nivel = x.Nivel,
-                    LancamentoPaiId = x.GrupoId
+                    LancamentoPaiId = x.GrupoId,
+                    EhRecorrente = x.RecorrenciaId.HasValue
                 }).ToList()
             };
 
