@@ -455,6 +455,10 @@
                     {
                         <i class="bi bi-stars"></i>
                     }
+                    @if (financa.EhRecorrente)
+                    {
+                        <i class="bi bi-arrow-repeat"></i>
+                    }
                     @if (financa.ValorOriginal != null)
                     {
                         <span class="badge text-bg-light">@Html.DisplayFor(model => financa.ValorOriginal)</span>
@@ -504,6 +508,10 @@
                     @if (financa.EhPrevisao)
                     {
                         <i class="bi bi-stars"></i>
+                    }
+                    @if (financa.EhRecorrente)
+                    {
+                        <i class="bi bi-arrow-repeat"></i>
                     }
                     @if (financa.ValorOriginal != null)
                     {

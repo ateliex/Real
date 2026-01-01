@@ -361,7 +361,8 @@ public class IndexModel : PageModel
                         Valor = x.Valor,
                         ValorOriginal = (x as PrevisaoInteligente)?.ValorOriginal,
                         ValorExcedente = (x as PrevisaoInteligente)?.ValorExcedente,
-                        EhPrevisao = x.EhPrevisao
+                        EhPrevisao = x.EhPrevisao,
+                        EhRecorrente = x.RecorrenciaId.HasValue
                     })).ToList()
                 };
 

@@ -330,4 +330,6 @@ public class FinancaPorCategoriaModel
     public decimal? ValorExcedente { get; set; }
 
     public bool EhPrevisao { get; set; }
+
+    public bool EhRecorrente { get; set; }
 }
