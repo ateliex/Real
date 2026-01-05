@@ -9,7 +9,6 @@ public static class SeedData
     {
         SeedIcons(modelBuilder);
         //SeedCategorias(modelBuilder);
-        //SeedContas(modelBuilder);
     }
 
     public static void SeedIcons(ModelBuilder modelBuilder)
@@ -58,6 +57,7 @@ public static class SeedData
         var ordem = 0;
 
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = true, AplicaDespesa = false, Ordem = ordem++, Id = "salario               ", Nome = "Salário", IconId = "cash-coin" });
+        modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = true, AplicaDespesa = false, Ordem = ordem++, Id = "bonus                 ", Nome = "Bônus", IconId = "cash-coin" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = true, AplicaDespesa = false, Ordem = ordem++, Id = "balanco               ", Nome = "Balanço", IconId = "currency-dollar" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "imposto               ", Nome = "Imposto", IconId = "coin" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "multa                 ", Nome = "Multa", IconId = "currency-dollar" });
@@ -103,6 +103,7 @@ public static class SeedData
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "lanche                ", Nome = "Lanche", IconId = "shop" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "hamburger             ", Nome = "Hamburger", CategoriaPaiId = "lanche                ", IconId = "shop" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "pizza                 ", Nome = "Pizza", CategoriaPaiId = "lanche                ", IconId = "shop" });
+        modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "cafe                  ", Nome = "Café", CategoriaPaiId = "lanche                ", IconId = "shop" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "sorvete               ", Nome = "Sorvete", CategoriaPaiId = "lanche                ", IconId = "shop" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "pet                   ", Nome = "Pet", IconId = "shop" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "roupa                 ", Nome = "Roupa", IconId = "shop" });
@@ -124,21 +125,6 @@ public static class SeedData
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "perfume               ", Nome = "Perfume", IconId = "flower1" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "diversos              ", Nome = "Diversos", IconId = "bookmarks" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "outros                ", Nome = "Outros", IconId = "bookmark" });
-    }
-
-    public static void SeedContas(ModelBuilder modelBuilder)
-    {
-        var ordem = 0;
-
-        int t = 0, r = 0;
-
-        t = 1; r = 0;
-
-        ordem = 0;
-
-        var conta_Carteira = new Conta { Id = NewId(t, r++), Ordem = ordem++, Nome = "Carteira" };
-
-        modelBuilder.Entity<Conta>().HasData(conta_Carteira);
     }
 
     private static Guid NewId(int t, int r)

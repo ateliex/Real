@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Real.Models;
 
-public class Boleto : Lancamento
-{
-    public Documento? Documento { get; set; }
+//public class Boleto : Lancamento
+//{
+//    public Documento? Documento { get; set; }
 
-    public DateOnly DataVencimento { get; set; }
+//    public DateOnly DataVencimento { get; set; }
 
-    public ICollection<Financa> Financas { get; set; }
-}
+//    public ICollection<Financa> Financas { get; set; }
+//}
 
 public class Pagamento : ValueObject
 {

@@ -23,13 +23,6 @@ public partial class MainWindow : Window
         cadastroCategoriasWindow.Show();
     }
 
-    private void GestaoContasMenuItem_Click(object sender, RoutedEventArgs e)
-    {
-        var gestaoContasWindow = ServiceProvider.GetRequiredService<GestaoContasWindow>();
-
-        gestaoContasWindow.Show();
-    }
-
     private void ControleFinancasMenuItem_Click(object sender, RoutedEventArgs e)
     {
         var controleFinancasWindow = ServiceProvider.GetRequiredService<ApuracaoAnualFinancasPorCategoriaWindow>();

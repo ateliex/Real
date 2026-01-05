@@ -36,12 +36,9 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            join conta in _db.Contas on data.Conta equals conta.Nome into gj
-            from subConta in gj.DefaultIfEmpty()
             select new Financa
             {
                 Id = Guid.NewGuid(),
-                ContaId = subConta?.Id ?? Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),
                 Data = data.Data,
                 CategoriaId = data.Categoria,
@@ -64,12 +61,9 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            join conta in _db.Contas on data.Conta equals conta.Nome into gj
-            from subConta in gj.DefaultIfEmpty()
             select new Financa
             {
                 Id = Guid.NewGuid(),
-                ContaId = subConta?.Id ?? Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),
                 Data = data.Data,
                 CategoriaId = data.Categoria,
@@ -98,12 +92,9 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            join conta in _db.Contas on data.Conta equals conta.Nome into gj
-            from subConta in gj.DefaultIfEmpty()
             select new Financa
             {
                 Id = Guid.NewGuid(),
-                ContaId = subConta?.Id ?? Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),
                 Data = data.Data,
                 CategoriaId = data.Categoria,

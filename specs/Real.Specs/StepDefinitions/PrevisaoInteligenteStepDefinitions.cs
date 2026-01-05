@@ -14,8 +14,6 @@ public class PrevisaoInteligenteStepDefinitions
 
     private readonly RealDbContext _db;
 
-    private Conta _conta;
-
     public PrevisaoInteligenteStepDefinitions(
         RealDbContext db)
     {

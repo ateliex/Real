@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using Real.Infrastructure;
@@ -37,7 +38,7 @@ public class Program
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
         });
-
+        
         var app = builder.Build();
 
         var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();

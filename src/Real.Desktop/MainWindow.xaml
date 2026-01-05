@@ -111,16 +111,6 @@
                     Header="Controle de Finanças" />
             </MenuItem>
             <MenuItem
-                x:Name="contasMenuItem"
-                AutomationProperties.AutomationId="contasMenuItem"
-                Header="Contas">
-                <MenuItem
-                    x:Name="gestaoContasMenuItem"
-                    AutomationProperties.AutomationId="gestaoContasMenuItem"
-                    Click="GestaoContasMenuItem_Click"
-                    Header="Gestão de Contas" />
-            </MenuItem>
-            <MenuItem
                 x:Name="categoriasMenuItem"
                 AutomationProperties.AutomationId="categoriasMenuItem"
                 Header="Categorias">

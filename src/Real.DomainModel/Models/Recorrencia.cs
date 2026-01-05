@@ -12,9 +12,9 @@ public class Recorrencia
 
     public TipoLancamentoEnum TipoLancamentoId { get; set; }
 
-    public virtual Conta Conta { get; set; }
+    //public virtual Conta Conta { get; set; }
 
-    public Guid? ContaId { get; set; }
+    //public Guid? ContaId { get; set; }
 
     /// <summary>
     /// Competência Inicial.
@@ -40,6 +40,10 @@ public class Recorrencia
     //public Guid? LancamentoPaiId { get; set; }
 
     public int? Ordem { get; set; }
+
+    //
+
+    public FormaRegistroEnum FormaRegistroId { get; set; }
 
     //
 

@@ -9,15 +9,15 @@ namespace Real.Repositories;
 
 public interface ContasRepositoryInterface
 {
-    Task<ICollection<Conta>> ObtemContas();
+    //Task<ICollection<Conta>> ObtemContas();
 
-    Task<Conta> ObtemConta(string nome);
+    //Task<Conta> ObtemConta(string nome);
 
-    Task<Conta> ObtemConta(Guid id);
+    //Task<Conta> ObtemConta(Guid id);
 
-    Task<decimal> ObtemApuracao(Conta conta, DateOnly competencia);
+    //Task<decimal> ObtemApuracao(Conta conta, DateOnly competencia);
 
-    Task<Apuracao> ObtemApuracaoOrDefault(Conta conta, DateOnly competencia);
+    //Task<Apuracao> ObtemApuracaoOrDefault(Conta conta, DateOnly competencia);
 
     Task<ICollection<Financa>> ConsultaFinancasPorCompetencia(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
 
@@ -31,13 +31,13 @@ public interface ContasRepositoryInterface
 
     Task<decimal> ObtemValorAcumuladoPorCompetenciaAnual(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
 
-    Task<ICollection<Lancamento>> ConsultaLancamentosEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
+    Task<ICollection<Financa>> ConsultaLancamentosEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
 
     Task<decimal> ObtemValorTotalEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
 
     Task<decimal> ObtemValorAcumuladoEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId);
 
-    Task<ICollection<Lancamento>> ConsultaLancamentosEmCaixa(DateOnly competencia);
+    Task<ICollection<Financa>> ConsultaLancamentosEmCaixa(DateOnly competencia);
 
     Task<decimal> ObtemValorTotalEmCaixa(DateOnly competencia);
 
@@ -49,11 +49,9 @@ public interface ContasRepositoryInterface
 
     Task Atualiza(Financa financa);
 
-    Task Adiciona(Conta conta);
+    //Task Adiciona(Conta conta);
 
     Task Adiciona(Apuracao apuracao);
 
-    Task Adiciona(Lancamento lancamento);
-
-    Task Atualiza(Conta conta);
+    //Task Atualiza(Conta conta);
 }

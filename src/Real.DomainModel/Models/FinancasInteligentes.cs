@@ -77,12 +77,12 @@ public class FinancasInteligentesProcuder
                     ValorExcedente = valorExcedente,
                     Categoria = previsao.Categoria,
                     CategoriaId = previsao.CategoriaId,
-                    Conta = previsao.Conta,
-                    ContaId = previsao.ContaId,
+                    //Conta = previsao.Conta,
+                    //ContaId = previsao.ContaId,
                     EhPrevisao = true,
-                    Nivel = previsao.Nivel,
-                    Grupo = previsao.Grupo,
-                    GrupoId = previsao.GrupoId,
+                    //Nivel = previsao.Nivel,
+                    //Grupo = previsao.Grupo,
+                    //GrupoId = previsao.GrupoId,
                     Ordem = previsao.Ordem
                 }));
 
@@ -105,12 +105,12 @@ public class FinancasInteligentesProcuder
                 ValorExcedente = valorExcedente,
                 Categoria = previsao.Categoria,
                 CategoriaId = previsao.CategoriaId,
-                Conta = previsao.Conta,
-                ContaId = previsao.ContaId,
+                //Conta = previsao.Conta,
+                //ContaId = previsao.ContaId,
                 EhPrevisao = true,
-                Nivel = previsao.Nivel,
-                Grupo = previsao.Grupo,
-                GrupoId = previsao.GrupoId,
+                //Nivel = previsao.Nivel,
+                //Grupo = previsao.Grupo,
+                //GrupoId = previsao.GrupoId,
                 Ordem = previsao.Ordem
             }));
 

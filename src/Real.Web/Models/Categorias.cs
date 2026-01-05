@@ -308,9 +308,9 @@ public class FinancaPorCategoriaModel
 
     public TipoFinancaEnum TipoFinancaId { get; set; }
 
-    public TipoContaEnum ContaTipoId { get; set; }
+    //public FormaRegistroEnum ContaTipoId { get; set; }
 
-    public required string ContaNome { get; set; }
+    //public required string ContaNome { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:MM/yyyy}")]
     public DateOnly Competencia { get; set; }

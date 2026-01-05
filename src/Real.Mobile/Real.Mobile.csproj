@@ -58,12 +58,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+	  <AndroidResource Remove="Pages\Controle\**" />
+	  <Compile Remove="Pages\Controle\**" />
+	  <EmbeddedResource Remove="Pages\Controle\**" />
+	  <MauiCss Remove="Pages\Controle\**" />
+	  <MauiXaml Remove="Pages\Controle\**" />
+	  <None Remove="Pages\Controle\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\Controle\" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,12 +94,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ConfiguracoesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\Contas\ContaPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\Contas\GestaoContasPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -1,154 +1,49 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Real.Data;
 using Real.Models;
-using Real.Models;
-using System.ComponentModel;
+using Real.Pages.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace Real.Pages.Categorias;
 
 public class IndexModel : PageModel
 {
-    private readonly ApuracaoService _apuracaoService;
+    private readonly RealDbContext _db;
 
-    private readonly ILogger<IndexModel> _logger;
-
-    [BindProperty(SupportsGet = true)]
-    [DisplayName("Competência")]
-    public DateOnly? Competencia { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public ModoVisualizacaoEnum ModoVisualizacao { get; set; } = ModoVisualizacaoEnum.Tabela;
-
-    [BindProperty(SupportsGet = true)]
-    public OrdemEnum Ordem { get; set; } = OrdemEnum.Padrao;
-
-    [BindProperty(SupportsGet = true)]
-    public RegimeApuracaoEnum RegimeApuracao { get; set; } = RegimeApuracaoEnum.Competencia;
-
-    [BindProperty(SupportsGet = true)]
-    public bool ExibirTodasCategorias { get; set; } = false;
-
-    public ApuracaoFinancasPorCategoriaModel Apuracao { get; set; }
-
-    public List<CategoriaApuradaModel> Receitas { get; set; }
-
-    public List<CategoriaApuradaModel> Despesas { get; set; }
-
-    public IndexModel(
-        ApuracaoService apuracaoService,
-        ILogger<IndexModel> logger)
+    public IndexModel(RealDbContext db)
     {
-        _apuracaoService = apuracaoService;
-        _logger = logger;
+        _db = db;
     }
 
-    public async Task OnGet()
+    [MinLength(3)]
+    [MaxLength(35)]
+    [BindProperty(SupportsGet = true)]
+    public string? Nome { get; set; }
+
+    public IList<Categoria> Categorias { get; set; } = default!;
+
+    [BindProperty(SupportsGet = true)]
+    public int? PaginaAtual { get; set; }
+
+    public PaginationModel Pagination { get; set; }
+
+    public async Task OnGetAsync()
     {
-        var hoje = DateTime.Today;
+        var totalRegistros = await _db.Categorias.CountAsync();
 
-        if (Competencia == null)
+        Pagination = new PaginationModel(totalRegistros, PaginaAtual ?? 1);
+
+        if (_db.Categorias != null)
         {
-            Competencia = DateOnly.FromDateTime(hoje);
+            Categorias = await _db.Categorias
+                .Where(x => true
+                    && (Nome == null || x.Nome == Nome))
+                .OrderByDescending(x => x.Nome)
+                .Skip((Pagination.PaginaAtual - 1) * Pagination.TamanhoPagina.Value)
+                .Take(Pagination.TamanhoPagina.Value)
+                .ToListAsync();
         }
-
-        var competencia = Competencia.Value;
-
-        var apuracaoCategorias = await _apuracaoService.ApurarCategoriasPorCompetencia(competencia, RegimeApuracao);
-
-        var apuracaoCategoriasModel = await MapFrom(apuracaoCategorias);
-
-        Apuracao = apuracaoCategoriasModel;
-    }
-
-    private async Task<ApuracaoFinancasPorCategoriaModel> MapFrom(ApuracaoCategorias apuracaoCategorias)
-    {
-        var receitas = MapFrom(apuracaoCategorias.Receitas);
-
-        var despesas = MapFrom(apuracaoCategorias.Despesas);
-
-        //
-
-        switch (Ordem)
-        {
-            case OrdemEnum.Padrao:
-                Receitas = receitas
-                    .OrderBy(x => x.Ordem)
-                    .ToList();
-
-                Despesas = despesas
-                    .OrderBy(x => x.Ordem)
-                    .ToList();
-
-                break;
-            case OrdemEnum.Decrescente:
-                Receitas = receitas
-                    .OrderBy(x => x.Valor)
-                    .ToList();
-
-                Despesas = despesas
-                    .OrderBy(x => x.Valor)
-                    .ToList();
-
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        //
-
-        var apuracao = new ApuracaoFinancasPorCategoriaModel
-        {
-            Competencia = apuracaoCategorias.Competencia,
-            StatusId = StatusApuracaoEnum.Aberta,
-            ValorAcumuladoAnterior = apuracaoCategorias.ValorAcumuladoAnterior,
-            ValorAcumuladoTotal = apuracaoCategorias.ValorAcumulado,
-            ValorSaldoTotal = apuracaoCategorias.ValorSaldo,
-            ValorReceitasTotal = apuracaoCategorias.ValorReceitas,
-            ValorDespesasTotal = apuracaoCategorias.ValorDespesas,
-        };
-
-        return await Task.FromResult(apuracao);
-    }
-
-    private List<CategoriaApuradaModel> MapFrom(IEnumerable<ApuracaoCategoria> apuracoesCategoria)
-    {
-        var apuracaoCategoriaList = new List<CategoriaApuradaModel>();
-
-        foreach (var apuracaoCategoria in apuracoesCategoria)
-        {
-            if (Math.Abs(apuracaoCategoria.Valor) > 0 || ExibirTodasCategorias)
-            {
-                var item = new CategoriaApuradaModel
-                {
-                    CategoriaId = apuracaoCategoria.CategoriaId,
-                    CategoriaNome = apuracaoCategoria.Categoria.Nome,
-                    AplicaReceita = apuracaoCategoria.Categoria.AplicaReceita,
-                    AplicaDespesa = apuracaoCategoria.Categoria.AplicaDespesa,
-                    Ordem = apuracaoCategoria.Categoria.Ordem.Value,
-                    BiIcon = apuracaoCategoria.Categoria.IconId,
-                    Valor = apuracaoCategoria.Valor,
-                    Financas = apuracaoCategoria.Financas.Select(x => new FinancaPorCategoriaModel
-                    {
-                        FinancaId = x.Id,
-                        TipoFinancaId = x.TipoFinancaId,
-                        ContaTipoId = x.Conta.TipoContaId,
-                        ContaNome = x.Conta.Nome,
-                        Competencia = x.Competencia,
-                        Data = x.Data,
-                        Descricao = x.Descricao,
-                        Valor = x.Valor,
-                        ValorOriginal = (x as PrevisaoInteligente)?.ValorOriginal,
-                        ValorExcedente = (x as PrevisaoInteligente)?.ValorExcedente,
-                        EhPrevisao = x.EhPrevisao,
-                        EhRecorrente = x.RecorrenciaId.HasValue
-                    })
-                    .ToList()
-                };
-
-                apuracaoCategoriaList.Add(item);
-            }
-        }
-
-        return apuracaoCategoriaList;
     }
 }

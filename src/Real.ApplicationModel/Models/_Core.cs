@@ -1,10 +1,11 @@
 ﻿namespace Real.Models;
 
-public enum TipoContaEnum
+public enum FormaRegistroEnum
 {
-    ContaDebito,
-    ContaCreditoAPagar,
-    ContaCreditoAReceber
+    Debito_,
+    Credito,
+    //CreditoAPagar,
+    //CreditoAReceber
 }
 
 public enum TipoLancamentoEnum
@@ -31,7 +32,7 @@ public class ContaDataModel
 
     public required string Nome { get; set; }
 
-    public TipoContaEnum TipoContaId { get; set; }
+    public FormaRegistroEnum TipoContaId { get; set; }
 
     public int? Ordem { get; set; }
 

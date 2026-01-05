@@ -12,8 +12,6 @@ public class CategoriasStepDefinitions
 
     private readonly RealDbContext _db;
 
-    private Conta _conta;
-
     public CategoriasStepDefinitions(
         RealDbContext db)
     {

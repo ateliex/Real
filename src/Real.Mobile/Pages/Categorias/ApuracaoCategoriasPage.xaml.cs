@@ -227,8 +227,8 @@ public partial class ApuracaoCategoriasPage : ContentPage
                     {
                         FinancaId = x.Id,
                         TipoFinancaId = x.TipoFinancaId,
-                        ContaTipoId = x.Conta.TipoContaId,
-                        ContaNome = x.Conta.Nome,
+                        //ContaTipoId = x.FormaRegistroId,
+                        //ContaNome = x.Conta.Nome,
                         Competencia = x.Competencia,
                         Data = x.Data,
                         Descricao = x.Descricao,
