@@ -306,6 +306,8 @@ public class FinancaPorCategoriaModel
 {
     public Guid FinancaId { get; set; }
 
+    public TipoRegistroEnum TipoRegistroId { get; set; }
+
     public TipoFinancaEnum TipoFinancaId { get; set; }
 
     //public FormaRegistroEnum ContaTipoId { get; set; }

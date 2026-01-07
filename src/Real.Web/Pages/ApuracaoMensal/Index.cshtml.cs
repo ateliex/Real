@@ -82,7 +82,7 @@ public class IndexModel : PageModel
                 break;
             case OrdemEnum.Decrescente:
                 Receitas = receitas
-                    .OrderBy(x => x.Valor)
+                    .OrderByDescending(x => x.Valor)
                     .ToList();
 
                 Despesas = despesas
@@ -130,6 +130,7 @@ public class IndexModel : PageModel
                     Financas = apuracaoCategoria.Financas.Select(x => new FinancaPorCategoriaModel
                     {
                         FinancaId = x.Id,
+                        TipoRegistroId = x.TipoRegistroId,
                         TipoFinancaId = x.TipoFinancaId,
                         //ContaTipoId = x.FormaRegistroId,
                         //ContaNome = x.Conta.Nome,

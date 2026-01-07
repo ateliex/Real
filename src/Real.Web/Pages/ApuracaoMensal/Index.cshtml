@@ -300,7 +300,7 @@
                         <div class="accordion accordion-flush accordion-primary" id="receitasAccordion">
                             @foreach (var receita in Model.Receitas)
                             {
-                                RenderLista(receita, i, "primary", isCompacto, isDebug);
+                                RenderLista(receita, i, "primary", isCompacto, isDebug, "Receita");
 
                                 i++;
                             }
@@ -332,7 +332,7 @@
                         <div class="accordion accordion-flush accordion-danger" id="despesasAccordion">
                             @foreach (var despesa in Model.Despesas)
                             {
-                                RenderLista(despesa, i, "danger", isCompacto, isDebug);
+                                RenderLista(despesa, i, "danger", isCompacto, isDebug, "Despesa");
 
                                 i++;
                             }
@@ -379,7 +379,7 @@
         }
     }
 
-    private void RenderLista(CategoriaApuradaModel categoria, int i, string subtleColor, bool isCompacto, bool isDebug)
+    private void RenderLista(CategoriaApuradaModel categoria, int i, string subtleColor, bool isCompacto, bool isDebug, string tipoFinanca)
     {
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -398,7 +398,7 @@
                 <div class="accordion-body">
                     @if (categoria.Financas.Count > 0)
                     {
-                        Render(categoria.Financas, i, isCompacto, isDebug);
+                        Render(categoria.Financas, i, isCompacto, isDebug, tipoFinanca);
                     }
                     else
                     {
@@ -412,7 +412,7 @@
         </div>
     }
 
-    private void Render(ICollection<FinancaPorCategoriaModel> financas, int i, bool isCompacto, bool isDebug)
+    private void Render(ICollection<FinancaPorCategoriaModel> financas, int i, bool isCompacto, bool isDebug, string tipoFinanca)
     {
         <div class="table-responsive">
             <table class="table table-striped mb-0">
@@ -431,9 +431,8 @@
                     <tr>
                         <td class="fixed">&nbsp;</td>
                         <td>
-                            <span class="badge text-bg-secondary">@(Model.Competencia.Value.ToString("MM/yyyy"))</span>
                             <a class="card-link text-decoration-none edicao" href="#">
-                                Nova
+                                Nova @tipoFinanca
                                 <i class="bi bi-plus-circle"></i>
                             </a>
                         </td>
@@ -450,7 +449,6 @@
         <tr>
             <td class="fixed">@Html.DisplayFor(model => financa.Data)</td>
             <td>
-                <span class="badge text-bg-secondary">@Html.DisplayFor(model => financa.Competencia)</span>
                 @if (isDebug)
                 {
 
@@ -461,9 +459,19 @@
                         @financa.Descricao
                         <i class="bi bi-pencil"></i>
                     </a>
+                    @if ((financa.Competencia.Year != financa.Data.Year) || (financa.Competencia.Month != financa.Data.Month))
+                    {
+                        <span class="badge text-bg-secondary">
+                            @Html.DisplayFor(model => financa.Competencia)
+                        </span>
+                    }
                     @if (financa.EhPrevisao)
                     {
                         <i class="bi bi-stars"></i>
+                    }
+                    @if (financa.TipoRegistroId != TipoRegistroEnum.Misto)
+                    {
+                        <i class="bi bi-credit-card"></i>
                     }
                     @if (financa.EhRecorrente)
                     {
