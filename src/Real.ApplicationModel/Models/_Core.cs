@@ -1,21 +1,11 @@
 ﻿namespace Real.Models;
 
-public enum FormaRegistroEnum
-{
-    Debito_,
-    Credito,
-    //CreditoAPagar,
-    //CreditoAReceber
-}
-
 public enum TipoLancamentoEnum
 {
     Financa,
-    Boleto,
     FinancaComum,
     PrevisaoIndeterminada,
-    PrevisaoInteligente,
-    PagamentoFatura
+    PrevisaoInteligente
 }
 
 [Flags]
@@ -31,8 +21,6 @@ public class ContaDataModel
     public Guid Id { get; set; }
 
     public required string Nome { get; set; }
-
-    public FormaRegistroEnum TipoContaId { get; set; }
 
     public int? Ordem { get; set; }
 

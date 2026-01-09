@@ -99,19 +99,79 @@
         </colgroup>
         <thead>
             <tr>
-                <th scope="col">Nome</th>
-                <th scope="col" class="text-end valor">Jan</th>
-                <th scope="col" class="text-end valor">Fev</th>
-                <th scope="col" class="text-end valor">Mar</th>
-                <th scope="col" class="text-end valor">Abr</th>
-                <th scope="col" class="text-end valor">Maio</th>
-                <th scope="col" class="text-end valor">Jun</th>
-                <th scope="col" class="text-end valor">Jul</th>
-                <th scope="col" class="text-end valor">Ago</th>
-                <th scope="col" class="text-end valor">Set</th>
-                <th scope="col" class="text-end valor">Out</th>
-                <th scope="col" class="text-end valor">Nov</th>
-                <th scope="col" class="text-end valor">Dez</th>
+                <th scope="col"></th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jan
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Fev
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Mar
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Abr
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Maio
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jun
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jul
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Ago
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Set
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Out
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Nov
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Dez
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
                 <th scope="col" class="text-end valor">Total</th>
             </tr>
         </thead>
@@ -169,7 +229,10 @@
                 <tr>
                     <th class="text-truncate" scope="row" style="max-width: 110px">
                         <i class="bi bi-@(receita.IconId)"></i>
-                        @receita.CategoriaNome
+                        <a class="text-decoration-none edicao" href="#">
+                            @receita.CategoriaNome
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
                     </th>
                     <td class="text-end">
                         @if (receita.ValorJaneiro != 0)
@@ -342,7 +405,10 @@
                 <tr>
                     <th class="text-truncate" scope="row" style="max-width: 110px">
                         <i class="bi bi-@(despesa.IconId)"></i>
-                        @despesa.CategoriaNome
+                        <a class="text-decoration-none edicao" href="#">
+                            @despesa.CategoriaNome
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
                     </th>
                     <td class="text-end">
                         @if (despesa.ValorJaneiro != 0)

@@ -23,7 +23,7 @@ public class PrevisaoInteligenteStepDefinitions
     [Given("que existe uma previsão indeterminada de R$ {float} da categoria {string}")]
     public void GivenQueExisteUmaPrevisaoIndeterminadaDeRDaCategoria(decimal valor, string categoriaNome)
     {
-        var previsao = new Financa
+        var previsao = new FinancaAVista
         {
             Id = Guid.NewGuid(),
             Descricao = "Previsão",

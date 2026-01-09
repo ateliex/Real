@@ -36,7 +36,7 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            select new Financa
+            select new FinancaAVista
             {
                 Id = Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),
@@ -61,7 +61,7 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            select new Financa
+            select new FinancaAVista
             {
                 Id = Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),
@@ -92,7 +92,7 @@ public class ApuracaoMensalPorCategoriaStepDefinitions
 
         var financas =
             from data in dataSet
-            select new Financa
+            select new FinancaAVista
             {
                 Id = Guid.NewGuid(),
                 Competencia = DateOnly.FromDateTime(data.Competencia),

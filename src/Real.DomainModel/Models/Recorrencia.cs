@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DomainModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Real.Models;
 
-public class Recorrencia
+public class Recorrencia : Entity
 {
     public Guid Id { get; set; }
 
     public TipoLancamentoEnum TipoLancamentoId { get; set; }
 
-    //public virtual Conta Conta { get; set; }
-
-    //public Guid? ContaId { get; set; }
+    public virtual DateOnly Competencia { get; set; }
 
     /// <summary>
-    /// Competência Inicial.
+    /// Data que vai ocorrer ou ocorreu o lançamento.
     /// </summary>
-    public DateOnly Competencia { get; set; }
-
-    /// <summary>
-    /// Data Inicial.
-    /// </summary>
-    public DateTime Data { get; set; }
+    public virtual DateTime Data { get; set; }
 
     public required string Descricao { get; set; }
 
@@ -32,18 +26,6 @@ public class Recorrencia
     /// Valor previsto ou realizado do lançamento.
     /// </summary>
     public virtual decimal Valor { get; set; }
-
-    public int Nivel { get; set; }
-
-    //public Lancamento? LancamentoPai { get; set; }
-
-    //public Guid? LancamentoPaiId { get; set; }
-
-    public int? Ordem { get; set; }
-
-    //
-
-    public FormaRegistroEnum FormaRegistroId { get; set; }
 
     //
 
@@ -53,16 +35,21 @@ public class Recorrencia
 
     public string? CategoriaId { get; set; }
 
-    //public bool EhPrevisao { get; set; }
-
     //
 
     public TipoRecorrenciaEnum TipoRecorrenciaId { get; set; }
 
     public int Quantidade { get; set; }
 
-    public virtual ICollection<Financa> Repeticoes { get; set; }
+    public virtual ICollection<FinancaAVista> Repeticoes { get; set; }
 }
+
+//public class Repeticao : Financa
+//{
+//    public Recorrencia? Recorrencia { get; set; }
+
+//    public Guid? RecorrenciaId { get; set; }
+//}
 
 //public class FinancaRecorr : Financa
 //{

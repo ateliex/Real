@@ -1,6 +1,6 @@
 ﻿namespace Real.Models;
 
-public class PrevisaoInteligente : Financa
+public class PrevisaoInteligente : FinancaAVista
 {
     public decimal ValorPrevisto { get; set; }
 
@@ -38,12 +38,6 @@ public class PrevisaoInteligente : Financa
     }
 
     public bool EstaForaPrevisto { get => !EstaDentroPrevisto; }
-
-    public PrevisaoInteligente()
-        : base(TipoRegistroEnum.Misto)
-    {
-
-    }
 }
 
 public class FinancasInteligentesProcuder
@@ -83,7 +77,7 @@ public class FinancasInteligentesProcuder
                     //Nivel = previsao.Nivel,
                     //Grupo = previsao.Grupo,
                     //GrupoId = previsao.GrupoId,
-                    Ordem = previsao.Ordem
+                    //Ordem = previsao.Ordem
                 }));
 
         var categoriasId = financasComunsPorCategoriaId.Select(x => x.Key);
@@ -111,7 +105,7 @@ public class FinancasInteligentesProcuder
                 //Nivel = previsao.Nivel,
                 //Grupo = previsao.Grupo,
                 //GrupoId = previsao.GrupoId,
-                Ordem = previsao.Ordem
+                //Ordem = previsao.Ordem
             }));
 
         //var valorApurado = financasComunsPorConta.Where(x => x.Categoria != null).Sum(x => x.Valor);

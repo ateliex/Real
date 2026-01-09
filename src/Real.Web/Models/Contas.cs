@@ -50,8 +50,6 @@ public class ContaApuradaModel
 
     public required string CategoriaNome { get; set; }
 
-    public FormaRegistroEnum? TipoContaId { get; set; }
-
     public int? Ordem { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:n}")]

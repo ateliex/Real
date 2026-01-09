@@ -141,8 +141,6 @@ public class ApuracaoConta : ValueObject
 
     public required string CategoriaId { get; set; }
 
-    public FormaRegistroEnum? TipoContaId { get; set; }
-
     public decimal Valor { get; set; }
 
     public ICollection<Financa> Lancamentos { get; set; }
@@ -151,7 +149,6 @@ public class ApuracaoConta : ValueObject
     {
         yield return Competencia;
         yield return CategoriaId;
-        yield return TipoContaId;
         yield return Valor;
     }
 }
