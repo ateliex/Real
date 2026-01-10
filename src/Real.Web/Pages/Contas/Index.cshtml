@@ -1,0 +1,950 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Contas";
+
+    var i = 0;
+
+    var isCompacto = false;
+
+    var isDebug = false;
+}
+
+@section Breadcrumb {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contas</li>
+        </ol>
+    </nav>
+}
+
+<form class="row row-cols-md-auto justify-content-md-center g-2 mb-3" method="get">
+    <div action="col-12">
+        <div class="input-group">
+            <label asp-for="Competencia" class="input-group-text"></label>
+            <input asp-for="Competencia" class="form-control" type="month" />
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Tabela" value="1" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Tabela ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="ModoVisualizacao_Tabela">Tabela</label>
+
+            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Lista" value="2" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="ModoVisualizacao_Lista">Lista</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Padrao" value="1" @(Model.Ordem == OrdemEnum.Padrao ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="Ordem_Padrao">Padrão</label>
+
+            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Decrescente" value="2" @(Model.Ordem == OrdemEnum.Decrescente ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="Ordem_Decrescente">Decrescente</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Competencia" value="1" @(Model.RegimeApuracao == RegimeApuracaoEnum.Competencia ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="RegimeApuracao_Competencia">Competência</label>
+
+            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Caixa" value="2" @(Model.RegimeApuracao == RegimeApuracaoEnum.Caixa ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="RegimeApuracao_Caixa">Caixa</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+            Buscar
+        </button>
+    </div>
+</form>
+
+<div class="row row-cols-1 row-cols-md-3 justify-content-md-center g-4 mb-4">
+    <form class="col d-flex align-items-start justify-content-evenly" method="get">
+        <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(-1).ToString("yyyy-MM")">
+            <i class="bi bi-arrow-left-circle"></i>
+            Anterior
+        </button>
+        <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(1).ToString("yyyy-MM")">
+            Próximo
+            <i class="bi bi-arrow-right-circle"></i>
+        </button>
+        <input type="hidden" name="__Invariant" value="Competencia" />
+        <input type="hidden" asp-for="ModoVisualizacao" />
+        <input type="hidden" asp-for="Ordem" />
+        <input type="hidden" asp-for="RegimeApuracao" />
+    </form>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Apuração
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    @Html.DisplayFor(model => Model.Apuracao.Competencia)
+                    <span class="badge @(Model.Apuracao.StatusId == StatusApuracaoEnum.Aberta ? "text-bg-warning" : "text-bg-success")"><i class="bi @(Model.Apuracao.StatusId == StatusApuracaoEnum.Aberta ? "bi-file-earmark-fill" : "bi-file-earmark-lock-fill")"></i></span>
+                </h5>
+                @if (Model.Apuracao.StatusId == StatusApuracaoEnum.Aberta)
+                {
+                    <p class="card-text">
+                        A apuração deste mês está <b>aberta</b>.
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text">
+                        A apuração deste mês está <b>fechada</b>.
+                    </p>
+                }
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold text-primary">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorCreditosAReceberTotal)
+                        </div>
+                    </div>
+                    <span class="text-primary">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorCreditosAReceberTotal)
+                    </span>
+                    &nbsp;(+)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold text-danger">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorCreditosAPagarTotal)
+                        </div>
+                    </div>
+                    <span class="text-danger">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorCreditosAPagarTotal)
+                    </span>
+                    &nbsp;(+)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start border-top">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorSaldoTotal)
+                        </div>
+                    </div>
+                    <span class="fw-bold text-@(Model.Apuracao.ValorSaldoTotal < 0 ? "danger" : "primary")">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorSaldoTotal)
+                    </span>
+                    &nbsp;(=)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold text-secondary">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorDebitosTotal)
+                        </div>
+                    </div>
+                    <span class="text-@(Model.Apuracao.ValorDebitosTotal < 0 ? "danger" : "primary")">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorDebitosTotal)
+                    </span>
+                    &nbsp;(+)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start border-top">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorSaldoComDebitosTotal)
+                        </div>
+                    </div>
+                    <span class="fw-bold text-@(Model.Apuracao.ValorSaldoComDebitosTotal < 0 ? "danger" : "primary")">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorSaldoComDebitosTotal)
+                    </span>
+                    &nbsp;(=)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold text-secondary">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorAcumuladoAnterior)
+                        </div>
+                    </div>
+                    <span class="text-@(Model.Apuracao.ValorAcumuladoAnterior < 0 ? "danger" : "primary")">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorAcumuladoAnterior)
+                    </span>
+                    &nbsp;(+)
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start border-top">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">
+                            @Html.DisplayNameFor(model => model.Apuracao.ValorAcumuladoTotal)
+                        </div>
+                    </div>
+                    <span class="fw-bold text-@(Model.Apuracao.ValorAcumuladoTotal < 0 ? "danger" : "primary")">
+                        @Html.DisplayFor(model => Model.Apuracao.ValorAcumuladoTotal)
+                    </span>
+                    &nbsp;(=)
+                </li>
+                @if (!string.IsNullOrEmpty(Model.Apuracao.Observacao))
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">
+                                @Html.DisplayNameFor(model => model.Apuracao.Observacao)
+                            </div>
+                            @Html.DisplayFor(model => model.Apuracao.Observacao)
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="card-body">
+                @if (Model.Apuracao.StatusId == StatusApuracaoEnum.Aberta)
+                {
+                    <a class="card-link text-decoration-none" asp-page="/Folhas/Fechar" asp-route-id="@Model.Apuracao.Id" target="_modal">
+                        Fechar
+                        <i class="bi bi-lock"></i>
+                    </a>
+                }
+                else
+                {
+                    <a class="card-link text-decoration-none" asp-page="/Folhas/Reabrir" asp-route-id="@Model.Apuracao.Id" target="_modal">
+                        Reabrir
+                        <i class="bi bi-unlock"></i>
+                    </a>
+                }
+                <a class="card-link text-decoration-none edicao" asp-page="/Folhas/Editar" asp-route-id="@Model.Apuracao.Id" target="_modal">
+                    Editar
+                    <i class="bi bi-pencil"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+@switch (Model.ModoVisualizacao)
+{
+    case ModoVisualizacaoEnum.Tabela:
+
+        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fw-bold text-primary">
+                        Créditos a Receber
+                    </div>
+                    <div class="card-body p-0">
+                        <form class="table-responsive text-nowrap" method="get">
+                            <table class="table table-striped table-borderless align-middle mb-1">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th class="text-end valor">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @foreach (var credito in Model.CreditosAReceber)
+                                    {
+                                        <tr>
+                                            <td class="text-overflow-ellipsis">
+                                                @* <span class="ordem text-end text-secondary">
+                                                    @i.ToString().
+                                                </span> *@
+                                                @* <i class="bi bi-receipt"></i> *@
+                                                @credito.ContaNome
+                                            </td>
+                                            <td class="text-end text-primary">@Html.DisplayFor(model => credito.Valor)</td>
+                                        </tr>
+
+                                        i++;
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fw-bold text-danger">
+                        Créditos a Pagar
+                    </div>
+                    <div class="card-body p-0">
+                        <form class="table-responsive text-nowrap" method="get">
+                            <table class="table table-striped table-borderless align-middle mb-1">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th class="text-end valor">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @foreach (var credito in Model.CreditosAPagar)
+                                    {
+                                        <tr>
+                                            <td class="text-overflow-ellipsis">
+                                                @* <span class="ordem text-end text-secondary">
+                                                    @i.ToString().
+                                                </span> *@
+                                                @* <i class="bi bi-receipt"></i> *@
+                                                @credito.ContaNome
+                                            </td>
+                                            <td class="text-end text-danger">@Html.DisplayFor(model => credito.Valor)</td>
+                                        </tr>
+
+                                        i++;
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header fw-bold">
+                        Débitos
+                    </div>
+                    <div class="card-body p-0">
+                        <form class="table-responsive text-nowrap" method="get">
+                            <table class="table table-striped table-borderless align-middle mb-1">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th class="text-end valor">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @foreach (var debito in Model.Debitos)
+                                    {
+                                        <tr>
+                                            <td class="text-overflow-ellipsis">
+                                                @* <span class="ordem text-end text-secondary">
+                                                    @i.ToString().
+                                                </span> *@
+                                                @* <i class="bi bi-receipt"></i> *@
+                                                @debito.ContaNome
+                                            </td>
+                                            <td class="text-end text-@(Model.Apuracao.ValorDebitosTotal < 0 ? "danger" : "primary")">@Html.DisplayFor(model => debito.Valor)</td>
+                                        </tr>
+
+                                        i++;
+                                    }
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        break;
+
+    case ModoVisualizacaoEnum.Lista:
+
+        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+            <div class="col">
+                <form class="text-nowrap" method="get">
+                    <div class="card">
+                        <div class="card-header fw-bold text-primary">
+                            Créditos a Receber
+                        </div>
+                        <div class="card-body border-bottom d-flex">
+                            <div class="card-text flex-grow-1"></div>
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" id="expandirTodosCreditosAReceber">
+                                    <i class="bi bi-arrows-expand"></i>
+                                    Expandir Todos
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="recolherTodosCreditosAReceber">
+                                    <i class="bi bi-arrows-collapse"></i>
+                                    Recolher Todos
+                                </button>
+                            </div>
+                        </div>
+                        <div class="accordion accordion-flush accordion-primary" id="creditosAReceberAccordion">
+                            @foreach (var credito in Model.CreditosAReceber)
+                            {
+                                RenderLista(credito, i, "primary", isCompacto, isDebug);
+
+                                i++;
+                            }
+                        </div>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <form class="text-nowrap" method="get">
+                    <div class="card">
+                        <div class="card-header fw-bold text-danger">
+                            Créditos a Pagar
+                        </div>
+                        <div class="card-body border-bottom d-flex">
+                            <div class="card-text flex-grow-1"></div>
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" id="expandirTodosCreditosAPagar">
+                                    <i class="bi bi-arrows-expand"></i>
+                                    Expandir Todos
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="recolherTodosCreditosAPagar">
+                                    <i class="bi bi-arrows-collapse"></i>
+                                    Recolher Todos
+                                </button>
+                            </div>
+                        </div>
+                        <div class="accordion accordion-flush accordion-danger" id="creditosAPagarAccordion">
+                            @foreach (var credito in Model.CreditosAPagar)
+                            {
+                                RenderLista(credito, i, "danger", isCompacto, isDebug);
+
+                                i++;
+                            }
+                        </div>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <form class="text-nowrap" method="get">
+                    <div class="card">
+                        <div class="card-header fw-bold">
+                            Débitos
+                        </div>
+                        <div class="card-body border-bottom d-flex">
+                            <div class="card-text flex-grow-1"></div>
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" id="expandirTodosDebitos">
+                                    <i class="bi bi-arrows-expand"></i>
+                                    Expandir Todos
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="recolherTodosDebitos">
+                                    <i class="bi bi-arrows-collapse"></i>
+                                    Recolher Todos
+                                </button>
+                            </div>
+                        </div>
+                        <div class="accordion accordion-flush accordion-@(Model.Apuracao.ValorDebitosTotal < 0 ? "danger" : "primary")" id="debitosAccordion">
+                            @foreach (var debito in Model.Debitos)
+                            {
+                                RenderLista(debito, i, (Model.Apuracao.ValorDebitosTotal < 0 ? "danger" : "primary"), isCompacto, isDebug);
+
+                                i++;
+                            }
+                        </div>
+                        <div class="card-footer">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        break;
+}
+
+@functions {
+    private void RenderTabela(ContaApuradaModel apuracaoConta, int i, string subtleColor)
+    {
+        @if (apuracaoConta.Lancamentos.Count > 0)
+        {
+            <tr>
+                <td colspan="2">
+                    <div class="accordion accordion-@($"{subtleColor}")">
+                        <div class="accordion-item border-@($"{subtleColor}")-subtle">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse@($"{i}")" aria-expanded="true" aria-controls="panelsStayOpen-collapse@($"{i}")">
+                                    Detalhes
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapse@($"{i}")" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    Render(apuracaoConta.Lancamentos, i);
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+        }
+    }
+
+    private void RenderLista(ContaApuradaModel apuracaoConta, int i, string subtleColor, bool isCompacto, bool isDebug)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse@($"{i}")" aria-expanded="false" aria-controls="panelsStayOpen-collapse@($"{i}")">
+                    <div class="flex-grow-1 text-overflow-ellipsis">
+                        @* <span class="ordem text-end text-secondary">
+                            @i.ToString().
+                        </span> *@
+                        @* <i class="bi bi-receipt"></i> *@
+                        @apuracaoConta.ContaNome
+                    </div>
+                    <div class="me-2 text-@($"{subtleColor}")">@Html.DisplayFor(model => apuracaoConta.Valor)</div>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapse@($"{i}")" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    @if (apuracaoConta.Lancamentos.Count > 0)
+                    {
+                        Render(apuracaoConta.Lancamentos, i, isCompacto, isDebug);
+                    }
+                    else
+                    {
+                        <div class="text-center">
+                            <i class="bi bi-emoji-frown"></i>
+                            <p>Nenhuma finança encontrada.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    private void Render(ICollection<LancamentoPorContaModel> lancamentos, int i, bool isCompacto, bool isDebug)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th class="dia fixed">Dia</th>
+                        <th>Descrição</th>
+                        <th class="text-end valor fixed">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var lancamentosNivel0 = lancamentos.Where(x => x.Nivel == 0);
+                    }
+                    @foreach (var lancamento in lancamentosNivel0)
+                    {
+                        <tr>
+                            <td class="fixed">@Html.DisplayFor(model => lancamento.Data)</td>
+                            <td>
+                                @if (!isCompacto)
+                                {
+                                    <a class="card-link text-decoration-none edicao" href="#">
+                                        @lancamento.Descricao
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    @if ((lancamento.Competencia.Year != lancamento.Data.Year) || (lancamento.Competencia.Month != lancamento.Data.Month))
+                                    {
+                                        <span class="badge text-bg-secondary">
+                                            @Html.DisplayFor(model => lancamento.Competencia)
+                                        </span>
+                                    }
+                                    @if (lancamento.EhPrevisao == true)
+                                    {
+                                        <i class="bi bi-stars"></i>
+                                    }
+                                    @if (lancamento.TipoRegistroId != TipoRegistroEnum.Misto)
+                                    {
+                                        <i class="bi bi-credit-card"></i>
+                                    }
+                                    @if (lancamento.EhRecorrente)
+                                    {
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    }
+                                    @if (lancamento.ValorOriginal != null)
+                                    {
+                                        <span class="badge text-bg-light">@Html.DisplayFor(model => lancamento.ValorOriginal)</span>
+                                    }
+                                }
+                                @if (lancamento.CategoriaNome != null)
+                                {
+                                    @if (lancamento.TipoFinancaId == TipoFinancaEnum.Receita)
+                                    {
+                                        <span class="badge float-end text-primary-emphasis  bg-primary-subtle border border-primary">
+                                            <i class="bi bi-@(lancamento.CategoriaBiIcon)"></i>
+                                            @lancamento.CategoriaNome
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge float-end text-danger-emphasis  bg-danger-subtle border border-danger">
+                                            <i class="bi bi-@(lancamento.CategoriaBiIcon)"></i>
+                                            @lancamento.CategoriaNome
+                                        </span>
+                                    }
+                                    @if (isDebug)
+                                    {
+
+                                    }
+                                }
+                            </td>
+                            @if (lancamento.EhPrevisao)
+                            {
+                                if (lancamento.TipoFinancaId == TipoFinancaEnum.Despesa)
+                                {
+                                    if (lancamento.ValorExcedente == null)
+                                    {
+                                        <td class="text-end fixed">
+                                            @Html.DisplayFor(model => lancamento.Valor)
+                                            <i class="bi bi-hourglass"></i>
+                                        </td>
+                                    }
+                                    else if (lancamento.ValorExcedente > 0)
+                                    {
+                                        <td class="text-end text-danger fw-bold fixed">
+                                            (+@Html.DisplayFor(model => lancamento.ValorExcedente))
+                                            <i class="bi bi-exclamation-circle"></i>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-end text-success fw-bold fixed">
+                                            (@Html.DisplayFor(model => lancamento.ValorExcedente))
+                                            <i class="bi bi-check-circle"></i>
+                                        </td>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <td class="text-end fixed">
+                                    @Html.DisplayFor(model => lancamento.Valor)
+                                    <i class="bi bi-dot"></i>
+                                </td>
+                            }
+                        </tr>
+                        @if (isCompacto)
+                        {
+                            <tr>
+                                <td colspan="3" class="text-overflow-ellipsis">
+                                    @lancamento.Descricao
+                                    @if (lancamento.EhPrevisao)
+                                    {
+                                        <i class="bi bi-stars"></i>
+                                    }
+                                    @if (lancamento.EhRecorrente)
+                                    {
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    }
+                                    @if (lancamento.ValorOriginal != null)
+                                    {
+                                        <span class="badge text-bg-light">@Html.DisplayFor(model => lancamento.ValorOriginal)</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (lancamento.CategoriaNome == null)
+                        {
+                            var lancamentosNivel1 = lancamentos.Where(x => x.LancamentoPaiId == lancamento.LancamentoId);
+                            <tr>
+                                <td colspan="3">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="data">Dia</th>
+                                                <th>Descrição</th>
+                                                <th class="text-end valor">Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var lancamentoNivel1 in lancamentosNivel1)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(model => lancamentoNivel1.Data)</td>
+                                                    <td>
+                                                        @if (lancamentoNivel1.CategoriaNome != null)
+                                                        {
+                                                            <span class="badge text-bg-secondary">
+                                                                <i class="bi bi-@(lancamentoNivel1.CategoriaBiIcon)"></i>
+                                                                @lancamentoNivel1.CategoriaNome
+                                                            </span>
+                                                        }
+                                                        @lancamentoNivel1.Descricao
+                                                    </td>
+                                                    <td class="text-end">@Html.DisplayFor(model => lancamentoNivel1.Valor)</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="fixed">&nbsp;</td>
+                        <td>
+                            <a class="card-link text-decoration-none edicao" href="#">
+                                Novo Lançamento
+                                <i class="bi bi-plus-circle"></i>
+                            </a>
+                        </td>
+                        <td class="fixed">&nbsp;</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+
+    private void Render(ICollection<LancamentoPorContaModel> lancamentos, int i, string subtleColor)
+    {
+        @if (lancamentos.Count > 0)
+        {
+            <tr>
+                <td class="px-1" colspan="5">
+                    <div class="accordion accordion-@($"{subtleColor}") mx-0">
+                        <div class="accordion-item border-@($"{subtleColor}")-subtle">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse@($"{i}")" aria-expanded="true" aria-controls="panelsStayOpen-collapse@($"{i}")">
+                                    Detalhes
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapse@($"{i}")" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="data">Dia</th>
+                                                <th>Descrição</th>
+                                                <th class="text-end valor">Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var lancamentosNivel0 = lancamentos.Where(x => x.Nivel == 0);
+                                            }
+                                            @foreach (var lancamento in lancamentosNivel0)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(model => lancamento.Data)</td>
+                                                    <td>
+                                                        @if (lancamento.CategoriaNome != null)
+                                                        {
+                                                            <span class="badge text-bg-secondary">@lancamento.CategoriaNome</span>
+                                                        }
+                                                        @lancamento.Descricao
+                                                        @if (lancamento.EhPrevisao)
+                                                        {
+                                                            <i class="bi bi-stars"></i>
+                                                        }
+                                                        @if (lancamento.ValorOriginal != null)
+                                                        {
+                                                            <span class="badge text-bg-light">@Html.DisplayFor(model => lancamento.ValorOriginal)</span>
+                                                        }
+                                                    </td>
+                                                    @if (lancamento.EhPrevisao)
+                                                    {
+                                                        if (lancamento.TipoFinancaId == TipoFinancaEnum.Despesa)
+                                                        {
+                                                            if (lancamento.ValorExcedente == null)
+                                                            {
+                                                                <td class="text-end">
+                                                                    @Html.DisplayFor(model => lancamento.Valor)
+                                                                    <i class="bi bi-hourglass"></i>
+                                                                </td>
+                                                            }
+                                                            else if (lancamento.ValorExcedente > 0)
+                                                            {
+                                                                <td class="text-end text-danger fw-bold">
+                                                                    (+@Html.DisplayFor(model => lancamento.ValorExcedente))
+                                                                    <i class="bi bi-exclamation-circle"></i>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="text-end text-success fw-bold">
+                                                                    (@Html.DisplayFor(model => lancamento.ValorExcedente))
+                                                                    <i class="bi bi-check-circle"></i>
+                                                                </td>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-end">
+                                                            @Html.DisplayFor(model => lancamento.Valor)
+                                                            <i class="bi bi-dot"></i>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                @if (lancamento.CategoriaNome == null)
+                                                {
+                                                    var lancamentosNivel1 = lancamentos.Where(x => x.LancamentoPaiId == lancamento.LancamentoId);
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <table class="table table-striped mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="data">Dia</th>
+                                                                        <th>Descrição</th>
+                                                                        <th class="text-end valor">Valor</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var lancamentoNivel1 in lancamentosNivel1)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@Html.DisplayFor(model => lancamentoNivel1.Data)</td>
+                                                                            <td>
+                                                                                @if (lancamentoNivel1.CategoriaNome != null)
+                                                                                {
+                                                                                    <span class="badge text-bg-secondary">@lancamentoNivel1.CategoriaNome</span>
+                                                                                }
+                                                                                @lancamentoNivel1.Descricao
+                                                                            </td>
+                                                                            <td class="text-end">@Html.DisplayFor(model => lancamentoNivel1.Valor)</td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+        }
+    }
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function(){
+            $('#expandirTodosCreditosAReceber').on('click', function(){
+                $('#creditosAReceberAccordion .collapse').collapse('show');
+            });
+
+            $('#recolherTodosCreditosAReceber').on('click', function(){
+                $('#creditosAReceberAccordion .collapse').collapse('hide');
+            });
+
+            $('#expandirTodosCreditosAPagar').on('click', function(){
+                $('#creditosAPagarAccordion .collapse').collapse('show');
+            });
+
+            $('#recolherTodosCreditosAPagar').on('click', function(){
+                $('#creditosAPagarAccordion .collapse').collapse('hide');
+            });
+
+            $('#expandirTodosDebitos').on('click', function(){
+                $('#debitosAccordion .collapse').collapse('show');
+            });
+
+            $('#recolherTodosDebitos').on('click', function(){
+                $('#debitosAccordion .collapse').collapse('hide');
+            });
+        });
+    </script>
+}
+
+@* <form class="table-responsive text-nowrap" method="get">
+    <table class="table table-striped align-middle mb-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th class="text-end valor">Total</th>
+                <th class="text-end valor">Diferença</th>
+                <th class="text-end valor">Previsto</th>
+                <th class="text-end valor">Apurado</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th>Acumulado</th>
+                <th class="text-end text-@(Model.ValorAcumuladoTotal < 0 ? "danger" : "primary")">@Html.DisplayFor(model => model.ValorAcumuladoTotal)</th>
+                <th class="text-end"></th>
+                <th class="text-end"></th>
+                <th class="text-end"></th>
+            </tr>
+            <tr>
+                <th>Saldo</th>
+                <th class="text-end text-@(Model.ValorSaldoTotal < 0 ? "danger" : "primary")">@Html.DisplayFor(model => model.ValorSaldoTotal)</th>
+                <th class="text-end"></th>
+                <th class="text-end"></th>
+                <th class="text-end"></th>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <th class="text-primary">Contas a Receber</th>
+                <th class="text-primary text-end">@Html.DisplayFor(model => model.ValorContasAReceberTotal)</th>
+                <th class="text-primary text-end">(@(Model.ValorDiferencaContasAReceberTotal > 0 ? "+" : "")@Html.DisplayFor(model => model.ValorDiferencaContasAReceberTotal))</ td ></th>
+                <th class="text-primary text-end">@Html.DisplayFor(model => model.ValorPrevistoContasAReceberTotal)</th>
+                <th class="text-primary text-end">@Html.DisplayFor(model => model.ValorApuradoContasAReceberTotal)</th>
+            </tr>
+            @foreach (var conta in Model.ContasAReceber)
+            {
+                i++;
+
+                <tr>
+                    <td>
+                        <i class="bi bi-receipt"></i>
+                        <img src="\img\request_quote_32dp_212529.png" class="img-thumbnail" width="32" height="32" />
+                        @conta.Nome
+                        <span class="badge text-bg-light">@Html.DisplayFor(model => conta.Pessoa)</span>
+                    </td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.Valor)</td>
+                    <td class="text-end">
+                        @if (conta.ValorDiferenca == null)
+                        {
+
+                        }
+                        else
+                        {
+                            @:(@(conta.ValorDiferenca > 0 ? "+" : "")@Html.DisplayFor(model => conta.ValorDiferenca))
+                        }
+                    </td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.ValorPrevisto)</td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.ValorApurado)</td>
+                </tr>
+                Render(conta.Financas, i, "primary");
+            }
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <th class="text-danger">Contas a Pagar</th>
+                <th class="text-danger text-end">@Html.DisplayFor(model => model.ValorContasAPagarTotal)</th>
+                <th class="text-danger text-end">(@(Model.ValorDiferencaContasAPagarTotal > 0 ? "+" : "")@Html.DisplayFor(model => model.ValorDiferencaContasAPagarTotal))</th>
+                <th class="text-danger text-end">@Html.DisplayFor(model => model.ValorPrevistoContasAPagarTotal)</th>
+                <th class="text-danger text-end">@Html.DisplayFor(model => model.ValorApuradoContasAPagarTotal)</th>
+            </tr>
+            @foreach (var conta in Model.ContasAPagar)
+            {
+                i++;
+
+                <tr>
+                    <td>
+                        <i class="bi bi-receipt"></i>
+                        <img src="\img\request_quote_32dp_212529.png" class="img-thumbnail" width="32" height="32" />
+                        @conta.Nome
+                        <span class="badge text-bg-light">@Html.DisplayFor(model => conta.Pessoa)</span>
+                    </td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.Valor)</td>
+                    <td class="text-end">
+                        @if (conta.ValorDiferenca == null)
+                        {
+
+                        }
+                        else
+                        {
+                            @:(@(conta.ValorDiferenca > 0 ? "+" : "")@Html.DisplayFor(model => conta.ValorDiferenca))
+                        }
+                    </td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.ValorPrevisto)</td>
+                    <td class="text-end">@Html.DisplayFor(model => conta.ValorApurado)</td>
+                </tr>
+                Render(conta.Financas, i, "danger");
+            }
+        </tbody>
+    </table>
+</form> *@

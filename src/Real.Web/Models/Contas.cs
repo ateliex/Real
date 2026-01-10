@@ -14,9 +14,13 @@ public class ApuracaoFinancasPorContaModel
     [DisplayName("Status")]
     public StatusApuracaoEnum? StatusId { get; set; }
 
-    [DisplayName("Créditos")]
+    [DisplayName("Créditos a Receber")]
     [DisplayFormat(DataFormatString = "{0:n}")]
-    public decimal ValorCreditosTotal { get; set; }
+    public decimal ValorCreditosAReceberTotal { get; set; }
+
+    [DisplayName("Créditos a Pagar")]
+    [DisplayFormat(DataFormatString = "{0:n}")]
+    public decimal ValorCreditosAPagarTotal { get; set; }
 
     [DisplayName("Saldo")]
     [DisplayFormat(DataFormatString = "{0:n}")]
@@ -46,16 +50,18 @@ public class ApuracaoFinancasPorContaModel
 
 public class ContaApuradaModel
 {
-    public required string CategoriaId { get; set; }
+    public required Guid ContaId { get; set; }
 
-    public required string CategoriaNome { get; set; }
+    public required string ContaNome { get; set; }
+
+    public TipoContaEnum? TipoContaId { get; set; }
 
     public int? Ordem { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:n}")]
     public decimal Valor { get; set; }
 
-    //public string? Pessoa { get; set; }
+    public string? Pessoa { get; set; }
 
     public ICollection<LancamentoPorContaModel> Lancamentos { get; set; } = new HashSet<LancamentoPorContaModel>();
 }
@@ -63,6 +69,8 @@ public class ContaApuradaModel
 public class LancamentoPorContaModel
 {
     public Guid LancamentoId { get; set; }
+
+    public TipoRegistroEnum TipoRegistroId { get; set; }
 
     public TipoFinancaEnum? TipoFinancaId { get; set; }
 

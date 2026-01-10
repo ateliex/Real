@@ -1,5 +1,12 @@
 ﻿namespace Real.Models;
 
+public enum TipoContaEnum
+{
+    CreditoAReceber,
+    CreditoAPagar,
+    Debito,
+}
+
 public enum TipoLancamentoEnum
 {
     Financa,
@@ -21,6 +28,8 @@ public class ContaDataModel
     public Guid Id { get; set; }
 
     public required string Nome { get; set; }
+
+    public TipoContaEnum TipoContaId { get; set; }
 
     public int? Ordem { get; set; }
 

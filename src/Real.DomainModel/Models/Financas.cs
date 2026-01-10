@@ -9,36 +9,8 @@ using System.Threading.Tasks;
 
 namespace Real.Models;
 
-public abstract class Financa : Entity
+public abstract class Financa : Lancamento
 {
-    public Guid Id { get; set; }
-
-    public TipoLancamentoEnum TipoLancamentoId { get; set; }
-
-    public TipoRegistroEnum TipoRegistroId { get; set; }
-
-    public virtual DateOnly Competencia { get; set; }
-
-    /// <summary>
-    /// Data que vai ocorrer ou ocorreu o lançamento.
-    /// </summary>
-    public virtual DateTime Data { get; set; }
-
-    public required string Descricao { get; set; }
-
-    /// <summary>
-    /// Valor previsto ou realizado do lançamento.
-    /// </summary>
-    public virtual decimal Valor { get; set; }
-
-    //
-
-    public string? TransacaoId { get; set; }
-
-    public string? Transacao { get; set; }
-
-    //
-
     public TipoFinancaEnum TipoFinancaId { get; set; }
 
     public Categoria Categoria { get; set; }
@@ -48,10 +20,9 @@ public abstract class Financa : Entity
     public bool EhPrevisao { get; set; }
 
     protected Financa(TipoRegistroEnum tipoRegistroId)
+        : base(tipoRegistroId)
     {
-        TipoLancamentoId = TipoLancamentoEnum.Financa;
 
-        TipoRegistroId = tipoRegistroId;
     }
 }
 

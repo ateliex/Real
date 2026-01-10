@@ -20,33 +20,33 @@ public class ContasSqliteService : ContasRepositoryInterface
         _db = db;
     }
 
-    //public async Task<ICollection<Conta>> ObtemContas()
-    //{
-    //    var contas = await _db.Contas
-    //        .ToListAsync();
+    public async Task<ICollection<Conta>> ObtemContas()
+    {
+        var contas = await _db.Contas
+            .ToListAsync();
 
-    //    return contas;
-    //}
+        return contas;
+    }
 
-    //public Task<Conta> ObtemConta(string nome)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public Task<Conta> ObtemConta(string nome)
+    {
+        throw new NotImplementedException();
+    }
 
-    //public Task<Conta> ObtemConta(Guid id)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public Task<Conta> ObtemConta(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 
-    //public Task<decimal> ObtemApuracao(Conta conta, DateOnly competencia)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public Task<decimal> ObtemApuracao(Conta conta, DateOnly competencia)
+    {
+        throw new NotImplementedException();
+    }
 
-    //public Task<Apuracao> ObtemApuracaoOrDefault(Conta conta, DateOnly competencia)
-    //{
-    //    throw new NotImplementedException();
-    //}
+    public Task<Apuracao> ObtemApuracaoOrDefault(Conta conta, DateOnly competencia)
+    {
+        throw new NotImplementedException();
+    }
 
     public Task<Financa> ObtemFinanca(Guid id)
     {
@@ -58,7 +58,7 @@ public class ContasSqliteService : ContasRepositoryInterface
         var query = _db.Financas
             .Include(x => x.Categoria)
             .Include(x => x.Categoria.Icon)
-            //.Include(x => x.Conta)
+            .Include(x => x.Conta)
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
 
         if (tipoRegistroId.HasFlag(TipoRegistroEnum.DeCompetencia))
@@ -84,7 +84,7 @@ public class ContasSqliteService : ContasRepositoryInterface
         var query = _db.Financas
             .Include(x => x.Categoria)
             .Include(x => x.Categoria.Icon)
-            //.Include(x => x.Conta)
+            .Include(x => x.Conta)
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
 
         if (tipoRegistroId.HasFlag(TipoRegistroEnum.DeCompetencia))
@@ -225,12 +225,12 @@ public class ContasSqliteService : ContasRepositoryInterface
         return valorAcumulado;
     }
 
-    public async Task<ICollection<Financa>> ConsultaLancamentosEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId)
+    public async Task<ICollection<Lancamento>> ConsultaLancamentosEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId)
     {
-        var query = _db.Financas
+        var query = _db.Lancamentos
             .Include(x => ((Financa)x).Categoria)
             .Include(x => ((Financa)x).Categoria.Icon)
-            //.Include(x => x.Conta)
+            .Include(x => x.Conta)
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
 
         if (tipoRegistroId.HasFlag(TipoRegistroEnum.DeCompetencia))
@@ -253,7 +253,7 @@ public class ContasSqliteService : ContasRepositoryInterface
 
     public async Task<decimal> ObtemValorTotalEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId)
     {
-        var query = _db.Financas
+        var query = _db.Lancamentos
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
 
         if (tipoRegistroId.HasFlag(TipoRegistroEnum.DeCompetencia))
@@ -276,7 +276,7 @@ public class ContasSqliteService : ContasRepositoryInterface
 
     public async Task<decimal> ObtemValorAcumuladoEmContas(DateOnly competencia, TipoRegistroEnum tipoRegistroId)
     {
-        var query = _db.Financas
+        var query = _db.Lancamentos
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
             //.Where(x => false
             //    || x.Data.Year < competencia.Year
@@ -322,12 +322,12 @@ public class ContasSqliteService : ContasRepositoryInterface
         return valorAcumulado;
     }
 
-    public async Task<ICollection<Financa>> ConsultaLancamentosEmCaixa(DateOnly competencia)
+    public async Task<ICollection<Lancamento>> ConsultaLancamentosEmCaixa(DateOnly competencia)
     {
-        var lancamentos = await _db.Financas
+        var lancamentos = await _db.Lancamentos
             .Include(x => ((Financa)x).Categoria)
             .Include(x => ((Financa)x).Categoria.Icon)
-            //.Include(x => x.Conta)
+            .Include(x => x.Conta)
             .Where(x => x.Data.Year == competencia.Year)
             .Where(x => x.Data.Month == competencia.Month)
             .ToListAsync();
@@ -337,7 +337,7 @@ public class ContasSqliteService : ContasRepositoryInterface
 
     public async Task<decimal> ObtemValorTotalEmCaixa(DateOnly competencia)
     {
-        var valorTotal = await _db.Financas
+        var valorTotal = await _db.Lancamentos
             .Where(x => x.Data.Year == competencia.Year)
             .Where(x => x.Data.Month == competencia.Month)
             .SumAsync(x => x.Valor);
@@ -347,7 +347,7 @@ public class ContasSqliteService : ContasRepositoryInterface
 
     public async Task<decimal> ObtemValorAcumuladoEmCaixa(DateOnly competencia)
     {
-        var valorAcumulado = await _db.Financas
+        var valorAcumulado = await _db.Lancamentos
             .Where(x => false
                 || x.Data.Year < competencia.Year
                 || (true
@@ -368,7 +368,22 @@ public class ContasSqliteService : ContasRepositoryInterface
         throw new NotImplementedException();
     }
 
+    public Task Adiciona(Conta conta)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task Adiciona(Apuracao apuracao)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Adiciona(Lancamento lancamento)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Atualiza(Conta conta)
     {
         throw new NotImplementedException();
     }

@@ -21,4 +21,544 @@
     </nav>
 }
 
-<p>Bem-vindo</p>
+<form class="row row-cols-md-auto justify-content-md-center g-2 mb-3" method="get">
+    <div action="col-12">
+        <div class="input-group">
+            <label asp-for="Ano" class="input-group-text"></label>
+            <input asp-for="Ano" class="form-control" type="number" />
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Tabela" value="1" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Tabela ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="ModoVisualizacao_Tabela">Tabela</label>
+
+            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Lista" value="2" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="ModoVisualizacao_Lista">Lista</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Padrao" value="1" @(Model.Ordem == OrdemEnum.Padrao ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="Ordem_Padrao">Padrão</label>
+
+            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Decrescente" value="2" @(Model.Ordem == OrdemEnum.Decrescente ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="Ordem_Decrescente">Decrescente</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Competencia" value="1" @(Model.RegimeApuracao == RegimeApuracaoEnum.Competencia ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="RegimeApuracao_Competencia">Competência</label>
+
+            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Caixa" value="2" @(Model.RegimeApuracao == RegimeApuracaoEnum.Caixa ? "checked" : "") autocomplete="off">
+            <label class="btn btn-outline-primary" for="RegimeApuracao_Caixa">Caixa</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+            Buscar
+        </button>
+    </div>
+</form>
+
+<form class="d-flex align-items-start justify-content-evenly" method="get">
+    <button type="submit" class="btn btn-secondary" name="Ano" value="@(Model.Ano.Value - 1)">
+        <i class="bi bi-arrow-left-circle"></i>
+        Anterior
+    </button>
+    <button type="submit" class="btn btn-secondary" name="Ano" value="@(Model.Ano.Value + 1)">
+        Próximo
+        <i class="bi bi-arrow-right-circle"></i>
+    </button>
+    <input type="hidden" name="__Invariant" value="Ano" />
+    <input type="hidden" asp-for="ModoVisualizacao" />
+    <input type="hidden" asp-for="Ordem" />
+    <input type="hidden" asp-for="RegimeApuracao" />
+</form>
+
+<form class="table-responsive text-nowrap" method="get">
+    <table class="table table-striped align-middle mb-3">
+        <colgroup>
+            <col style="width: 110px" />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jan
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Fev
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Mar
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Abr
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Maio
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jun
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Jul
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Ago
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Set
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Out
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Nov
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">
+                    <a class="text-decoration-none edicao" href="#">
+                        Dez
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </th>
+                <th scope="col" class="text-end valor">Total</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <th scope="row" class="text-secondary">Acumulado</th>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoJaneiro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoJaneiro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoJaneiro)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoFevereiro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoFevereiro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoFevereiro)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoMarco < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoMarco < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoMarco)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoAbril < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoAbril < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoAbril)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoMaio < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoMaio < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoMaio)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoJunho < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoJunho < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoJunho)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoJulho < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoJulho < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoJulho)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoAgosto < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoAgosto < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoAgosto)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoSetembro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoSetembro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoSetembro)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoOutubro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoOutubro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoOutubro)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoNovembro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoNovembro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoNovembro)</span></td>
+                <td class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAcumuladoDezembro < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAcumuladoDezembro < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAcumuladoDezembro)</span></td>
+                <th scope="row" class="text-end"><span class="badge text-bg-@(Model.Apuracao.ValorTotal < 0 ? "danger" : "primary")">@Html.DisplayFor(model => model.Apuracao.ValorTotal)</span></th>
+            </tr>
+            <tr>
+                <th scope="row">Saldo</th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorJaneiroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorJaneiroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJaneiroSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorFevereiroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorFevereiroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorFevereiroSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorMarcoSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorMarcoSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMarcoSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAbrilSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAbrilSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAbrilSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorMaioSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorMaioSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMaioSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorJunhoSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorJunhoSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJunhoSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorJulhoSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorJulhoSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJulhoSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorAgostoSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorAgostoSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAgostoSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorSetembroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorSetembroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorSetembroSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorOutubroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorOutubroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorOutubroSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorNovembroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorNovembroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorNovembroSaldoTotal)</span></th>
+                <th class="text-end"><span class="badge bg-@(Model.Apuracao.ValorDezembroSaldoTotal < 0 ? "danger" : "primary")-subtle text-@(Model.Apuracao.ValorDezembroSaldoTotal < 0 ? "danger" : "primary")-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorDezembroSaldoTotal)</span></th>
+                <th scope="row" class="text-end"><span class="badge text-bg-@(Model.Apuracao.ValorSaldoTotal < 0 ? "danger" : "primary")">@Html.DisplayFor(model => model.Apuracao.ValorSaldoTotal)</span></th>
+            </tr>
+            <tr>
+                <th scope="row" class="text-primary">Receitas</th>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJaneiroReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorFevereiroReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMarcoReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAbrilReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMaioReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJunhoReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJulhoReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAgostoReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorSetembroReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorOutubroReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorNovembroReceitasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-primary-subtle text-primary-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorDezembroReceitasTotal)</span></td>
+                <th scope="row" class="text-end"><span class="badge text-bg-primary">@Html.DisplayFor(model => model.Apuracao.ValorReceitasTotal)</span></th>
+            </tr>
+            @foreach (var receita in Model.Receitas)
+            {
+                <tr>
+                    <th class="text-truncate" scope="row" style="max-width: 110px">
+                        <i class="bi bi-@(receita.IconId)"></i>
+                        <a class="text-decoration-none edicao" href="#">
+                            @receita.CategoriaNome
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </th>
+                    <td class="text-end">
+                        @if (receita.ValorJaneiro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorJaneiro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorFevereiro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorFevereiro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorMarco != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorMarco)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorAbril != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorAbril)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorMaio != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorMaio)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorJunho != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorJunho)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorJulho != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorJulho)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorAgosto != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorAgosto)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorSetembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorSetembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorOutubro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorOutubro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorNovembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorNovembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (receita.ValorDezembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorDezembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <th scope="row" class="text-end"><span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorTotal)</span></th>
+                </tr>
+                if (Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista)
+                {
+                    i = 1;
+
+                    @foreach (var financa in receita.Financas)
+                    {
+                        <tr class="fst-italic">
+                            <td class="pe-0" title="@financa.Descricao">
+                                <i class="bi bi-@(receita.IconId)"></i>
+                                @receita.CategoriaNome #@($"{i++}")
+                            </td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorJaneiro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorFevereiro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorMarco)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorAbril)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorMaio)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorJunho)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorJulho)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorJulho)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorAgosto)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorSetembro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorOutubro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => receita.ValorDezembro)</span></td>
+                            <th scope="row" class="text-end"><span class="badge text-bg-light">@Html.DisplayFor(model => receita.ValorNovembro)</span></th>
+                        </tr>
+                    }
+                }
+            }
+            <tr>
+                <th scope="row" class="text-danger">Despesas</th>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJaneiroDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorFevereiroDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMarcoDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAbrilDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorMaioDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJunhoDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorJulhoDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorAgostoDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorSetembroDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorOutubroDespesasTotal)</span></td>
+                <td class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorNovembroDespesasTotal)</span></td>
+                <th scope="row" class="text-end"><span class="badge bg-danger-subtle text-danger-emphasis">@Html.DisplayFor(model => model.Apuracao.ValorDezembroDespesasTotal)</span></th>
+                <td class="text-end"><span class="badge text-bg-danger">@Html.DisplayFor(model => model.Apuracao.ValorDespesasTotal)</span></td>
+            </tr>
+            @foreach (var despesa in Model.Despesas)
+            {
+                <tr>
+                    <th class="text-truncate" scope="row" style="max-width: 110px">
+                        <i class="bi bi-@(despesa.IconId)"></i>
+                        <a class="text-decoration-none edicao" href="#">
+                            @despesa.CategoriaNome
+                            <i class="bi bi-link-45deg"></i>
+                        </a>
+                    </th>
+                    <td class="text-end">
+                        @if (despesa.ValorJaneiro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorJaneiro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorFevereiro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorFevereiro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorMarco != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorMarco)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorAbril != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorAbril)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorMaio != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorMaio)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorJunho != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorJunho)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorJulho != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorJulho)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorAgosto != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorAgosto)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorSetembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorSetembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorOutubro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorOutubro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorNovembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorNovembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        @if (despesa.ValorDezembro != 0)
+                        {
+                            <span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorDezembro)</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <th scope="row" class="text-end"><span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorTotal)</span></th>
+                </tr>
+                if (Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista)
+                {
+                    i = 1;
+
+                    @foreach (var financa in despesa.Financas)
+                    {
+                        <tr class="fst-italic">
+                            <td class="pe-0" title="@financa.Descricao">
+                                <i class="bi bi-@(despesa.IconId)"></i>
+                                @despesa.CategoriaNome #@($"{i++}")
+                            </td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorJaneiro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorFevereiro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorMarco)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorAbril)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorMaio)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorJunho)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorJulho)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorAgosto)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorSetembro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorOutubro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorNovembro)</span></td>
+                            <td class="text-end"><span class="badge text-bg-light fw-normal">@Html.DisplayFor(model => despesa.ValorDezembro)</span></td>
+                            <th scope="row" class="text-end"><span class="badge text-bg-light">@Html.DisplayFor(model => despesa.ValorTotal)</span></th>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</form>

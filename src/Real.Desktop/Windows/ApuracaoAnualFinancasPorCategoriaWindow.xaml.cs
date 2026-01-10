@@ -322,7 +322,8 @@ public partial class ApuracaoAnualFinancasPorCategoriaWindow : Window
                     {
                         FinancaId = x.Id,
                         TipoFinancaId = x.TipoFinancaId,
-                        //ContaTipoId = x.FormaRegistroId,
+                        ContaTipoId = x.Conta.TipoContaId,
+                        ContaNome = x.Conta.Nome,
                         Competencia = x.Competencia,
                         Data = x.Data,
                         Descricao = x.Descricao,

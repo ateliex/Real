@@ -13,6 +13,10 @@ public class Recorrencia : Entity
 
     public TipoLancamentoEnum TipoLancamentoId { get; set; }
 
+    public virtual Conta Conta { get; set; }
+
+    public Guid? ContaId { get; set; }
+
     public virtual DateOnly Competencia { get; set; }
 
     /// <summary>

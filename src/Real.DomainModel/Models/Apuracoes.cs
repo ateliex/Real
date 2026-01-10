@@ -105,11 +105,15 @@ public class ApuracaoContas : ValueObject
 
     public decimal Valor { get; set; }
 
-    public required ICollection<ApuracaoConta> Creditos { get; set; }
+    public required ICollection<ApuracaoConta> CreditosAReceber { get; set; }
+
+    public required ICollection<ApuracaoConta> CreditosAPagar { get; set; }
 
     public required ICollection<ApuracaoConta> Debitos { get; set; }
 
-    public decimal ValorCreditos { get; set; }
+    public decimal ValorCreditosAReceber { get; set; }
+
+    public decimal ValorCreditosAPagar { get; set; }
 
     public decimal ValorSaldo { get; set; }
 
@@ -124,7 +128,8 @@ public class ApuracaoContas : ValueObject
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Competencia;
-        yield return ValorCreditos;
+        yield return ValorCreditosAReceber;
+        yield return ValorCreditosAPagar;
         yield return ValorSaldo;
         yield return ValorDebitos;
         yield return ValorSaldoComDebitos;
@@ -137,18 +142,18 @@ public class ApuracaoConta : ValueObject
 {
     public DateOnly Competencia { get; set; }
 
-    public required Categoria Categoria { get; set; }
+    public required Conta Conta { get; set; }
 
-    public required string CategoriaId { get; set; }
+    public Guid ContaId { get; set; }
 
     public decimal Valor { get; set; }
 
-    public ICollection<Financa> Lancamentos { get; set; }
+    public ICollection<Lancamento> Lancamentos { get; set; }
 
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return Competencia;
-        yield return CategoriaId;
+        yield return ContaId;
         yield return Valor;
     }
 }
@@ -359,170 +364,175 @@ public class ApuracaoService
         return apuracaoCategoriaList;
     }
 
-    //public async Task<ApuracaoContas> ApurarContasPorCompetencia(DateOnly competencia, RegimeApuracaoEnum regimeApuracaoId)
-    //{
-    //    var tipoRegistroId = regimeApuracaoId switch
-    //    {
-    //        RegimeApuracaoEnum.Competencia => TipoRegistroEnum.DeCompetencia,
-    //        RegimeApuracaoEnum.Caixa => TipoRegistroEnum.DeCaixa,
-    //        _ => throw new NotImplementedException()
-    //    };
-
-    //    var lancamentos = await _contasRepository.ConsultaLancamentosEmContas(competencia, tipoRegistroId);
-
-    //    //var financasComunsPorConta = financasPorConta.Where(x => !x.EhPrevisaoInteligente);
-
-    //    //var financasAPrazoList = new List<FinancaPorContaModel>(financasComunsPorConta.Select(x => new FinancaPorContaModel
-    //    //{
-    //    //    Id = x.Id,
-    //    //    CategoriaNome = x.Categoria?.Nome,
-    //    //    Data = x.Data,
-    //    //    Descricao = x.Descricao,
-    //    //    Valor = x.Valor,
-    //    //    ValorOriginal = null,
-    //    //    EhPrevisaoInteligente = x.EhPrevisaoInteligente,
-    //    //    TipoId = x.TipoId,
-    //    //    Nivel = x.Nivel,
-    //    //    FinancaPaiId = x.FinancaPaiId
-    //    //}));
-
-    //    //var financasInteligentesPorConta = financasPorConta.Where(x => x.EhPrevisaoInteligente);
-
-    //    //var grupoFinancasComunsPorConta = financasComunsPorConta
-    //    //    .GroupBy(x => new { x.CategoriaId });
-
-    //    //financasAPrazoList.AddRange(financasInteligentesPorConta
-    //    //    .Join(grupoFinancasComunsPorConta,
-    //    //        x => x.CategoriaId,
-    //    //        g => g.Key.CategoriaId,
-    //    //        (x, g) => new FinancaPorContaModel
-    //    //        {
-    //    //            Id = x.Id,
-    //    //            CategoriaNome = x.Categoria?.Nome,
-    //    //            Data = x.Data.AddMonths(1).AddDays(-1),
-    //    //            Descricao = x.Descricao,
-    //    //            Valor = x.Valor - g.Sum(x => x.Valor),
-    //    //            ValorOriginal = x.Valor,
-    //    //            EhPrevisaoInteligente = x.EhPrevisaoInteligente,
-    //    //            TipoId = x.TipoId,
-    //    //            Nivel = x.Nivel,
-    //    //            FinancaPaiId = x.FinancaPaiId
-    //    //        }));
-
-    //    //var valorApurado = financasComunsPorConta.Where(x => x.Categoria != null).Sum(x => x.Valor);
-
-    //    //valorApurado += financasAPrazoList.Where(x => x.CategoriaNome != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor) ?? 0;
-
-
-
-
-    //    //valorApurado += financasPorConta.Where(x => x.CategoriaId != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor);
-
-
-
-
-    //    //var financasTratadas = await _financasInteligentesProcuder.DerivaFinancasDe(financas);
-
-
-    //    var categorias = await _categoriasRepository.ObtemCategorias();
-
-    //    //
-
-    //    var creditos = ApurarContasPorCompetencia(lancamentos, categorias, FormaRegistroEnum.Credito);
-
-    //    var debitos = ApurarContasPorCompetencia(lancamentos, categorias, FormaRegistroEnum.Debito_);
-
-    //    //
-
-    //    var valorCreditos = creditos.Sum(x => x.Valor);
-
-    //    var valorSaldo = valorCreditos;
-
-    //    var valorDebitos = debitos.Sum(x => x.Valor);
-
-    //    var valorSaldoComDebitos = valorSaldo + valorDebitos;
-
-    //    //var valorAcumuladoAPrazoTotal = await _db.Lancamentos
-    //    //    .Where(x => x.ContaId != null)
-    //    //    //.Where(x => x.Conta.Data.Year <= ano)
-    //    //    //.Where(x => x.Conta.Data.Month < mes)
-    //    //    .SumAsync(x => x.Valor);
-
-    //    //var valorAcumuladoAVista = await _db.Lancamentos
-    //    //    .Where(x => x.ContaId == null)
-    //    //    .Where(x => x.Data.Year <= apuracaoContas.Competencia.Year)
-    //    //    .Where(x => x.Data.Month < apuracaoContas.Competencia.Month)
-    //    //    .SumAsync(x => x.Valor);
-
-    //    //var valorAcumuladoTotal = valorAcumuladoAPrazoTotal + valorAcumuladoAVista + valorSaldoTotal;
-
-    //    var valorAcumuladoAnterior = await _contasRepository.ObtemValorAcumuladoEmContas(competencia, tipoRegistroId);
-
-    //    var valorAcumulado = valorAcumuladoAnterior + valorSaldo;
-
-    //    //
-
-    //    var apuracaoContas = new ApuracaoContas
-    //    {
-    //        Competencia = competencia,
-    //        Creditos = creditos,
-    //        Debitos = debitos,
-    //        ValorAcumuladoAnterior = valorAcumuladoAnterior,
-    //        ValorAcumulado = valorAcumulado,
-    //        ValorSaldo = valorSaldo,
-    //        ValorDebitos = valorDebitos,
-    //        ValorSaldoComDebitos = valorSaldoComDebitos,
-    //        ValorCreditos = valorCreditos,
-    //    };
-
-    //    //var apuracaoContas = new ApuracaoContas
-    //    //{
-    //    //    Competencia = competencia,
-    //    //    Valor = apuracaoContaList.Sum(x => x.Valor),
-    //    //    Contas = apuracaoContaList
-    //    //};
-
-    //    return apuracaoContas;
-    //}
-
-    //private static ICollection<ApuracaoConta> ApurarContasPorCompetencia(
-    //    IEnumerable<Financa> lancamentos,
-    //    IEnumerable<Categoria> categorias,
-    //    FormaRegistroEnum tipoContaId)
-    //{
-    //    var apuracaoContaList = new List<ApuracaoConta>();
-
-    //    foreach (var categoria in categorias)
-    //    {
-    //        var lancamentosPorConta = lancamentos
-    //        .Where(x => x.FormaRegistroId == tipoContaId)
-    //        .Where(x => x.CategoriaId == categoria.Id);
-
-    //        var valorApurado = lancamentosPorConta.Sum(x => x.Valor); //.Where(x => x.Categoria != null)
-
-    //        //valorApurado += financasPorConta.Where(x => x.CategoriaId != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor);
-
-    //        if (valorApurado != 0)
-    //        {
-    //            var apuracaoConta = new ApuracaoConta
-    //            {
-    //                Categoria = categoria,
-    //                CategoriaId = categoria.Id,
-    //                TipoContaId = tipoContaId,
-    //                Valor = valorApurado,
-    //                Lancamentos = lancamentosPorConta.ToList()
-    //            };
-
-    //            apuracaoContaList.Add(apuracaoConta);
-    //        }
-    //    }
-
-    //    return apuracaoContaList;
-    //}
-
-    public async Task<ICollection<Financa>> ConsultaLancamentosADebito(DateOnly competencia)
+    public async Task<ApuracaoContas> ApurarContasPorCompetencia(DateOnly competencia, RegimeApuracaoEnum regimeApuracaoId)
     {
-        IEnumerable<Financa> lancamentos = await _contasRepository.ConsultaLancamentosEmCaixa(competencia);
+        var tipoRegistroId = regimeApuracaoId switch
+        {
+            RegimeApuracaoEnum.Competencia => TipoRegistroEnum.DeCompetencia,
+            RegimeApuracaoEnum.Caixa => TipoRegistroEnum.DeCaixa,
+            _ => throw new NotImplementedException()
+        };
+
+        var lancamentos = await _contasRepository.ConsultaLancamentosEmContas(competencia, tipoRegistroId);
+
+        //var financasComunsPorConta = financasPorConta.Where(x => !x.EhPrevisaoInteligente);
+
+        //var financasAPrazoList = new List<FinancaPorContaModel>(financasComunsPorConta.Select(x => new FinancaPorContaModel
+        //{
+        //    Id = x.Id,
+        //    CategoriaNome = x.Categoria?.Nome,
+        //    Data = x.Data,
+        //    Descricao = x.Descricao,
+        //    Valor = x.Valor,
+        //    ValorOriginal = null,
+        //    EhPrevisaoInteligente = x.EhPrevisaoInteligente,
+        //    TipoId = x.TipoId,
+        //    Nivel = x.Nivel,
+        //    FinancaPaiId = x.FinancaPaiId
+        //}));
+
+        //var financasInteligentesPorConta = financasPorConta.Where(x => x.EhPrevisaoInteligente);
+
+        //var grupoFinancasComunsPorConta = financasComunsPorConta
+        //    .GroupBy(x => new { x.CategoriaId });
+
+        //financasAPrazoList.AddRange(financasInteligentesPorConta
+        //    .Join(grupoFinancasComunsPorConta,
+        //        x => x.CategoriaId,
+        //        g => g.Key.CategoriaId,
+        //        (x, g) => new FinancaPorContaModel
+        //        {
+        //            Id = x.Id,
+        //            CategoriaNome = x.Categoria?.Nome,
+        //            Data = x.Data.AddMonths(1).AddDays(-1),
+        //            Descricao = x.Descricao,
+        //            Valor = x.Valor - g.Sum(x => x.Valor),
+        //            ValorOriginal = x.Valor,
+        //            EhPrevisaoInteligente = x.EhPrevisaoInteligente,
+        //            TipoId = x.TipoId,
+        //            Nivel = x.Nivel,
+        //            FinancaPaiId = x.FinancaPaiId
+        //        }));
+
+        //var valorApurado = financasComunsPorConta.Where(x => x.Categoria != null).Sum(x => x.Valor);
+
+        //valorApurado += financasAPrazoList.Where(x => x.CategoriaNome != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor) ?? 0;
+
+
+
+
+        //valorApurado += financasPorConta.Where(x => x.CategoriaId != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor);
+
+
+
+
+        //var financasTratadas = await _financasInteligentesProcuder.DerivaFinancasDe(financas);
+
+
+        var contas = await _contasRepository.ObtemContas();
+
+        //
+
+        var creditosAReceber = ApurarContasPorCompetencia(lancamentos, contas, TipoContaEnum.CreditoAReceber);
+
+        var creditosAPagar = ApurarContasPorCompetencia(lancamentos, contas, TipoContaEnum.CreditoAPagar);
+
+        var debitos = ApurarContasPorCompetencia(lancamentos, contas, TipoContaEnum.Debito);
+
+        //
+
+        var valorCreditosAReceber = creditosAReceber.Sum(x => x.Valor);
+
+        var valorCreditosAPagar = creditosAPagar.Sum(x => x.Valor);
+
+        var valorSaldo = valorCreditosAReceber + valorCreditosAPagar;
+
+        var valorDebitos = debitos.Sum(x => x.Valor);
+
+        var valorSaldoComDebitos = valorSaldo + valorDebitos;
+
+        //var valorAcumuladoAPrazoTotal = await _db.Lancamentos
+        //    .Where(x => x.ContaId != null)
+        //    //.Where(x => x.Conta.Data.Year <= ano)
+        //    //.Where(x => x.Conta.Data.Month < mes)
+        //    .SumAsync(x => x.Valor);
+
+        //var valorAcumuladoAVista = await _db.Lancamentos
+        //    .Where(x => x.ContaId == null)
+        //    .Where(x => x.Data.Year <= apuracaoContas.Competencia.Year)
+        //    .Where(x => x.Data.Month < apuracaoContas.Competencia.Month)
+        //    .SumAsync(x => x.Valor);
+
+        //var valorAcumuladoTotal = valorAcumuladoAPrazoTotal + valorAcumuladoAVista + valorSaldoTotal;
+
+        var valorAcumuladoAnterior = await _contasRepository.ObtemValorAcumuladoEmContas(competencia, tipoRegistroId);
+
+        var valorAcumulado = valorAcumuladoAnterior + valorSaldo;
+
+        //
+
+        var apuracaoContas = new ApuracaoContas
+        {
+            Competencia = competencia,
+            CreditosAReceber = creditosAReceber,
+            CreditosAPagar = creditosAPagar,
+            Debitos = debitos,
+            ValorAcumuladoAnterior = valorAcumuladoAnterior,
+            ValorAcumulado = valorAcumulado,
+            ValorSaldo = valorSaldo,
+            ValorDebitos = valorDebitos,
+            ValorSaldoComDebitos = valorSaldoComDebitos,
+            ValorCreditosAReceber = valorCreditosAReceber,
+            ValorCreditosAPagar = valorCreditosAPagar,
+        };
+
+        //var apuracaoContas = new ApuracaoContas
+        //{
+        //    Competencia = competencia,
+        //    Valor = apuracaoContaList.Sum(x => x.Valor),
+        //    Contas = apuracaoContaList
+        //};
+
+        return apuracaoContas;
+    }
+
+    private static ICollection<ApuracaoConta> ApurarContasPorCompetencia(
+        IEnumerable<Lancamento> lancamentos,
+        IEnumerable<Conta> contas,
+        TipoContaEnum tipoContaId)
+    {
+        var apuracaoContaList = new List<ApuracaoConta>();
+
+        foreach (var conta in contas)
+        {
+            if (conta.TipoContaId == tipoContaId)
+            {
+                var lancamentosPorConta = lancamentos
+                    .Where(x => x.Conta.TipoContaId == tipoContaId)
+                    .Where(x => x.ContaId == conta.Id);
+
+                var valorApurado = lancamentosPorConta.Sum(x => x.Valor); //.Where(x => x.Categoria != null)
+
+                //valorApurado += financasPorConta.Where(x => x.CategoriaId != null && x.EstaDentroPrevisto == true).Sum(x => x.Valor);
+
+                var apuracaoConta = new ApuracaoConta
+                {
+                    Conta = conta,
+                    ContaId = conta.Id,
+                    Valor = valorApurado,
+                    Lancamentos = lancamentosPorConta.ToList()
+                };
+
+                apuracaoContaList.Add(apuracaoConta);
+            }
+        }
+
+        return apuracaoContaList;
+    }
+
+    public async Task<ICollection<Lancamento>> ConsultaLancamentosADebito(DateOnly competencia)
+    {
+        IEnumerable<Lancamento> lancamentos = await _contasRepository.ConsultaLancamentosEmCaixa(competencia);
 
         //var financasTratadas = await _financasInteligentesProcuder.DerivaFinancasDe(financas);
 

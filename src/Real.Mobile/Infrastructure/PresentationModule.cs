@@ -1,4 +1,5 @@
 ﻿using Real.Pages.Categorias;
+using Real.Pages.Contas;
 
 namespace Real.Infrastructure;
 
@@ -10,6 +11,9 @@ public static class PresentationModule
 
         services.AddTransient(typeof(CadastroCategoriasPage));
         services.AddTransient(typeof(CategoriaPage));
+
+        services.AddTransient(typeof(GestaoContasPage));
+        //services.AddTransient(typeof(ContaPage));
 
         return services;
     }

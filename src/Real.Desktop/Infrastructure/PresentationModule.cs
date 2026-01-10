@@ -10,6 +10,7 @@ public static class PresentationModule
         services.AddTransient(typeof(MainWindow));
         
         services.AddTransient(typeof(CadastroCategoriasWindow));
+        services.AddTransient(typeof(GestaoContasWindow));
         services.AddTransient(typeof(ApuracaoAnualFinancasPorCategoriaWindow));
 
         return services;

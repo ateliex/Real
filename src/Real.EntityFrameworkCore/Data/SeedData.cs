@@ -8,7 +8,8 @@ public static class SeedData
     public static void Execute(ModelBuilder modelBuilder)
     {
         SeedIcons(modelBuilder);
-        //SeedCategorias(modelBuilder);
+        SeedCategorias(modelBuilder);
+        SeedContas(modelBuilder);
     }
 
     public static void SeedIcons(ModelBuilder modelBuilder)
@@ -125,6 +126,21 @@ public static class SeedData
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "perfume               ", Nome = "Perfume", IconId = "flower1" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "diversos              ", Nome = "Diversos", IconId = "bookmarks" });
         modelBuilder.Entity<Categoria>().HasData(new Categoria { AplicaReceita = false, AplicaDespesa = true, Ordem = ordem++, Id = "outros                ", Nome = "Outros", IconId = "bookmark" });
+    }
+
+    public static void SeedContas(ModelBuilder modelBuilder)
+    {
+        var ordem = 0;
+
+        int t = 0, r = 0;
+
+        t = 1; r = 0;
+
+        ordem = 0;
+
+        var conta_Carteira = new Conta { Id = NewId(t, r++), Ordem = ordem++, Nome = "Carteira" };
+
+        modelBuilder.Entity<Conta>().HasData(conta_Carteira);
     }
 
     private static Guid NewId(int t, int r)

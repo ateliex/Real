@@ -41,7 +41,7 @@ public class RealDbContext : DbContext
         modelBuilder.Entity<Apuracao>().Property(x => x.ValorPorCompetencia).HasPrecision(18, 2);
         modelBuilder.Entity<Apuracao>().Property(x => x.ValorPorData).HasPrecision(18, 2);
 
-        modelBuilder.Entity<Financa>().Property(x => x.Valor).HasPrecision(18, 2);
+        modelBuilder.Entity<Lancamento>().Property(x => x.Valor).HasPrecision(18, 2);
 
         modelBuilder.Entity<Recorrencia>().Property(x => x.Valor).HasPrecision(18, 2);
 
@@ -58,9 +58,9 @@ public class RealDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    //public DbSet<Lancamento> Lancamentos { get; set; }
+    public DbSet<Lancamento> Lancamentos { get; set; }
     public DbSet<Financa> Financas { get; set; }
-    //public DbSet<Conta> Contas { get; set; }
+    public DbSet<Conta> Contas { get; set; }
     public DbSet<Apuracao> Apuracoes { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Icon> Icons { get; set; }

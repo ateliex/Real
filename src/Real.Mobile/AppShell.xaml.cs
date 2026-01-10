@@ -1,4 +1,5 @@
 ﻿using Real.Pages.Categorias;
+using Real.Pages.Contas;
 using System.Diagnostics;
 
 namespace Real;
@@ -9,6 +10,7 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
+        Routing.RegisterRoute("Contas/Conta", typeof(ContaPage));
         Routing.RegisterRoute("Categorias/Categoria", typeof(CategoriaPage));
         Routing.RegisterRoute("Categorias/Cadastro", typeof(CadastroCategoriasPage));
         Routing.RegisterRoute("Categorias/ApuracaoCategoria", typeof(ApuracaoCategoriaPage));
