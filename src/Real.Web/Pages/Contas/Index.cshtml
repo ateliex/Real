@@ -572,6 +572,7 @@
 
                                     }
                                 }
+                                <div>@lancamento.Transacao</div>
                             </td>
                             @if (lancamento.EhPrevisao)
                             {
@@ -628,7 +629,7 @@
                                 </td>
                             </tr>
                         }
-                        @if (lancamento.CategoriaNome == null)
+                        @if (lancamento.EhGrupo)
                         {
                             var lancamentosNivel1 = lancamentos.Where(x => x.LancamentoPaiId == lancamento.LancamentoId);
                             <tr>

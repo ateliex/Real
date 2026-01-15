@@ -152,6 +152,7 @@ public class IndexModel : PageModel
                     Competencia = x.Competencia, // DateOnly.FromDateTime(x.Data),
                     Data = x.Data,
                     Descricao = x.Descricao,
+                    Transacao = x.Transacao,
                     Valor = x.Valor,
                     ValorOriginal = (x as PrevisaoInteligente)?.ValorOriginal, //ValorOriginal = null,
                     ValorExcedente = (x as PrevisaoInteligente)?.ValorExcedente,

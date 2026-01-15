@@ -85,6 +85,8 @@ public class LancamentoPorContaModel
     public DateTime Data { get; set; }
 
     public required string Descricao { get; set; }
+    
+    public string? Transacao { get; set; }
 
     [DisplayFormat(DataFormatString = "{0:n}")]
     public decimal Valor { get; set; }
