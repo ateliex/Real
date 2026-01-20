@@ -20,11 +20,82 @@
     </nav>
 }
 
-<form class="row row-cols-md-auto justify-content-md-center g-2 mb-3" method="get">
+<form method="get" class="btn-toolbar justify-content-evenly mb-2" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="input-group mb-1" role="group" aria-label="First group">
+        @* <label asp-for="Competencia" class="input-group-text"></label> *@
+        <input name="Competencia" value="@Model.Competencia.Value.ToString("yyyy-MM")" class="form-control" type="month" />
+        <button class="btn btn-primary" type="submit" id="button-addon2">
+            <i class="bi bi-search"></i>
+            <span class="d-none d-sm-inline">Buscar</span>
+        </button>
+        @* <a class="btn btn-primary" asp-page="./Criar">
+            <i class="bi bi-plus-circle"></i>
+            Criar Novo
+        </a>
+        <button type="submit" class="btn btn-primary" asp-page-handler="AtualizarInadimplencia">
+            <i class="bi bi-arrow-clockwise"></i>
+            Atualizar Inadimplência
+        </button> *@
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <a class="btn btn-outline-secondary" asp-page="./Consultar">Consulta</a>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Tabela" value="1" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Tabela ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="ModoVisualizacao_Tabela">
+            <i class="bi bi-table"></i>
+            <span class="d-none d-sm-inline">Tabela</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Lista" value="2" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="ModoVisualizacao_Lista">
+            <i class="bi bi-card-list"></i>
+            <span class="d-none d-sm-inline">Lista</span>
+        </label>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="Ordem" id="Ordem_Padrao" value="1" @(Model.Ordem == OrdemEnum.Padrao ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="Ordem_Padrao">
+            <i class="bi bi-sort-alpha-down"></i>
+            <span class="d-none d-sm-inline">Padrão</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="Ordem" id="Ordem_Decrescente" value="2" @(Model.Ordem == OrdemEnum.Decrescente ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="Ordem_Decrescente">
+            <i class="bi bi-sort-numeric-down-alt"></i>
+            <span class="d-none d-sm-inline">Decrescente</span>
+        </label>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Competencia" value="1" @(Model.RegimeApuracao == RegimeApuracaoEnum.Competencia ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="RegimeApuracao_Competencia">
+            <i class="bi bi-calendar"></i>
+            <span class="d-none d-sm-inline">Competência</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Caixa" value="2" @(Model.RegimeApuracao == RegimeApuracaoEnum.Caixa ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="RegimeApuracao_Caixa">
+            <i class="bi bi-cash"></i>
+            <span class="d-none d-sm-inline">Caixa</span>
+        </label>
+    </div>
+    @* <div class="flex-grow-1 text-end">
+        <a class="btn btn-secondary" asp-page="./Consultar/Index">
+            <i class="bi bi-journal-richtext"></i>
+            Consulta
+        </a>
+    </div> *@
+</form>
+
+@* <form class="row row-cols-md-auto justify-content-md-center g-2 mb-3" method="get">
     <div action="col-12">
         <div class="input-group">
             <label asp-for="Competencia" class="input-group-text"></label>
             <input asp-for="Competencia" class="form-control" type="month" />
+            <button class="btn btn-primary" type="submit" id="button-addon2">
+                <i class="bi bi-search"></i>
+                <span class="d-none d-sm-inline">Buscar</span>
+            </button>
         </div>
     </div>
     <div class="col-12">
@@ -61,18 +132,17 @@
         </button>
     </div>
 </form>
-
-<div class="row row-cols-1 row-cols-md-3 justify-content-md-center g-4 mb-4">
+ *@
+<div class="row row-cols-1 row-cols-lg-2 row-cols-lg-3 justify-content-lg-center g-3 mb-lg-3">
     <form class="col d-flex align-items-start justify-content-evenly" method="get">
         <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(-1).ToString("yyyy-MM")">
             <i class="bi bi-arrow-left-circle"></i>
-            Anterior
+            <span class="d-none d-sm-inline">Anterior</span>
         </button>
         <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(1).ToString("yyyy-MM")">
-            Próximo
+            <span class="d-none d-sm-inline">Próximo</span>
             <i class="bi bi-arrow-right-circle"></i>
         </button>
-        <input type="hidden" name="__Invariant" value="Competencia" />
         <input type="hidden" asp-for="ModoVisualizacao" />
         <input type="hidden" asp-for="Ordem" />
         <input type="hidden" asp-for="RegimeApuracao" />
@@ -198,78 +268,112 @@
 {
     case ModoVisualizacaoEnum.Tabela:
 
-        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-3 mb-md-3">
             <div class="col">
-                <div class="card">
-                    <div class="card-header fw-bold text-primary">
-                        Receitas
-                    </div>
-                    <div class="card-body p-0">
-                        <form class="table-responsive text-nowrap" method="get">
-                            <table class="table table-striped table-borderless align-middle mb-1">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th class="text-end valor">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    @foreach (var receita in Model.Receitas)
-                                    {
-                                        <tr class="Receita">
-                                            <td class="text-overflow-ellipsis">
-                                                @* <span class="ordem text-end text-secondary">
+                <form class="text-nowrap" method="get">
+                    <div class="card">
+                        <div class="card-header fw-bold text-primary">
+                            Receitas
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-borderless align-middle mb-1">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th class="text-end valor">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        @foreach (var receita in Model.Receitas)
+                                        {
+                                            <tr class="Receita">
+                                                <td class="text-overflow-ellipsis">
+                                                    @* <span class="ordem text-end text-secondary">
                                                     @i.ToString().
                                                 </span> *@
-                                                <i class="bi bi-@(receita.BiIcon)"></i>
-                                                <span class="Nome">@receita.CategoriaNome</span>
-                                            </td>
-                                            <td class="text-end text-primary Total">@Html.DisplayFor(model => receita.Valor)</td>
-                                        </tr>
+                                                    <i class="bi bi-@(receita.BiIcon)"></i>
+                                                    <a class="card-link link-dark text-decoration-none edicao" href="#">
+                                                        <span class="Nome">@receita.CategoriaNome</span>
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-end text-primary Total">@Html.DisplayFor(model => receita.Valor)</td>
+                                            </tr>
 
-                                        i++;
-                                    }
-                                </tbody>
-                            </table>
-                        </form>
+                                            i++;
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="border-top">
+                                            <td>
+                                                <i class="bi bi-dot"></i>
+                                                <a class="card-link text-decoration-none edicao" href="#">
+                                                    Nova Categoria
+                                                    <i class="bi bi-plus-circle"></i>
+                                                </a>
+                                            </td>
+                                            <td class="fixed">&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="col">
-                <div class="card">
-                    <div class="card-header fw-bold text-danger">
-                        Despesas
-                    </div>
-                    <div class="card-body p-0">
-                        <form class="table-responsive text-nowrap" method="get">
-                            <table class="table table-striped table-borderless align-middle mb-1">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th class="text-end valor">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    @foreach (var despesa in Model.Despesas)
-                                    {
-                                        <tr class="Despesa">
-                                            <td class="text-overflow-ellipsis">
-                                                @* <span class="ordem text-end text-secondary">
+                <form class="text-nowrap" method="get">
+                    <div class="card">
+                        <div class="card-header fw-bold text-danger">
+                            Despesas
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-borderless align-middle mb-1">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th class="text-end valor">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        @foreach (var despesa in Model.Despesas)
+                                        {
+                                            <tr class="Despesa">
+                                                <td class="text-overflow-ellipsis">
+                                                    @* <span class="ordem text-end text-secondary">
                                                     @i.ToString().
                                                 </span> *@
-                                                <i class="bi bi-@(despesa.BiIcon)"></i>
-                                                <span class="Nome">@despesa.CategoriaNome</span>
-                                            </td>
-                                            <td class="text-end text-danger Total">@Html.DisplayFor(model => despesa.Valor)</td>
-                                        </tr>
+                                                    <i class="bi bi-@(despesa.BiIcon)"></i>
+                                                    <a class="card-link link-dark text-decoration-none edicao" href="#">
+                                                        <span class="Nome">@despesa.CategoriaNome</span>
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-end text-danger Total">@Html.DisplayFor(model => despesa.Valor)</td>
+                                            </tr>
 
-                                        i++;
-                                    }
-                                </tbody>
-                            </table>
-                        </form>
+                                            i++;
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="border-top">
+                                            <td>
+                                                <i class="bi bi-dot"></i>
+                                                <a class="card-link text-decoration-none edicao" href="#">
+                                                    Nova Categoria
+                                                    <i class="bi bi-plus-circle"></i>
+                                                </a>
+                                            </td>
+                                            <td class="fixed">&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -277,7 +381,7 @@
 
     case ModoVisualizacaoEnum.Lista:
 
-        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-3 mb-md-3">
             <div class="col">
                 <form class="text-nowrap" method="get">
                     <div class="card">
@@ -289,11 +393,11 @@
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="expandirTodasReceitas">
                                     <i class="bi bi-arrows-expand"></i>
-                                    Expandir Todas
+                                    <span class="d-none d-sm-inline">Expandir Todas</span>
                                 </button>
                                 <button type="button" class="btn btn-outline-secondary" id="recolherTodasReceitas">
                                     <i class="bi bi-arrows-collapse"></i>
-                                    Recolher Todas
+                                    <span class="d-none d-sm-inline">Recolher Todas</span>
                                 </button>
                             </div>
                         </div>
@@ -321,11 +425,11 @@
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="expandirTodasDespesas">
                                     <i class="bi bi-arrows-expand"></i>
-                                    Expandir Todas
+                                    <span class="d-none d-sm-inline">Expandir Todas</span>
                                 </button>
                                 <button type="button" class="btn btn-outline-secondary" id="recolherTodasDespesas">
                                     <i class="bi bi-arrows-collapse"></i>
-                                    Recolher Todas
+                                    <span class="d-none d-sm-inline">Recolher Todas</span>
                                 </button>
                             </div>
                         </div>
@@ -363,7 +467,7 @@
                             </h2>
                             <div id="panelsStayOpen-collapse@($"{i}")" class="accordion-collapse collapse show">
                                 <div class="accordion-body">
-                                    Render(categoria.Financas, i);
+                                    Render(categoria, i);
                                 </div>
                             </div>
                         </div>
@@ -398,7 +502,7 @@
                 <div class="accordion-body">
                     @if (categoria.Financas.Count > 0)
                     {
-                        Render(categoria.Financas, i, isCompacto, isDebug, tipoFinanca);
+                        RenderListaGroup(categoria, i, isCompacto, isDebug, tipoFinanca);
                     }
                     else
                     {
@@ -412,7 +516,7 @@
         </div>
     }
 
-    private void Render(ICollection<FinancaPorCategoriaModel> financas, int i, bool isCompacto, bool isDebug, string tipoFinanca)
+    private void RenderListaGroup(CategoriaApuradaModel categoria, int i, bool isCompacto, bool isDebug, string tipoFinanca)
     {
         <div class="table-responsive">
             <table class="table table-striped mb-0">
@@ -424,9 +528,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var financa in financas)
+                    @foreach (var financa in categoria.Financas)
                     {
-                        Render(financa, i, isCompacto, isDebug);
+                        RenderListaItem(financa, i, isCompacto, isDebug);
                     }
                 </tbody>
                 <tfoot>
@@ -445,7 +549,7 @@
         </div>
     }
 
-    private void Render(FinancaPorCategoriaModel financa, int i, bool isCompacto, bool isDebug)
+    private void RenderListaItem(FinancaPorCategoriaModel financa, int i, bool isCompacto, bool isDebug)
     {
         <tr>
             <td class="fixed">@Html.DisplayFor(model => financa.Data)</td>
@@ -456,7 +560,7 @@
                 }
                 @if (!isCompacto)
                 {
-                    <a class="card-link text-decoration-none edicao" href="#">
+                    <a class="card-link link-dark text-decoration-none edicao" href="#">
                         @financa.Descricao
                         <i class="bi bi-pencil"></i>
                     </a>

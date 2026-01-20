@@ -16,7 +16,7 @@
 }
 
 @section Title {
-    @ViewData["Title"] <span class="badge bg-secondary">Novo</span>
+    @ViewData["Title"] <span class="badge bg-secondary">Nova</span>
 }
 
 @section CardHeader {
@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a class="nav-link active" aria-current="page">
                 <i class="bi bi-plus-circle"></i>
-                Criar Novo
+                Criar Nova
             </a>
         </li>
     </ul>
@@ -32,10 +32,51 @@
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row mb-3">
+    <label asp-for="CadastroCategoria.Id" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="CadastroCategoria.Id" class="form-control" />
+        <span asp-validation-for="CadastroCategoria.Id" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
     <label asp-for="CadastroCategoria.Nome" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
         <input asp-for="CadastroCategoria.Nome" class="form-control" />
         <span asp-validation-for="CadastroCategoria.Nome" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="CadastroCategoria.AplicaReceita" class="form-check-input" />
+            <label asp-for="CadastroCategoria.AplicaReceita" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="CadastroCategoria.AplicaReceita" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="CadastroCategoria.AplicaDespesa" class="form-check-input" />
+            <label asp-for="CadastroCategoria.AplicaDespesa" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="CadastroCategoria.AplicaDespesa" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="CadastroCategoria.Ordem" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="CadastroCategoria.Ordem" class="form-control" />
+        <span asp-validation-for="CadastroCategoria.Ordem" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="CadastroCategoria.Ativa" class="form-check-input" />
+            <label asp-for="CadastroCategoria.Ativa" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="CadastroCategoria.Ativa" class="text-danger"></span>
     </div>
 </div>
 

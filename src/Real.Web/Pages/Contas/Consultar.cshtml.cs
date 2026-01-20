@@ -6,7 +6,7 @@ using Real.Models;
 using Real.Pages.Shared;
 using System.ComponentModel.DataAnnotations;
 
-namespace Real.Pages.Categorias;
+namespace Real.Pages.Contas;
 
 public class ConsultarModel : PageModel
 {
@@ -22,25 +22,7 @@ public class ConsultarModel : PageModel
     [BindProperty(SupportsGet = true)]
     public string? Nome { get; set; }
 
-    [BindProperty(SupportsGet = true)]
-    public bool? AplicaReceita { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public bool? AplicaDespesa { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public int? Ordem { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public bool? Ativa { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public string? Icon { get; set; }
-
-    [BindProperty(SupportsGet = true)]
-    public string? CategoriaPai { get; set; }
-
-    public IList<Categoria> Categorias { get; set; } = default!;
+    public IList<Conta> Contas { get; set; } = default!;
 
     [BindProperty(SupportsGet = true)]
     public int? PaginaAtual { get; set; }
@@ -49,15 +31,13 @@ public class ConsultarModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var totalRegistros = await _db.Categorias.CountAsync();
+        var totalRegistros = await _db.Contas.CountAsync();
 
         Pagination = new PaginationModel(totalRegistros, PaginaAtual ?? 1);
 
-        if (_db.Categorias != null)
+        if (_db.Contas != null)
         {
-            Categorias = await _db.Categorias
-                .Include(x => x.Icon)
-                .Include(x => x.CategoriaPai)
+            Contas = await _db.Contas
                 .Where(x => true
                     && (Nome == null || x.Nome == Nome))
                 .OrderByDescending(x => x.Nome)

@@ -25,7 +25,7 @@
     <div action="col-12">
         <div class="input-group">
             <label asp-for="Ano" class="input-group-text"></label>
-            <input asp-for="Ano" class="form-control" type="number" />
+            @Html.TextBoxFor(m => m.Ano, new { @class = "form-control", type = "number" })
         </div>
     </div>
     <div class="col-12">
@@ -72,7 +72,6 @@
         Próximo
         <i class="bi bi-arrow-right-circle"></i>
     </button>
-    <input type="hidden" name="__Invariant" value="Ano" />
     <input type="hidden" asp-for="ModoVisualizacao" />
     <input type="hidden" asp-for="Ordem" />
     <input type="hidden" asp-for="RegimeApuracao" />
@@ -100,73 +99,73 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-01")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Jan
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-02")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Fev
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-03")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Mar
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-04")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Abr
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-05")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Maio
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-06")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Jun
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-07")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Jul
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-08")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Ago
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-09")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Set
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-10")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Out
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-11")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Nov
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </th>
                 <th scope="col" class="text-end valor">
-                    <a class="text-decoration-none edicao" href="#">
+                    <a class="text-decoration-none edicao" asp-page="/Categorias/Index" asp-route-Competencia="@($"{Model.Ano:0000}-12")" asp-route-Invariant="Competencia" asp-route-Ordem="@Model.Ordem" asp-route-RegimeApuracao="@Model.RegimeApuracao">
                         Dez
                         <i class="bi bi-link-45deg"></i>
                     </a>

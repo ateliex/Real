@@ -19,7 +19,7 @@ public class Categoria : Entity
 
     public int? Ordem { get; set; }
 
-    public bool? Ativa { get; set; }
+    public bool Ativa { get; set; }
 
     public Icon? Icon { get; set; }
 
@@ -33,6 +33,8 @@ public class Categoria : Entity
     {
         Id = id;
         Nome = nome;
+
+        Ativa = true;
     }
 
     public Categoria()

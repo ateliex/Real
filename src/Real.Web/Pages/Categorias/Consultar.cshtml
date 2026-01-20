@@ -9,7 +9,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Categorias</li>
+            <li class="breadcrumb-item"><a asp-page="./Index">Categorias</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Consultar</li>
         </ol>
     </nav>
 }
@@ -21,7 +22,7 @@
 <div class="btn-group mb-3">
     <a class="btn btn-primary Criacao Categoria" asp-page="./Criar" target="_modal">
         <i class="bi bi-plus-circle"></i>
-        Criar Novo
+        Criar Nova
     </a>
 </div>
 
@@ -33,6 +34,24 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Categorias[0].Nome)
                     <i class="bi bi-sort-down"></i>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].AplicaReceita)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].AplicaDespesa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].Ordem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].Ativa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].Icon)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorias[0].CategoriaPai)
                 </th>
             </tr>
             <tr>
@@ -50,6 +69,24 @@
                 </th>
                 <th>
                     <input asp-for="Nome" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="AplicaReceita" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="AplicaDespesa" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="Ordem" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="Ativa" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="Icon" class="form-control" />
+                </th>
+                <th>
+                    <input asp-for="CategoriaPai" class="form-control" />
                 </th>
             </tr>
         </thead>
@@ -71,7 +108,26 @@
                         </div>
                     </td>
                     <td>
+                        <i class="bi bi-@(item.Icon.BiClass)"></i>
                         @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AplicaReceita)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AplicaDespesa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ordem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Icon.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoriaPai.Nome)
                     </td>
                 </tr>
             }

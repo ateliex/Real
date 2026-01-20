@@ -20,59 +20,81 @@
     </nav>
 }
 
-<form class="row row-cols-md-auto justify-content-md-center g-2 mb-3" method="get">
-    <div action="col-12">
-        <div class="input-group">
-            <label asp-for="Competencia" class="input-group-text"></label>
-            <input asp-for="Competencia" class="form-control" type="month" />
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Tabela" value="1" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Tabela ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="ModoVisualizacao_Tabela">Tabela</label>
-
-            <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Lista" value="2" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="ModoVisualizacao_Lista">Lista</label>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Padrao" value="1" @(Model.Ordem == OrdemEnum.Padrao ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="Ordem_Padrao">Padrão</label>
-
-            <input type="radio" class="btn-check" name="Ordem" id="Ordem_Decrescente" value="2" @(Model.Ordem == OrdemEnum.Decrescente ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="Ordem_Decrescente">Decrescente</label>
-        </div>
-    </div>
-    <div class="col-12">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Competencia" value="1" @(Model.RegimeApuracao == RegimeApuracaoEnum.Competencia ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="RegimeApuracao_Competencia">Competência</label>
-
-            <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Caixa" value="2" @(Model.RegimeApuracao == RegimeApuracaoEnum.Caixa ? "checked" : "") autocomplete="off">
-            <label class="btn btn-outline-primary" for="RegimeApuracao_Caixa">Caixa</label>
-        </div>
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-search"></i>
-            Buscar
+<form method="get" class="btn-toolbar justify-content-evenly mb-2" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <button asp-page="./CriarLancamento" class="btn btn-primary">
+            Novo Lançamento
+            <i class="bi bi-plus-circle"></i>
         </button>
     </div>
+    <div class="input-group mb-1" role="group" aria-label="First group">
+        @* <label asp-for="Competencia" class="input-group-text"></label> *@
+        <input name="Competencia" value="@Model.Competencia.Value.ToString("yyyy-MM")" class="form-control" type="month" />
+        <button class="btn btn-primary" type="submit" id="button-addon2">
+            <i class="bi bi-search"></i>
+            <span class="d-none d-sm-inline">Buscar</span>
+        </button>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <a class="btn btn-outline-secondary" asp-page="./Consultar">Consulta</a>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Tabela" value="1" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Tabela ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="ModoVisualizacao_Tabela">
+            <i class="bi bi-table"></i>
+            <span class="d-none d-sm-inline">Tabela</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="ModoVisualizacao" id="ModoVisualizacao_Lista" value="2" @(Model.ModoVisualizacao == ModoVisualizacaoEnum.Lista ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="ModoVisualizacao_Lista">
+            <i class="bi bi-card-list"></i>
+            <span class="d-none d-sm-inline">Lista</span>
+        </label>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="Ordem" id="Ordem_Padrao" value="1" @(Model.Ordem == OrdemEnum.Padrao ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="Ordem_Padrao">
+            <i class="bi bi-sort-alpha-down"></i>
+            <span class="d-none d-sm-inline">Padrão</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="Ordem" id="Ordem_Decrescente" value="2" @(Model.Ordem == OrdemEnum.Decrescente ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="Ordem_Decrescente">
+            <i class="bi bi-sort-numeric-down-alt"></i>
+            <span class="d-none d-sm-inline">Decrescente</span>
+        </label>
+    </div>
+    <div class="btn-group mb-1" role="group" aria-label="Second group">
+        <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Competencia" value="1" @(Model.RegimeApuracao == RegimeApuracaoEnum.Competencia ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="RegimeApuracao_Competencia">
+            <i class="bi bi-calendar"></i>
+            <span class="d-none d-sm-inline">Competência</span>
+        </label>
+
+        <input type="radio" class="btn-check" name="RegimeApuracao" id="RegimeApuracao_Caixa" value="2" @(Model.RegimeApuracao == RegimeApuracaoEnum.Caixa ? "checked" : "") autocomplete="off">
+        <label class="btn btn-outline-primary" for="RegimeApuracao_Caixa">
+            <i class="bi bi-cash"></i>
+            <span class="d-none d-sm-inline">Caixa</span>
+        </label>
+    </div>
+    @* <div class="btn-group" role="group" aria-label="Second group">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+            <span class="d-none d-sm-inline">Buscar</span>
+        </button>
+    </div> *@
 </form>
 
-<div class="row row-cols-1 row-cols-md-3 justify-content-md-center g-4 mb-4">
+<div class="row row-cols-1 row-cols-lg-3 justify-content-lg-center g-3 mb-lg-3">
     <form class="col d-flex align-items-start justify-content-evenly" method="get">
         <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(-1).ToString("yyyy-MM")">
             <i class="bi bi-arrow-left-circle"></i>
-            Anterior
+            <span class="d-none d-sm-inline">Anterior</span>
         </button>
         <button type="submit" class="btn btn-secondary" name="Competencia" value="@Model.Competencia.Value.AddMonths(1).ToString("yyyy-MM")">
-            Próximo
+            <span class="d-none d-sm-inline">Próximo</span>
             <i class="bi bi-arrow-right-circle"></i>
         </button>
-        <input type="hidden" name="__Invariant" value="Competencia" />
         <input type="hidden" asp-for="ModoVisualizacao" />
         <input type="hidden" asp-for="Ordem" />
         <input type="hidden" asp-for="RegimeApuracao" />
@@ -220,7 +242,7 @@
 {
     case ModoVisualizacaoEnum.Tabela:
 
-        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+        <div class="row row-cols-1 row-cols-lg-1 justify-content-lg-center g-3 mb-lg-3">
             <div class="col">
                 <div class="card">
                     <div class="card-header fw-bold text-primary">
@@ -335,7 +357,7 @@
 
     case ModoVisualizacaoEnum.Lista:
 
-        <div class="row row-cols-1 row-cols-md-1 justify-content-md-center g-4 mb-4">
+        <div class="row row-cols-1 row-cols-lg-1 justify-content-lg-center g-3 mb-lg-3">
             <div class="col">
                 <form class="text-nowrap" method="get">
                     <div class="card">
@@ -347,11 +369,11 @@
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="expandirTodosCreditosAReceber">
                                     <i class="bi bi-arrows-expand"></i>
-                                    Expandir Todos
+                                    <span class="d-none d-sm-inline">Expandir Todos</span>
                                 </button>
                                 <button type="button" class="btn btn-outline-secondary" id="recolherTodosCreditosAReceber">
                                     <i class="bi bi-arrows-collapse"></i>
-                                    Recolher Todos
+                                    <span class="d-none d-sm-inline">Recolher Todos</span>
                                 </button>
                             </div>
                         </div>
@@ -379,11 +401,11 @@
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="expandirTodosCreditosAPagar">
                                     <i class="bi bi-arrows-expand"></i>
-                                    Expandir Todos
+                                    <span class="d-none d-sm-inline">Expandir Todos</span>
                                 </button>
                                 <button type="button" class="btn btn-outline-secondary" id="recolherTodosCreditosAPagar">
                                     <i class="bi bi-arrows-collapse"></i>
-                                    Recolher Todos
+                                    <span class="d-none d-sm-inline">Recolher Todos</span>
                                 </button>
                             </div>
                         </div>
@@ -411,11 +433,11 @@
                             <div>
                                 <button type="button" class="btn btn-outline-secondary" id="expandirTodosDebitos">
                                     <i class="bi bi-arrows-expand"></i>
-                                    Expandir Todos
+                                    <span class="d-none d-sm-inline">Expandir Todos</span>
                                 </button>
                                 <button type="button" class="btn btn-outline-secondary" id="recolherTodosDebitos">
                                     <i class="bi bi-arrows-collapse"></i>
-                                    Recolher Todos
+                                    <span class="d-none d-sm-inline">Recolher Todos</span>
                                 </button>
                             </div>
                         </div>
@@ -671,7 +693,7 @@
                     <tr>
                         <td class="fixed">&nbsp;</td>
                         <td>
-                            <a class="card-link text-decoration-none edicao" href="#">
+                            <a class="card-link text-decoration-none edicao">
                                 Novo Lançamento
                                 <i class="bi bi-plus-circle"></i>
                             </a>

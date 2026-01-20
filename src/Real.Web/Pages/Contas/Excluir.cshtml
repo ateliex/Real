@@ -1,22 +1,22 @@
 ﻿@page
-@model Real.Pages.Categorias.ExcluirModel
+@model Real.Pages.Contas.ExcluirModel
 
 @{
-    ViewData["Title"] = "Excluir Categoria";
+    ViewData["Title"] = "Excluir Conta";
 }
 
 @section Breadcrumb {
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
-            <li class="breadcrumb-item"><a asp-page="./Index">Categorias</a></li>
+            <li class="breadcrumb-item"><a asp-page="./Index">Contas</a></li>
             <li class="breadcrumb-item active" aria-current="page">Excluir</li>
         </ol>
     </nav>
 }
 
 @section Title {
-    @ViewData["Title"] <span class="badge bg-secondary">@Html.DisplayFor(model => model.Categoria.Nome)</span>
+    @ViewData["Title"] <span class="badge bg-secondary">@Html.DisplayFor(model => model.Conta.Nome)</span>
 }
 
 @section CardHeader {
@@ -28,13 +28,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-page="./Detalhar" asp-route-id="@Model.Categoria?.Id">
+            <a class="nav-link" asp-page="./Detalhar" asp-route-id="@Model.Conta?.Id">
                 <i class="bi bi-card-text"></i>
                 <span class="d-none d-sm-inline">Detalhar</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-page="./Editar" asp-route-id="@Model.Categoria?.Id" target="_modal">
+            <a class="nav-link" asp-page="./Editar" asp-route-id="@Model.Conta?.Id" target="_modal">
                 <i class="bi bi-pencil"></i>
                 <span class="d-none d-sm-inline">Editar</span>
             </a>
@@ -51,48 +51,12 @@
 <div class="alert alert-danger" role="alert">
     Tem certeza que deseja excluir isso?
 </div>
-<dl class="row g-3 Categoria">
+<dl class="row g-3 Conta">
     <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.Nome)
+        @Html.DisplayNameFor(model => model.Conta.Nome)
     </dt>
     <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.Nome)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.AplicaReceita)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.AplicaReceita)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.AplicaDespesa)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.AplicaDespesa)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.Ordem)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.Ordem)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.Ativa)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.Ativa)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.Icon)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.Icon.Name)
-    </dd>
-    <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Categoria.CategoriaPai)
-    </dt>
-    <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Categoria.CategoriaPai.Nome)
+        @Html.DisplayFor(model => model.Conta.Nome)
     </dd>
 </dl>
 <div class="accordion mb-3" id="accordionDetalhes">
@@ -106,28 +70,28 @@
             <div class="accordion-body">
                 <dl class="row g-3">
                     <dt class="col-sm-3">
-                        @Html.DisplayNameFor(model => model.Categoria.Id)
+                        @Html.DisplayNameFor(model => model.Conta.Id)
                     </dt>
                     <dd class="col-sm-9">
-                        @Html.DisplayFor(model => model.Categoria.Id)
+                        @Html.DisplayFor(model => model.Conta.Id)
                     </dd>
                     @*<dt class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Categoria.PartitionKey)
+                    @Html.DisplayNameFor(model => model.Conta.PartitionKey)
                     </dt>
                     <dd class="col-sm-9">
-                    @Html.DisplayFor(model => model.Categoria.PartitionKey)
+                    @Html.DisplayFor(model => model.Conta.PartitionKey)
                     </dd>*@
                     <dt class="col-sm-3">
-                        @Html.DisplayNameFor(model => model.Categoria.CreationDate)
+                        @Html.DisplayNameFor(model => model.Conta.CreationDate)
                     </dt>
                     <dd class="col-sm-9">
-                        @Html.DisplayFor(model => model.Categoria.CreationDate)
+                        @Html.DisplayFor(model => model.Conta.CreationDate)
                     </dd>
                     <dt class="col-sm-3">
-                        @Html.DisplayNameFor(model => model.Categoria.Version)
+                        @Html.DisplayNameFor(model => model.Conta.Version)
                     </dt>
                     <dd class="col-sm-9">
-                        @Html.DisplayFor(model => model.Categoria.Version)
+                        @Html.DisplayFor(model => model.Conta.Version)
                     </dd>
                 </dl>
             </div>
@@ -136,7 +100,7 @@
 </div>
 
 @section FormActions {
-    <input type="hidden" asp-for="Categoria.Id" />
+    <input type="hidden" asp-for="Conta.Id" />
     <input type="hidden" asp-for="RefererUrl" />
     <button type="submit" value="Excluir" class="btn btn-danger">
         Excluir

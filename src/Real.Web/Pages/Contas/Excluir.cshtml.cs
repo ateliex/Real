@@ -4,39 +4,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Real.Models;
 
-namespace Real.Pages.Categorias;
+namespace Real.Pages.Contas;
 
 public class ExcluirModel : FormPageModel
 {
     private readonly RealDbContext _db;
 
     [BindProperty]
-    public Categoria Categoria { get; set; }
+    public Conta Conta { get; set; }
 
     public ExcluirModel(RealDbContext db)
     {
         _db = db;
     }
 
-    public async Task<IActionResult> OnGetAsync(string? id)
+    public async Task<IActionResult> OnGetAsync(Guid id)
     {
-        if (id == null || _db.Categorias == null)
+        if (id == null || _db.Contas == null)
         {
             return NotFound();
         }
 
-        var categoria = await _db.Categorias
-            .Include(x => x.Icon)
-            .Include(x => x.CategoriaPai)
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var conta = await _db.Contas.FirstOrDefaultAsync(m => m.Id == id);
 
-        if (categoria == null)
+        if (conta == null)
         {
             return NotFound();
         }
         else
         {
-            Categoria = categoria;
+            Conta = conta;
         }
 
         HoldRefererUrl();
@@ -44,25 +41,25 @@ public class ExcluirModel : FormPageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(string? id)
+    public async Task<IActionResult> OnPostAsync(Guid id)
     {
-        if (id == null || _db.Categorias == null)
+        if (id == null || _db.Contas == null)
         {
             return NotFound();
         }
 
-        var categoria = await _db.Categorias.FindAsync(id);
+        var conta = await _db.Contas.FindAsync(id);
 
-        if (categoria != null)
+        if (conta != null)
         {
-            Categoria = categoria;
+            Conta = conta;
 
-            _db.Categorias.Remove(Categoria);
+            _db.Contas.Remove(Conta);
 
             await _db.SaveChangesAsync();
         }
 
-        AddTempSuccessMessage("Categoria excluída com sucesso");
+        AddTempSuccessMessage("Conta excluída com sucesso");
 
         if (ShouldRedirectToRefererPage())
         {

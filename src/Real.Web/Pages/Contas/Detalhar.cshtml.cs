@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Real.Data;
 using Real.Models;
 
-namespace Real.Pages.Categorias;
+namespace Real.Pages.Contas;
 
 public class DetalharModel : PageModel
 {
@@ -15,27 +15,23 @@ public class DetalharModel : PageModel
         _db = db;
     }
 
-    public Categoria Categoria { get; set; }
+  public Conta Conta { get; set; }
 
-    public async Task<IActionResult> OnGetAsync(string? id)
+    public async Task<IActionResult> OnGetAsync(Guid id)
     {
-        if (id == null || _db.Categorias == null)
+        if (id == null || _db.Contas == null)
         {
             return NotFound();
         }
 
-        var categoria = await _db.Categorias
-            .Include(x => x.Icon)
-            .Include(x => x.CategoriaPai)
-            .FirstOrDefaultAsync(m => m.Id == id);
-
+        var categoria = await _db.Contas.FirstOrDefaultAsync(m => m.Id == id);
         if (categoria == null)
         {
             return NotFound();
         }
-        else
+        else 
         {
-            Categoria = categoria;
+            Conta = categoria;
         }
         return Page();
     }

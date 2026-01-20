@@ -26,7 +26,7 @@ public class CategoriaDataModel
 
     public int? Ordem { get; set; }
 
-    public bool? Ativa { get; set; }
+    public bool Ativa { get; set; }
 
     public string? BiIcon { get; set; }
 
@@ -54,7 +54,7 @@ public class CategoriaInputModel
 
     public int? Ordem { get; set; }
 
-    public bool? Ativa { get; set; }
+    public bool Ativa { get; set; }
 
     public string? BiIcon { get; set; }
 

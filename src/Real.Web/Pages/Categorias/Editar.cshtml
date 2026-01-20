@@ -24,7 +24,7 @@
         <li class="me-1">
             <a class="btn btn-primary" asp-page="./Criar" target="_modal">
                 <i class="bi bi-plus-circle"></i>
-                Criar Novo
+                Criar Nova
             </a>
         </li>
         <li class="nav-item">
@@ -50,10 +50,51 @@
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="row mb-3">
+    <label asp-for="Categoria.Id" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Categoria.Id" class="form-control" />
+        <span asp-validation-for="Categoria.Id" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
     <label asp-for="Categoria.Nome" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
         <input asp-for="Categoria.Nome" class="form-control" />
         <span asp-validation-for="Categoria.Nome" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="Categoria.AplicaReceita" class="form-check-input" />
+            <label asp-for="Categoria.AplicaReceita" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Categoria.AplicaReceita" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="Categoria.AplicaDespesa" class="form-check-input" />
+            <label asp-for="Categoria.AplicaDespesa" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Categoria.AplicaDespesa" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Categoria.Ordem" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Categoria.Ordem" class="form-control" />
+        <span asp-validation-for="Categoria.Ordem" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="Categoria.Ativa" class="form-check-input" />
+            <label asp-for="Categoria.Ativa" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Categoria.Ativa" class="text-danger"></span>
     </div>
 </div>
 

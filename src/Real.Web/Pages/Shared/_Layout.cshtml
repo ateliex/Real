@@ -43,9 +43,9 @@
 
             @if (IsSectionDefined("Title"))
             {
-                <h1>
+                <h3>
                     @await RenderSectionAsync("Title")
-                </h1>
+                </h3>
             }
 
             @if (TempData.ContainsKey("TextSuccessMessage"))

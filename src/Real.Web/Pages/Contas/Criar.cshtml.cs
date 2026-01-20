@@ -3,14 +3,14 @@ using Real.Data;
 using Real.Extensions;
 using Real.Models;
 
-namespace Real.Pages.Categorias;
+namespace Real.Pages.Contas;
 
 public class CriarModel : FormPageModel
 {
     private readonly RealDbContext _db;
 
     [BindProperty]
-    public Categoria CadastroCategoria { get; set; }
+    public Conta CadastroConta { get; set; }
 
     public CriarModel(RealDbContext db)
     {
@@ -29,20 +29,20 @@ public class CriarModel : FormPageModel
     {
         var transaction = User.CreateTransaction();
 
-        CadastroCategoria.CreationDate = transaction.DateTime;
+        CadastroConta.CreationDate = transaction.DateTime;
 
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        _db.Categorias.Add(CadastroCategoria);
+        _db.Contas.Add(CadastroConta);
 
         await _db.SaveChangesAsync();
 
-        var detalharPage = Url.Page("Detalhar", new { id = CadastroCategoria.Id });
+        var detalharPage = Url.Page("Detalhar", new { id = CadastroConta.Id });
 
-        AddTempSuccessMessageWithDetailLink("Categoria criada com sucesso", detalharPage);
+        AddTempSuccessMessageWithDetailLink("Conta criada com sucesso", detalharPage);
 
         if (ShouldRedirectToRefererPage())
         {

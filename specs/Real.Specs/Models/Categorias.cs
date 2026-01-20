@@ -16,7 +16,7 @@ public class CategoriaData
 
     public int? Ordem { get; set; }
 
-    public bool? Ativa { get; set; }
+    public bool Ativa { get; set; }
 
     public string? IconId { get; set; }
 

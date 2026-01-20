@@ -4,35 +4,35 @@ using Real.Data;
 using Real.Extensions;
 using Real.Models;
 
-namespace Real.Pages.Categorias;
+namespace Real.Pages.Contas;
 
 public class EditarModel : FormPageModel
 {
     private readonly RealDbContext _db;
 
     [BindProperty]
-    public Categoria Categoria { get; set; } = default!;
+    public Conta Conta { get; set; } = default!;
 
     public EditarModel(RealDbContext db)
     {
         _db = db;
     }
 
-    public async Task<IActionResult> OnGetAsync(string? id)
+    public async Task<IActionResult> OnGetAsync(Guid id)
     {
-        if (id == null || _db.Categorias == null)
+        if (id == null || _db.Contas == null)
         {
             return NotFound();
         }
 
-        var categoria = await _db.Categorias.FirstOrDefaultAsync(m => m.Id == id);
+        var conta = await _db.Contas.FirstOrDefaultAsync(m => m.Id == id);
 
-        if (categoria == null)
+        if (conta == null)
         {
             return NotFound();
         }
 
-        Categoria = categoria;
+        Conta = conta;
 
         HoldRefererUrl();
 
@@ -41,7 +41,7 @@ public class EditarModel : FormPageModel
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see https://aka.ms/RazorPagesCRUD.
-    public async Task<IActionResult> OnPostAsync(string? id)
+    public async Task<IActionResult> OnPostAsync(Guid id)
     {
         var transaction = User.CreateTransaction();
 
@@ -50,10 +50,10 @@ public class EditarModel : FormPageModel
             return Page();
         }
 
-        //Categoria.Id = id;
-        Categoria.CreationDate = transaction.DateTime;
+        Conta.Id = id;
+        Conta.CreationDate = transaction.DateTime;
 
-        _db.Attach(Categoria).State = EntityState.Modified;
+        _db.Attach(Conta).State = EntityState.Modified;
 
         try
         {
@@ -61,7 +61,7 @@ public class EditarModel : FormPageModel
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!CategoriaExists(Categoria.Id))
+            if (!ContaExists(Conta.Id))
             {
                 return NotFound();
             }
@@ -71,9 +71,9 @@ public class EditarModel : FormPageModel
             }
         }
 
-        var detalharPage = Url.Page("Detalhar", new { id = Categoria.Id });
+        var detalharPage = Url.Page("Detalhar", new { id = Conta.Id });
 
-        AddTempSuccessMessage("Categoria editada com sucesso");
+        AddTempSuccessMessage("Conta editada com sucesso");
 
         if (ShouldRedirectToRefererPage())
         {
@@ -85,8 +85,8 @@ public class EditarModel : FormPageModel
         }
     }
 
-    private bool CategoriaExists(string? id)
+    private bool ContaExists(Guid id)
     {
-        return _db.Categorias.Any(e => e.Id == id);
+        return _db.Contas.Any(e => e.Id == id);
     }
 }

@@ -1,0 +1,89 @@
+﻿@page
+@using Real.Helpers
+@model Real.Pages.Contas.CriarLancamentoModel
+
+@{
+    ViewData["Title"] = "Criar Lançamento";
+}
+
+@section Breadcrumb {
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+            <li class="breadcrumb-item"><a asp-page="./Index">Contas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Criar Lançamento</li>
+        </ol>
+    </nav>
+}
+
+@section Title {
+    @ViewData["Title"] <span class="badge bg-secondary">Nova</span>
+}
+
+@section CardHeader {
+    <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page">
+                <i class="bi bi-plus-circle"></i>
+                Criar Lançamento
+            </a>
+        </li>
+    </ul>
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.ContaId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <select asp-for="Lancamento.ContaId" class="form-select" asp-items="ViewBag.ContaId"></select>
+        <span asp-validation-for="Lancamento.ContaId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.TipoRegistroId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <select asp-for="Lancamento.TipoRegistroId" class="form-select" asp-items="ViewBag.TipoRegistroId"></select>
+        <span asp-validation-for="Lancamento.TipoRegistroId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.CategoriaId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <select asp-for="Lancamento.CategoriaId" class="form-select" asp-items="ViewBag.CategoriaId"></select>
+        <span asp-validation-for="Lancamento.CategoriaId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.Data" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Lancamento.Data" class="form-control" />
+        <span asp-validation-for="Lancamento.Data" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.Descricao" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Lancamento.Descricao" class="form-control" />
+        <span asp-validation-for="Lancamento.Descricao" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Lancamento.Valor" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Lancamento.Valor" class="form-control" />
+        <span asp-validation-for="Lancamento.Valor" class="text-danger"></span>
+    </div>
+</div>
+
+@section FormActions {
+    <input type="hidden" asp-for="RefererUrl" />
+    <button type="submit" value="Salvar" class="btn btn-primary">
+        Salvar
+    </button>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

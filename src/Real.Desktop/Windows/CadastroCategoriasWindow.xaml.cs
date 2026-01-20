@@ -85,11 +85,14 @@ public partial class CadastroCategoriasWindow : Window
 
     private void novoCategoriaButton_Click(object sender, RoutedEventArgs e)
     {
-        var categoria = new Categoria
+        var categoria = new Categoria(
+            id: Guid.NewGuid().ToString(),
+            nome: "Nova Categoria"
+            )
         {
-            Id = Guid.NewGuid().ToString(),
-            Ativa = true,
-            Nome = "Nova Categoria",
+            //Id = Guid.NewGuid().ToString(),
+            //Ativa = true,
+            //Nome = "Nova Categoria",
             //TipoFinancaId = TipoFinancaEnum.Despesa,
             //CreationDate = DateTime.Now,
         };

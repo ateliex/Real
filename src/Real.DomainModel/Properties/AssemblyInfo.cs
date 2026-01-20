@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Real.Specs")]
-[assembly: InternalsVisibleTo("Real.EntityFrameworkCore.Sqlite")]
+[assembly: InternalsVisibleTo("Real.ApplicationCore")]
+[assembly: InternalsVisibleTo("Real.EntityFrameworkCore")]
