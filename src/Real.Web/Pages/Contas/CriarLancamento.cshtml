@@ -17,7 +17,7 @@
 }
 
 @section Title {
-    @ViewData["Title"] <span class="badge bg-secondary">Nova</span>
+    @ViewData["Title"] <span class="badge bg-secondary">Novo</span>
 }
 
 @section CardHeader {
@@ -33,45 +33,105 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.ContaId" class="col-sm-3 col-form-label"></label>
+    <label asp-for="Input.TipoLancamentoId" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
-        <select asp-for="Lancamento.ContaId" class="form-select" asp-items="ViewBag.ContaId"></select>
-        <span asp-validation-for="Lancamento.ContaId" class="text-danger"></span>
+        <select asp-for="Input.TipoLancamentoId" class="form-select" asp-items="Html.GetEnumSelectList<TipoLancamentoEnum>()"></select>
+        <span asp-validation-for="Input.TipoLancamentoId" class="text-danger"></span>
     </div>
 </div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.TipoRegistroId" class="col-sm-3 col-form-label"></label>
+    <label asp-for="Input.ContaId" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
-        <select asp-for="Lancamento.TipoRegistroId" class="form-select" asp-items="ViewBag.TipoRegistroId"></select>
-        <span asp-validation-for="Lancamento.TipoRegistroId" class="text-danger"></span>
+        <select asp-for="Input.ContaId" class="form-select" asp-items="ViewBag.ContaId"></select>
+        <span asp-validation-for="Input.ContaId" class="text-danger"></span>
+    </div>
+</div>
+<fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-3 pt-0">Tipo Competência</legend>
+    <div class="col-sm-9">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Input.TipoCompetenciaId" id="Input_TipoCompetenciaId_Diaria" value="0">
+            <label class="form-check-label" for="Input_TipoCompetenciaId_Diaria">
+                Diária
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Input.TipoCompetenciaId" id="Input_TipoCompetenciaId_Mensal" value="1">
+            <label class="form-check-label" for="Input_TipoCompetenciaId_Mensal">
+                Mensal
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Input.TipoCompetenciaId" id="Input_TipoCompetenciaId_Anual" value="2">
+            <label class="form-check-label" for="Input_TipoCompetenciaId_Anual">
+                Anual
+            </label>
+        </div>
+        <span asp-validation-for="Input.TipoCompetenciaId" class="text-danger"></span>
+    </div>
+</fieldset>
+<div class="row mb-3">
+    <label asp-for="Input.Data" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Input.Data" class="form-control" />
+        <span asp-validation-for="Input.Data" class="text-danger"></span>
     </div>
 </div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.CategoriaId" class="col-sm-3 col-form-label"></label>
+    <label asp-for="Input.Descricao" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
-        <select asp-for="Lancamento.CategoriaId" class="form-select" asp-items="ViewBag.CategoriaId"></select>
-        <span asp-validation-for="Lancamento.CategoriaId" class="text-danger"></span>
+        <input asp-for="Input.Descricao" class="form-control" />
+        <span asp-validation-for="Input.Descricao" class="text-danger"></span>
     </div>
 </div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.Data" class="col-sm-3 col-form-label"></label>
+    <label asp-for="Input.Valor" class="col-sm-3 col-form-label"></label>
     <div class="col-sm-9">
-        <input asp-for="Lancamento.Data" class="form-control" />
-        <span asp-validation-for="Lancamento.Data" class="text-danger"></span>
+        <input asp-for="Input.Valor" class="form-control" />
+        <span asp-validation-for="Input.Valor" class="text-danger"></span>
+    </div>
+</div>
+<fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-3 pt-0">Tipo Finança</legend>
+    <div class="col-sm-9">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Input.TipoFinancaId" id="Input_TipoFinancaId_Receita" value="0">
+            <label class="form-check-label" for="Input_TipoFinancaId_Receita">
+                Receita
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Input.TipoFinancaId" id="Input_TipoFinancaId_Despesa" value="1">
+            <label class="form-check-label" for="Input_TipoFinancaId_Despesa">
+                Despesa
+            </label>
+        </div>
+        <span asp-validation-for="Input.TipoFinancaId" class="text-danger"></span>
+    </div>
+</fieldset>
+<div class="row mb-3">
+    <label asp-for="Input.CategoriaId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <select asp-for="Input.CategoriaId" class="form-select" asp-items="ViewBag.CategoriaId"></select>
+        <span asp-validation-for="Input.CategoriaId" class="text-danger"></span>
     </div>
 </div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.Descricao" class="col-sm-3 col-form-label"></label>
-    <div class="col-sm-9">
-        <input asp-for="Lancamento.Descricao" class="form-control" />
-        <span asp-validation-for="Lancamento.Descricao" class="text-danger"></span>
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="Input.EhPrevisao" class="form-check-input" />
+            <label asp-for="Input.EhPrevisao" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Input.EhPrevisao" class="text-danger"></span>
     </div>
 </div>
 <div class="row mb-3">
-    <label asp-for="Lancamento.Valor" class="col-sm-3 col-form-label"></label>
-    <div class="col-sm-9">
-        <input asp-for="Lancamento.Valor" class="form-control" />
-        <span asp-validation-for="Lancamento.Valor" class="text-danger"></span>
+    <div class="col-sm-9 offset-sm-3">
+        <div class="form-check">
+            <input type="checkbox" asp-for="Input.EhRecorrente" class="form-check-input" />
+            <label asp-for="Input.EhRecorrente" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Input.EhRecorrente" class="text-danger"></span>
     </div>
 </div>
 

@@ -33,9 +33,12 @@ public class RealDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Financa>()
-        //    .HasDiscriminator(x => x.TipoLancamentoId)
-        //    .HasValue<Financa>(TipoLancamentoEnum.FinancaComum);
+        modelBuilder.Entity<Lancamento>()
+            .HasDiscriminator(x => x.TipoLancamentoId)
+            .HasValue<Movimento>(TipoLancamentoEnum.Movimento)
+            .HasValue<FinancaAVista>(TipoLancamentoEnum.PagamentoAVista)
+            .HasValue<Parcelamento>(TipoLancamentoEnum.Parcelamento)
+            .HasValue<Parcela>(TipoLancamentoEnum.Parcela);
 
         modelBuilder.Entity<Apuracao>().HasKey(s => new { s.Competencia });
         modelBuilder.Entity<Apuracao>().Property(x => x.ValorPorCompetencia).HasPrecision(18, 2);
@@ -59,6 +62,7 @@ public class RealDbContext : DbContext
     }
 
     public DbSet<Lancamento> Lancamentos { get; set; }
+    public DbSet<Recorrencia> Recorrencias { get; set; }
     public DbSet<Financa> Financas { get; set; }
     public DbSet<Conta> Contas { get; set; }
     public DbSet<Apuracao> Apuracoes { get; set; }

@@ -9,10 +9,10 @@ public enum TipoContaEnum
 
 public enum TipoLancamentoEnum
 {
-    Financa,
-    FinancaComum,
-    PrevisaoIndeterminada,
-    PrevisaoInteligente
+    Movimento,
+    PagamentoAVista,
+    Parcelamento,
+    Parcela
 }
 
 [Flags]
@@ -21,6 +21,13 @@ public enum TipoRegistroEnum
     DeCompetencia = 1,
     DeCaixa = 2,
     Misto = 3
+}
+
+public enum TipoCompetenciaEnum
+{
+    Diaria = 0,
+    Mensal = 1,
+    Anual = 3,
 }
 
 public class ContaDataModel

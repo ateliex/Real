@@ -14,6 +14,35 @@ public class FinancaAVista : Financa
 
     public Guid? RecorrenciaId { get; set; }
 
+    public FinancaAVista(
+        Conta conta,
+        Guid id,
+        TipoLancamentoEnum tipoLancamentoId,
+        TipoCompetenciaEnum tipoCompetenciaId,
+        DateTime data,
+        string descricao,
+        decimal valor,
+        TipoFinancaEnum tipoFinancaId,
+        Categoria categoria,
+        bool ehPrevisao,
+        Recorrencia recorrencia)
+        : base(
+            conta,
+            id,
+            tipoLancamentoId,
+            TipoRegistroEnum.Misto,
+            tipoCompetenciaId,
+            data,
+            descricao,
+            valor,
+            tipoFinancaId,
+            categoria,
+            ehPrevisao)
+    {
+        Recorrencia = recorrencia;
+        RecorrenciaId = recorrencia?.Id;
+    }
+
     public FinancaAVista()
         : base(TipoRegistroEnum.Misto)
     {

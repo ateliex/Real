@@ -56,4 +56,6 @@ public interface ContasRepositoryInterface
     Task Adiciona(Lancamento lancamento);
 
     Task Atualiza(Conta conta);
+
+    Task Remove(Lancamento lancamento);
 }

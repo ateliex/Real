@@ -3,6 +3,64 @@ using System.ComponentModel;
 
 namespace Real.Models;
 
+public class LancamentoInputModel
+{
+    public Guid Id { get; set; }
+
+    [DisplayName("Tipo Lançamento")]
+    public TipoLancamentoEnum TipoLancamentoId { get; set; }
+
+    [DisplayName("Tipo Registro")]
+    public TipoRegistroEnum TipoRegistroId { get; set; }
+
+    [DisplayName("Conta")]
+    public Guid ContaId { get; set; }
+
+    [DisplayName("Tipo Competência")]
+    public TipoCompetenciaEnum TipoCompetenciaId { get; set; }
+
+    [DisplayName("Data")]
+    public virtual DateTime Data { get; set; }
+
+    [DisplayName("Descrição")]
+    public required string Descricao { get; set; }
+
+    [DisplayName("Transação Id")]
+    public string? TransacaoId { get; set; }
+
+    [DisplayName("Transação")]
+    public string? Transacao { get; set; }
+
+    [DisplayName("Valor")]
+    public virtual decimal Valor { get; set; }
+
+    //
+
+    [DisplayName("Tipo Finança")]
+    public TipoFinancaEnum TipoFinancaId { get; set; }
+
+    [DisplayName("Categoria")]
+    public string CategoriaId { get; set; }
+
+    [DisplayName("É Previsão?")]
+    public bool EhPrevisao { get; set; }
+
+    [DisplayName("É Recorrente?")]
+    public bool EhRecorrente { get; set; }
+
+    //
+
+    [DisplayName("Recorrência")]
+    public Guid? RecorrenciaId { get; set; }
+
+    //
+
+    public DateTime? CreationDate { get; set; }
+
+    [Timestamp]
+    public byte[]? Version { get; set; }
+}
+
 public class ApuracaoFinancasPorContaModel
 {
     public int Id { get; set; }

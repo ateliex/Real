@@ -358,9 +358,11 @@ public class ContasSqlServerService : ContasRepositoryInterface
         return valorAcumulado;
     }
 
-    public Task Adiciona(Financa financa)
+    public async Task Adiciona(Financa financa)
     {
-        throw new NotImplementedException();
+        _db.Financas.Add(financa);
+
+        await _db.SaveChangesAsync();
     }
 
     public Task Atualiza(Financa financa)
@@ -386,5 +388,12 @@ public class ContasSqlServerService : ContasRepositoryInterface
     public Task Atualiza(Conta conta)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task Remove(Lancamento lancamento)
+    {
+        _db.Lancamentos.Remove(lancamento);
+
+        await _db.SaveChangesAsync();
     }
 }

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Real.Models;
+using Real.Repositories;
 
 namespace Real.Windows;
 
@@ -17,9 +18,11 @@ public partial class GestaoContasWindow : Window
 
     private readonly RealDbContext _db;
 
+    private readonly ContasRepositoryInterface _contasRepositoryInterface;
+
     private CollectionViewSource _contasViewSource;
 
-    private ObservableCollection<Conta> _contas;
+    private ObservableCollection<ContaModel> _contas;
 
     public GestaoContasWindow(IServiceProvider serviceProvider)
     {
@@ -28,6 +31,8 @@ public partial class GestaoContasWindow : Window
         _scope = serviceProvider.CreateScope();
 
         _db = _scope.ServiceProvider.GetRequiredService<RealDbContext>();
+
+        _contasRepositoryInterface = _scope.ServiceProvider.GetRequiredService<ContasRepositoryInterface>();
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,16 +41,28 @@ public partial class GestaoContasWindow : Window
 
         _contasViewSource = ((CollectionViewSource)(this.FindResource("contasViewSource")));
 
-        await _db.Contas
-            .LoadAsync();
+        var contas = await _db.Contas
+            .ToArrayAsync();
 
-        _contas = _db.Contas.Local.ToObservableCollection();
+        //_contas = _db.Contas.Local.ToObservableCollection();
+
+        var x = contas
+            .Select(x => MapFrom(x));
+
+        _contas = new ObservableCollection<ContaModel>(x);
 
         _contas.CollectionChanged += Contas_CollectionChanged;
 
         _contasViewSource.Source = _contas;
 
         Cursor = null;
+    }
+
+    private ContaModel MapFrom(Conta conta)
+    {
+        var contaModel = new ContaModel(conta, _contasRepositoryInterface);
+
+        return contaModel;
     }
 
     private void Contas_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -91,6 +108,8 @@ public partial class GestaoContasWindow : Window
             //CreationDate = DateTime.Now,
         };
 
+        var model = new ContaModel(conta, _contasRepositoryInterface);
+
         //var daysOfWeek = Enum.GetValues<DayOfWeek>();
 
         //foreach (var dayOfWeek in daysOfWeek)
@@ -104,7 +123,16 @@ public partial class GestaoContasWindow : Window
         //    conta.JornadaTrabalhoSemanalPrevista.Semana.Add(jornadaTrabalhoDiaria);
         //}
 
-        _contas.Add(conta);
+        _contas.Add(model);
+    }
+
+    private void transferirButton_Click(object sender, RoutedEventArgs e)
+    {
+        var contaA = new Conta();
+
+        var contaB = new Conta();
+
+        contaA.Creditar(contaB, 100, null);
     }
 
     private void Window_Unloaded(object sender, RoutedEventArgs e)

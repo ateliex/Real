@@ -278,12 +278,12 @@ public class ContasSqliteService : ContasRepositoryInterface
     {
         var query = _db.Lancamentos
             .Where(x => x.TipoRegistroId.HasFlag(tipoRegistroId));
-            //.Where(x => false
-            //    || x.Data.Year < competencia.Year
-            //    || (true
-            //        && x.Data.Year == competencia.Year
-            //        && x.Data.Month < competencia.Month))
-            //.SumAsync(x => x.Valor);
+        //.Where(x => false
+        //    || x.Data.Year < competencia.Year
+        //    || (true
+        //        && x.Data.Year == competencia.Year
+        //        && x.Data.Month < competencia.Month))
+        //.SumAsync(x => x.Valor);
 
         if (tipoRegistroId.HasFlag(TipoRegistroEnum.DeCompetencia))
         {
@@ -386,5 +386,12 @@ public class ContasSqliteService : ContasRepositoryInterface
     public Task Atualiza(Conta conta)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task Remove(Lancamento lancamento)
+    {
+        _db.Lancamentos.Remove(lancamento);
+
+        await _db.SaveChangesAsync();
     }
 }

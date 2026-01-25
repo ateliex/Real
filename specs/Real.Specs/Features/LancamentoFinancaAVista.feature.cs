@@ -18,7 +18,7 @@ namespace Real.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class PrevisaoInteligenteFeature
+    public partial class LancamentoFinancaAVistaFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -27,9 +27,9 @@ namespace Real.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-br"), "Features", "Previsão Inteligente", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-br"), "Features", "Lançamento Finança à Vista", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
-#line 1 "PrevisaoInteligente.feature"
+#line 1 "LancamentoFinancaAVista.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -115,49 +115,23 @@ namespace Real.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
-        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
-        {
-#line 5
-#line hidden
-            global::Reqnroll.Table table15 = new global::Reqnroll.Table(new string[] {
-                        "Nome"});
-            table15.AddRow(new string[] {
-                        "Roupa"});
-            table15.AddRow(new string[] {
-                        "Mercado"});
-            table15.AddRow(new string[] {
-                        "Refeição"});
-#line 6
- await testRunner.GivenAsync("que existe as seguintes categorias:", ((string)(null)), table15, "Dado ");
-#line hidden
-            global::Reqnroll.Table table16 = new global::Reqnroll.Table(new string[] {
-                        "Nome"});
-            table16.AddRow(new string[] {
-                        "Carteira"});
-            table16.AddRow(new string[] {
-                        "Cartão C6"});
-#line 11
- await testRunner.AndAsync("que existe as seguintes contas:", ((string)(null)), table16, "E ");
-#line hidden
-        }
-        
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/PrevisaoInteligente.feature.ndjson", 3);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/LancamentoFinancaAVista.feature.ndjson", 3);
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Sucesso ao prever uma finança")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Sucesso ao prever uma finança")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Previsão Inteligente")]
-        public async global::System.Threading.Tasks.Task SucessoAoPreverUmaFinanca()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Sucesso ao lançar uma finança à vista")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Sucesso ao lançar uma finança à vista")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Lançamento Finança à Vista")]
+        public async global::System.Threading.Tasks.Task SucessoAoLancarUmaFinancaAVista()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Sucesso ao prever uma finança", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Sucesso ao lançar uma finança à vista", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 16
+#line 5
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -167,17 +141,56 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 5
-await this.FeatureBackgroundAsync();
+                global::Reqnroll.Table table11 = new global::Reqnroll.Table(new string[] {
+                            "Nome"});
+                table11.AddRow(new string[] {
+                            "Carteira"});
+#line 6
+ await testRunner.GivenAsync("que existe a seguinte conta:", ((string)(null)), table11, "Dado ");
 #line hidden
-#line 17
- await testRunner.GivenAsync("que existe uma previsão indeterminada de R$ 1000,00 da categoria \'Mercado\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Dado ");
+                global::Reqnroll.Table table12 = new global::Reqnroll.Table(new string[] {
+                            "Nome"});
+                table12.AddRow(new string[] {
+                            "Salário"});
+#line 9
+ await testRunner.AndAsync("que existe a seguinte categoria:", ((string)(null)), table12, "E ");
 #line hidden
-#line 18
- await testRunner.WhenAsync("eu lançar uma finança de R$ 200,00 na \'Carteira\' da categoria \'Mercado\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Quando ");
+#line 12
+ await testRunner.AndAsync("que o usuário está fazendo um novo lançamento de finança à vista", ((string)(null)), ((global::Reqnroll.Table)(null)), "E ");
 #line hidden
-#line 19
- await testRunner.ThenAsync("o valor da previsão inteligente deverá ser de R$ 800,00", ((string)(null)), ((global::Reqnroll.Table)(null)), "Então ");
+                global::Reqnroll.Table table13 = new global::Reqnroll.Table(new string[] {
+                            "Conta",
+                            "Data",
+                            "Categoria",
+                            "Descrição",
+                            "Valor",
+                            "Tipo"});
+                table13.AddRow(new string[] {
+                            "Carteira",
+                            "15/03/2025",
+                            "Salário",
+                            "Depósito _",
+                            "1500,00",
+                            "Receita"});
+#line 13
+ await testRunner.WhenAsync("o usuário salvar o lançamento com os seguintes dados:", ((string)(null)), table13, "Quando ");
+#line hidden
+                global::Reqnroll.Table table14 = new global::Reqnroll.Table(new string[] {
+                            "Conta",
+                            "Data",
+                            "Categoria",
+                            "Descrição",
+                            "Valor",
+                            "Tipo"});
+                table14.AddRow(new string[] {
+                            "Carteira",
+                            "15/03/2025",
+                            "Salário",
+                            "Depósito _",
+                            "1500,00",
+                            "Receita"});
+#line 16
+ await testRunner.ThenAsync("a finança à vista deverá ser lançada como:", ((string)(null)), table14, "Então ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

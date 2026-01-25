@@ -3,25 +3,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Real.Data;
 using Real.Extensions;
 using Real.Models;
+using Real.Repositories;
 
 namespace Real.Pages.Contas;
 
 public class CriarLancamentoModel : FormPageModel
 {
     private readonly RealDbContext _db;
+    private readonly ContasRepositoryInterface _contasRepositoryInterface;
 
     [BindProperty]
-    public FinancaAVista Lancamento { get; set; }
+    public LancamentoInputModel Input { get; set; }
 
-    public CriarLancamentoModel(RealDbContext db)
+    public CriarLancamentoModel(RealDbContext db, ContasRepositoryInterface contasRepositoryInterface)
     {
         _db = db;
+        _contasRepositoryInterface = contasRepositoryInterface;
     }
 
     public IActionResult OnGet(Guid? contaId, string? categoriaId)
     {
         ViewData["ContaId"] = new SelectList(_db.Contas.Where(x => x.Ativa == true).OrderBy(x => x.Nome), "Id", "Nome", contaId);
-        
+
         //ViewData["TipoRegistroId"] = new SelectList(_db.CobrancaSituacoes.OrderBy(x => x.Id), "Id", "Nome").AddEmptyValue();
 
         ViewData["CategoriaId"] = new SelectList(_db.Categorias.Where(x => x.Ativa == true).OrderBy(x => x.Nome), "Id", "Nome", categoriaId);
@@ -38,32 +41,41 @@ public class CriarLancamentoModel : FormPageModel
     {
         var transaction = User.CreateTransaction();
 
-        Lancamento.CreationDate = transaction.DateTime;
-
         if (!ModelState.IsValid)
         {
             ViewData["ContaId"] = new SelectList(_db.Contas.Where(x => x.Ativa == true).OrderBy(x => x.Nome), "Id", "Nome", contaId);
-            
+
             ViewData["CategoriaId"] = new SelectList(_db.Categorias.Where(x => x.Ativa == true).OrderBy(x => x.Nome), "Id", "Nome", categoriaId);
 
             return Page();
         }
 
-        var conta = await _db.Contas.FindAsync(Lancamento.ContaId);
+        Input.CreationDate = transaction.DateTime;
 
-        Lancamento.Conta = conta;
-        Lancamento.ContaId = conta.Id;
+        var conta = await _db.Contas.FindAsync(Input.ContaId);
 
-        var categoria = await _db.Categorias.FindAsync(Lancamento.CategoriaId);
+        var categoria = await _db.Categorias.FindAsync(Input.CategoriaId);
+        
+        var lancamento = new FinancaAVista(
+            conta,
+            Guid.NewGuid(),
+            Input.TipoLancamentoId,
+            Input.TipoCompetenciaId,
+            Input.Data,
+            Input.Descricao,
+            Input.Valor,
+            Input.TipoFinancaId,
+            categoria,
+            Input.EhPrevisao,
+            null);
 
-        Lancamento.Categoria = categoria;
-        Lancamento.CategoriaId = categoria.Id;
+        await conta.Adiciona(lancamento, _contasRepositoryInterface);
 
-        _db.Lancamentos.Add(Lancamento);
+        _db.Contas.Update(conta);
 
         await _db.SaveChangesAsync();
 
-        var detalharPage = Url.Page("Detalhar", new { id = Lancamento.Id });
+        var detalharPage = Url.Page("Detalhar", new { id = Input.Id });
 
         AddTempSuccessMessageWithDetailLink("Lançamento criado com sucesso", detalharPage);
 

@@ -15,9 +15,37 @@ public abstract class Financa : Lancamento
 
     public Categoria Categoria { get; set; }
 
-    public string? CategoriaId { get; set; }
+    public string CategoriaId { get; set; }
 
     public bool EhPrevisao { get; set; }
+
+    protected Financa(
+        Conta conta,
+        Guid id,
+        TipoLancamentoEnum tipoLancamentoId,
+        TipoRegistroEnum tipoRegistroId,
+        TipoCompetenciaEnum tipoCompetenciaId,
+        DateTime data,
+        string descricao,
+        decimal valor,
+        TipoFinancaEnum tipoFinancaId,
+        Categoria categoria,
+        bool ehPrevisao)
+        : base(
+            conta,
+            id,
+            tipoLancamentoId,
+            tipoRegistroId,
+            tipoCompetenciaId,
+            data,
+            descricao,
+            valor)
+    {
+        TipoFinancaId = tipoFinancaId;
+        Categoria = categoria;
+        CategoriaId = categoria.Id;
+        EhPrevisao = ehPrevisao;
+    }
 
     protected Financa(TipoRegistroEnum tipoRegistroId)
         : base(tipoRegistroId)
