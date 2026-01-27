@@ -151,7 +151,7 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
  await testRunner.AndAsync("o usuário salvar a categoria", ((string)(null)), ((global::Reqnroll.Table)(null)), "E ");
 #line hidden
 #line 9
- await testRunner.ThenAsync("o sistema deverá criar a categoria com sucesso", ((string)(null)), ((global::Reqnroll.Table)(null)), "Então ");
+ await testRunner.ThenAsync("o sistema deverá criar a categoria como esperado", ((string)(null)), ((global::Reqnroll.Table)(null)), "Então ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

@@ -18,7 +18,7 @@ namespace Real.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class CriacaoCategoriaFeature
+    public partial class EdicaoCategoriaFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -27,7 +27,7 @@ namespace Real.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-br"), "Features", "Criação Categoria", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("pt-br"), "Features", "Edição Categoria", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "EdicaoCategoria.feature"
 #line hidden
@@ -120,15 +120,15 @@ namespace Real.Features
             return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/EdicaoCategoria.feature.ndjson", 3);
         }
         
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Sucesso ao criar uma categoria")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Sucesso ao criar uma categoria")]
-        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Criação Categoria")]
-        public async global::System.Threading.Tasks.Task SucessoAoCriarUmaCategoria()
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute("Sucesso ao editar uma categoria")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Sucesso ao editar uma categoria")]
+        [global::Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Edição Categoria")]
+        public async global::System.Threading.Tasks.Task SucessoAoEditarUmaCategoria()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Sucesso ao criar uma categoria", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Sucesso ao editar uma categoria", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
 #line 5
@@ -142,16 +142,19 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             {
                 await this.ScenarioStartAsync();
 #line 6
- await testRunner.GivenAsync("que o usuário está criando uma nova categoria", ((string)(null)), ((global::Reqnroll.Table)(null)), "Dado ");
+ await testRunner.GivenAsync("que existe uma categoria \'Laser\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Dado ");
 #line hidden
 #line 7
- await testRunner.WhenAsync("o usuário preencher o nome da categoria com \'Lazer\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Quando ");
+ await testRunner.AndAsync("que o usuário está editando a categoria \'Laser\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "E ");
 #line hidden
 #line 8
- await testRunner.AndAsync("o usuário salvar a categoria", ((string)(null)), ((global::Reqnroll.Table)(null)), "E ");
+ await testRunner.WhenAsync("o usuário alterar o nome da categoria para \'Lazer\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Quando ");
 #line hidden
 #line 9
- await testRunner.ThenAsync("o sistema deverá criar a categoria com sucesso", ((string)(null)), ((global::Reqnroll.Table)(null)), "Então ");
+ await testRunner.AndAsync("o usuário salvar a categoria", ((string)(null)), ((global::Reqnroll.Table)(null)), "E ");
+#line hidden
+#line 10
+ await testRunner.ThenAsync("o sistema deverá editar a categoria como esperado", ((string)(null)), ((global::Reqnroll.Table)(null)), "Então ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

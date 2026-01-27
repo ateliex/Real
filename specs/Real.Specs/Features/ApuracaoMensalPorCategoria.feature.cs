@@ -135,21 +135,21 @@ namespace Real.Features
             table2.AddRow(new string[] {
                         "Refeição"});
 #line 9
- await testRunner.GivenAsync("que existe as seguintes categorias de despesas:", ((string)(null)), table2, "Dado ");
+ await testRunner.AndAsync("que existe as seguintes categorias de despesas:", ((string)(null)), table2, "E ");
 #line hidden
             global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
                         "Nome"});
             table3.AddRow(new string[] {
-                        "Ca Nubank"});
+                        "CartãoNu"});
             table3.AddRow(new string[] {
-                        "Cartão C6"});
+                        "CartãoC6"});
 #line 14
  await testRunner.AndAsync("que existe as seguintes contas de crédito a pagar:", ((string)(null)), table3, "E ");
 #line hidden
             global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
                         "Nome"});
             table4.AddRow(new string[] {
-                        "Carteira_"});
+                        "Carteira"});
 #line 18
  await testRunner.AndAsync("que existe as seguintes contas de débito:", ((string)(null)), table4, "E ");
 #line hidden
@@ -194,11 +194,11 @@ await this.FeatureBackgroundAsync();
                             "Valor",
                             "Tipo"});
                 table5.AddRow(new string[] {
-                            "Carteira_",
+                            "Carteira",
                             "02/02/2025",
                             "02/02/2025",
                             "Salário",
-                            "Depósito   _",
+                            "Depósito",
                             "200,00",
                             "Receita"});
 #line 25
@@ -213,7 +213,7 @@ await this.FeatureBackgroundAsync();
                             "Valor",
                             "Tipo"});
                 table6.AddRow(new string[] {
-                            "Cartão C6",
+                            "CartãoC6",
                             "28/12/2024",
                             "10/03/2025",
                             "Roupa",
@@ -221,7 +221,7 @@ await this.FeatureBackgroundAsync();
                             "-74,90",
                             "Despesa"});
                 table6.AddRow(new string[] {
-                            "Cartão C6",
+                            "CartãoC6",
                             "04/02/2025",
                             "10/03/2025",
                             "Mercado",
@@ -229,7 +229,7 @@ await this.FeatureBackgroundAsync();
                             "-09,49",
                             "Despesa"});
                 table6.AddRow(new string[] {
-                            "Cartão C6",
+                            "CartãoC6",
                             "13/02/2025",
                             "10/03/2025",
                             "Mercado",
@@ -237,7 +237,7 @@ await this.FeatureBackgroundAsync();
                             "-49,87",
                             "Despesa"});
                 table6.AddRow(new string[] {
-                            "Cartão C6",
+                            "CartãoC6",
                             "06/02/2025",
                             "10/03/2025",
                             "Refeição",
